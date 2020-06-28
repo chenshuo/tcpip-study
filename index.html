@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="None">
+  
+  
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <title>Shuo's TCP/IP notes</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Shuo's notes on Linux TCP/IP stack";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="js/jquery-2.1.1.min.js" defer></script>
+  <script src="js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> Shuo's TCP/IP notes</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href=".">Shuo's notes on Linux TCP/IP stack</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#tcpip-reference">TCP/IP Reference</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tcpip-implementations">TCP/IP Implementations</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#historical-notes">Historical notes</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">Shuo's TCP/IP notes</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Shuo's notes on Linux TCP/IP stack</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="shuos-notes-on-linux-tcpip-stack">Shuo's notes on Linux TCP/IP stack</h1>
+<h2 id="tcpip-reference">TCP/IP Reference</h2>
+<p><em>TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed.</em> by Kevin R. Fall and W. Richard Stevens, 2011/11.</p>
+<ul>
+<li><a href="https://tools.ietf.org/html/rfc793">RFC793</a> Transmission Control Protocol, 1981/09</li>
+<li><a href="https://tools.ietf.org/html/rfc1122">RFC1122</a> Requirements for Internet Hosts --- Communication Layers, 1989/10</li>
+<li><a href="https://tools.ietf.org/html/rfc5681">RFC5681</a> TCP Congestion Control, 2009/09</li>
+<li><a href="https://tools.ietf.org/html/rfc6093">RFC6093</a> On the Implementation of the TCP Urgent Mechanism, 2011/01, which recommends against the use of urgent mechanism.</li>
+<li><a href="https://tools.ietf.org/html/rfc7323">RFC7323</a> TCP Extensions for High Performance</li>
+<li><a href="https://tools.ietf.org/html/rfc7414">RFC7413</a> TCP Fast Open</li>
+<li><a href="https://tools.ietf.org/html/rfc7414">RFC7414</a> TCP Roadmap</li>
+<li>Many others</li>
+</ul>
+<p>Talks and slides:</p>
+<ul>
+<li>Van Jacobson: Evolving from AFAP: Teaching NICs about time,
+   <a href="https://netdevconf.info/0x12/session.html?evolving-from-afap-teaching-nics-about-time">netdev 0x12 Keynote</a>,
+   <a href="https://www.files.netdevconf.info/d/4ee0a09788fe49709855/">slides</a> and <a href="https://youtu.be/MAni0_lN7zE">video</a>.<ul>
+<li><a href="https://kernelnewbies.org/Linux_4.20#TCP:_switch_to_Early_Departure_Time_model">Linux 4.20</a> switched to Early Departure Time model in 2018/09 by <a href="https://lwn.net/ml/netdev/20180921155154.49489-1-edumazet@google.com/">Eric Dumazet</a>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="tcpip-implementations">TCP/IP Implementations</h2>
+<ul>
+<li>BSD family<ul>
+<li>4.4BSD-Lite2, convered in <em>TCP/IP Illustrated (vol. 2): The Implementation</em></li>
+<li>FreeBSD</li>
+</ul>
+</li>
+<li>Linux<ul>
+<li>First in 0.98?</li>
+</ul>
+</li>
+<li>lwIP / uIP<ul>
+<li>For microcontrollers, small footprint</li>
+</ul>
+</li>
+<li>gvisor / <a href="https://github.com/google/gvisor/tree/master/pkg/tcpip">netstack</a><ul>
+<li>User space, in Golang</li>
+</ul>
+</li>
+</ul>
+<h2 id="historical-notes">Historical notes</h2>
+<p>In 2004, Vint Cerf and Bob Kahn received the Turing Award for their foundational work on TCP/IP.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+      
+    </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.1.2
+Build Date UTC : 2020-06-28 08:23:53.281928+00:00
+-->
