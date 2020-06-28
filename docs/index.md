@@ -1,5 +1,7 @@
 # Shuo Chen's notes on Linux TCP/IP stack
 
+Source of this site: <https://github.com/chenshuo/tcpip-study>
+
 ## TCP/IP Reference
 
 _TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by Kevin R. Fall and W. Richard Stevens, 2011/11.
@@ -12,6 +14,9 @@ _TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by Kevin R. Fall and W. Ri
 * [RFC7323](https://tools.ietf.org/html/rfc7323) TCP Extensions for High Performance
 * [RFC7413](https://tools.ietf.org/html/rfc7414) TCP Fast Open
 * [RFC7414](https://tools.ietf.org/html/rfc7414) TCP Roadmap
+* [RFC8312](https://tools.ietf.org/html/rfc8312) [CUBIC](https://en.wikipedia.org/wiki/CUBIC_TCP),
+  Linux's default [congestion control algorithm](https://en.wikipedia.org/wiki/TCP_congestion_control) since 2.6.19,
+  replaced [BIC](https://en.wikipedia.org/wiki/BIC_TCP) (default from 2.6.8 till 2.6.18.x)
 * Many others
 
 ## TCP/IP Implementations
