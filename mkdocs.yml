@@ -1,2 +1,6 @@
-site_name: Shuo's TCP/IP notes
+site_name: Shuo's Linux TCP/IP notes
 theme: readthedocs
+nav:
+  - Home: index.md
+  - Profiling: profile.md
+  - Links: links.md

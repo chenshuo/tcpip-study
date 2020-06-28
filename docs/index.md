@@ -1,4 +1,4 @@
-# Shuo's notes on Linux TCP/IP stack
+# Shuo Chen's notes on Linux TCP/IP stack
 
 ## TCP/IP Reference
 
@@ -7,7 +7,8 @@ _TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by Kevin R. Fall and W. Ri
 * [RFC793](https://tools.ietf.org/html/rfc793) Transmission Control Protocol, 1981/09
 * [RFC1122](https://tools.ietf.org/html/rfc1122) Requirements for Internet Hosts --- Communication Layers, 1989/10
 * [RFC5681](https://tools.ietf.org/html/rfc5681) TCP Congestion Control, 2009/09
-* [RFC6093](https://tools.ietf.org/html/rfc6093) On the Implementation of the TCP Urgent Mechanism, 2011/01, which recommends against the use of urgent mechanism.
+* [RFC6093](https://tools.ietf.org/html/rfc6093) On the Implementation of the TCP Urgent Mechanism, 2011/01,
+  which recommends against the use of urgent mechanism.
 * [RFC7323](https://tools.ietf.org/html/rfc7323) TCP Extensions for High Performance
 * [RFC7413](https://tools.ietf.org/html/rfc7414) TCP Fast Open
 * [RFC7414](https://tools.ietf.org/html/rfc7414) TCP Roadmap
@@ -15,10 +16,11 @@ _TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by Kevin R. Fall and W. Ri
 
 Talks and slides:
 
-* Van Jacobson: Evolving from AFAP: Teaching NICs about time,
-   [netdev 0x12 Keynote](https://netdevconf.info/0x12/session.html?evolving-from-afap-teaching-nics-about-time),
-   [slides](https://www.files.netdevconf.info/d/4ee0a09788fe49709855/) and [video](https://youtu.be/MAni0_lN7zE).
-    * [Linux 4.20](https://kernelnewbies.org/Linux_4.20#TCP:_switch_to_Early_Departure_Time_model) switched to Early Departure Time model in 2018/09 by [Eric Dumazet](https://lwn.net/ml/netdev/20180921155154.49489-1-edumazet@google.com/).
+* [netdev](https://netdevconf.info/) [0x12](https://netdevconf.info/0x12/) [Keynote](https://netdevconf.info/0x12/session.html?evolving-from-afap-teaching-nics-about-time):
+  Evolving from AFAP: Teaching NICs about time by [Van Jacobson](https://en.wikipedia.org/wiki/Van_Jacobson),
+  [slides](https://www.files.netdevconf.info/d/4ee0a09788fe49709855/) and [video](https://youtu.be/MAni0_lN7zE).
+    * [Linux 4.20](https://kernelnewbies.org/Linux_4.20#TCP:_switch_to_Early_Departure_Time_model) [switched](https://lwn.net/ml/netdev/20180921155154.49489-1-edumazet@google.com/) to
+      Early Departure Time model in 2018/09, and [refined](https://lwn.net/ml/netdev/20181015163758.232436-1-edumazet@google.com/) in 2018/10.
 
 
 ## TCP/IP Implementations
