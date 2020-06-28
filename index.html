@@ -54,6 +54,10 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#tcpip-implementations">TCP/IP Implementations</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tools">Tools</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#recent-changes">Recent changes</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#historical-notes">Historical notes</a>
     </li>
     </ul>
@@ -113,20 +117,11 @@
 <li><a href="https://tools.ietf.org/html/rfc7414">RFC7414</a> TCP Roadmap</li>
 <li>Many others</li>
 </ul>
-<p>Talks and slides:</p>
-<ul>
-<li><a href="https://netdevconf.info/">netdev</a> <a href="https://netdevconf.info/0x12/">0x12</a> <a href="https://netdevconf.info/0x12/session.html?evolving-from-afap-teaching-nics-about-time">Keynote</a>:
-  Evolving from AFAP: Teaching NICs about time by <a href="https://en.wikipedia.org/wiki/Van_Jacobson">Van Jacobson</a>,
-  <a href="https://www.files.netdevconf.info/d/4ee0a09788fe49709855/">slides</a> and <a href="https://youtu.be/MAni0_lN7zE">video</a>.<ul>
-<li><a href="https://kernelnewbies.org/Linux_4.20#TCP:_switch_to_Early_Departure_Time_model">Linux 4.20</a> <a href="https://lwn.net/ml/netdev/20180921155154.49489-1-edumazet@google.com/">switched</a> to
-  Early Departure Time model in 2018/09, and <a href="https://lwn.net/ml/netdev/20181015163758.232436-1-edumazet@google.com/">refined</a> in 2018/10.</li>
-</ul>
-</li>
-</ul>
 <h2 id="tcpip-implementations">TCP/IP Implementations</h2>
 <ul>
 <li>BSD family<ul>
-<li>4.4BSD-Lite2, convered in <em>TCP/IP Illustrated (vol. 2): The Implementation</em></li>
+<li>4.4BSD-Lite2, convered in <em>TCP/IP Illustrated (vol. 2): The Implementation</em> by
+  Gary R. Wright and W. Richard Stevens, 1995.</li>
 <li>FreeBSD</li>
 </ul>
 </li>
@@ -140,6 +135,28 @@
 </li>
 <li>gvisor / <a href="https://github.com/google/gvisor/tree/master/pkg/tcpip">netstack</a><ul>
 <li>User space, in Golang</li>
+</ul>
+</li>
+<li>Educational OSes<ul>
+<li>Minix</li>
+<li>Xinu, covered in <em>Internetworking With TCP/IP Volume II: Design, Implementation, and Internals, 3rd ed.</em> by
+  <a href="https://www.cs.purdue.edu/homes/comer/netbooks.html">Douglas E. Comer</a> and David L. Stevens, 1999.</li>
+</ul>
+</li>
+</ul>
+<h2 id="tools">Tools</h2>
+<ul>
+<li><a href="https://github.com/google/packetdrill">packetdrill</a> is a unittest for entire TCP/IP stack.</li>
+<li><a href="https://github.com/google/neper">neper</a> is a performance testing tool to generate workloads.</li>
+</ul>
+<h2 id="recent-changes">Recent changes</h2>
+<p>Recent changes that I am aware of.</p>
+<ul>
+<li><strong>EDT</strong> <a href="https://netdevconf.info/">netdev</a> <a href="https://netdevconf.info/0x12/">0x12</a> <a href="https://netdevconf.info/0x12/session.html?evolving-from-afap-teaching-nics-about-time">Keynote</a>:
+  Evolving from AFAP: Teaching NICs about time by <a href="https://en.wikipedia.org/wiki/Van_Jacobson">Van Jacobson</a>,
+  <a href="https://www.files.netdevconf.info/d/4ee0a09788fe49709855/">slides</a> and <a href="https://youtu.be/MAni0_lN7zE">video</a>.<ul>
+<li><a href="https://kernelnewbies.org/Linux_4.20#TCP:_switch_to_Early_Departure_Time_model">Linux 4.20</a> <a href="https://lwn.net/ml/netdev/20180921155154.49489-1-edumazet@google.com/">switched</a> to
+  Early Departure Time model in 2018/09, and <a href="https://lwn.net/ml/netdev/20181015163758.232436-1-edumazet@google.com/">refined</a> in 2018/10.</li>
 </ul>
 </li>
 </ul>
@@ -198,5 +215,5 @@
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2020-06-28 16:23:51.594530+00:00
+Build Date UTC : 2020-06-28 16:49:04.005079+00:00
 -->
