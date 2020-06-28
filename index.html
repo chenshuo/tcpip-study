@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="img/favicon.ico">
-  <title>Shuo's TCP/IP notes</title>
+  <title>Shuo's Linux TCP/IP notes</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="css/theme.css" />
@@ -18,7 +18,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Shuo's notes on Linux TCP/IP stack";
+    var mkdocs_page_name = "Home";
     var mkdocs_page_input_path = "index.md";
     var mkdocs_page_url = null;
   </script>
@@ -38,7 +38,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-        <a href="." class="icon icon-home"> Shuo's TCP/IP notes</a>
+        <a href="." class="icon icon-home"> Shuo's Linux TCP/IP notes</a>
         <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -48,7 +48,7 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
                 <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href=".">Shuo's notes on Linux TCP/IP stack</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href=".">Home</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#tcpip-reference">TCP/IP Reference</a>
     </li>
@@ -57,6 +57,14 @@
     <li class="toctree-l2"><a class="reference internal" href="#historical-notes">Historical notes</a>
     </li>
     </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="profile/">Profiling</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="links/">Links</a>
                     </li>
                 </ul>
       </div>
@@ -68,7 +76,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href=".">Shuo's TCP/IP notes</a>
+        <a href=".">Shuo's Linux TCP/IP notes</a>
       </nav>
 
       
@@ -80,7 +88,7 @@
     
       
     
-    <li>Shuo's notes on Linux TCP/IP stack</li>
+    <li>Home</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -91,14 +99,15 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="shuos-notes-on-linux-tcpip-stack">Shuo's notes on Linux TCP/IP stack</h1>
+                <h1 id="shuo-chens-notes-on-linux-tcpip-stack">Shuo Chen's notes on Linux TCP/IP stack</h1>
 <h2 id="tcpip-reference">TCP/IP Reference</h2>
 <p><em>TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed.</em> by Kevin R. Fall and W. Richard Stevens, 2011/11.</p>
 <ul>
 <li><a href="https://tools.ietf.org/html/rfc793">RFC793</a> Transmission Control Protocol, 1981/09</li>
 <li><a href="https://tools.ietf.org/html/rfc1122">RFC1122</a> Requirements for Internet Hosts --- Communication Layers, 1989/10</li>
 <li><a href="https://tools.ietf.org/html/rfc5681">RFC5681</a> TCP Congestion Control, 2009/09</li>
-<li><a href="https://tools.ietf.org/html/rfc6093">RFC6093</a> On the Implementation of the TCP Urgent Mechanism, 2011/01, which recommends against the use of urgent mechanism.</li>
+<li><a href="https://tools.ietf.org/html/rfc6093">RFC6093</a> On the Implementation of the TCP Urgent Mechanism, 2011/01,
+  which recommends against the use of urgent mechanism.</li>
 <li><a href="https://tools.ietf.org/html/rfc7323">RFC7323</a> TCP Extensions for High Performance</li>
 <li><a href="https://tools.ietf.org/html/rfc7414">RFC7413</a> TCP Fast Open</li>
 <li><a href="https://tools.ietf.org/html/rfc7414">RFC7414</a> TCP Roadmap</li>
@@ -106,10 +115,11 @@
 </ul>
 <p>Talks and slides:</p>
 <ul>
-<li>Van Jacobson: Evolving from AFAP: Teaching NICs about time,
-   <a href="https://netdevconf.info/0x12/session.html?evolving-from-afap-teaching-nics-about-time">netdev 0x12 Keynote</a>,
-   <a href="https://www.files.netdevconf.info/d/4ee0a09788fe49709855/">slides</a> and <a href="https://youtu.be/MAni0_lN7zE">video</a>.<ul>
-<li><a href="https://kernelnewbies.org/Linux_4.20#TCP:_switch_to_Early_Departure_Time_model">Linux 4.20</a> switched to Early Departure Time model in 2018/09 by <a href="https://lwn.net/ml/netdev/20180921155154.49489-1-edumazet@google.com/">Eric Dumazet</a>.</li>
+<li><a href="https://netdevconf.info/">netdev</a> <a href="https://netdevconf.info/0x12/">0x12</a> <a href="https://netdevconf.info/0x12/session.html?evolving-from-afap-teaching-nics-about-time">Keynote</a>:
+  Evolving from AFAP: Teaching NICs about time by <a href="https://en.wikipedia.org/wiki/Van_Jacobson">Van Jacobson</a>,
+  <a href="https://www.files.netdevconf.info/d/4ee0a09788fe49709855/">slides</a> and <a href="https://youtu.be/MAni0_lN7zE">video</a>.<ul>
+<li><a href="https://kernelnewbies.org/Linux_4.20#TCP:_switch_to_Early_Departure_Time_model">Linux 4.20</a> <a href="https://lwn.net/ml/netdev/20180921155154.49489-1-edumazet@google.com/">switched</a> to
+  Early Departure Time model in 2018/09, and <a href="https://lwn.net/ml/netdev/20181015163758.232436-1-edumazet@google.com/">refined</a> in 2018/10.</li>
 </ul>
 </li>
 </ul>
@@ -140,6 +150,13 @@
           </div>
           <footer>
   
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="profile/" class="btn btn-neutral float-right" title="Profiling">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+    </div>
+  
 
   <hr/>
 
@@ -163,6 +180,8 @@
       
       
       
+        <span style="margin-left: 15px"><a href="profile/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
     </span>
 </div>
     <script>var base_url = '.';</script>
@@ -179,5 +198,5 @@
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2020-06-28 08:23:53.281928+00:00
+Build Date UTC : 2020-06-28 16:23:51.594530+00:00
 -->
