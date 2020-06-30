@@ -58,6 +58,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#rx-path">Rx path</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#loopback-w-ipv6">Loopback w/ IPv6</a>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -101,17 +103,33 @@
 <p>At home, I have two Linux hosts with Mellanox 10GbE nic (bought used from Ebay in 2017),
 directly connected using SPF cable.</p>
 <p><img alt="10gbe" src="../img/10gbe.jpg" /></p>
-<p>Thoughput was about 1100MiB/s, both machine runs ~40% CPU utilization in one thread.</p>
+<p>Thoughput was about 1100MiB/s over 10GbE, both machine runs ~40% CPU utilization in one thread.</p>
+<p>For comparison, run <code>openssl speed sha</code> on the Rx side machine, an i7-3770 @ 3.4GHz.</p>
+<pre><code class="bash">$ openssl speed sha
+OpenSSL 1.1.1f  31 Mar 2020
+The 'numbers' are in 1000s of bytes per second processed.
+type             16 bytes     64 bytes    256 bytes   1024 bytes   8192 bytes  16384 bytes
+sha1            137355.08k   323943.17k   603290.54k   770941.95k   843352.75k   849619.63k
+sha256           75659.30k   167113.02k   289437.70k   354737.49k   379652.78k   381676.20k
+sha512           51745.33k   206941.63k   329443.07k   468301.82k   533897.22k   539525.12k
+</code></pre>
+
+<p>In short, sending data through TCP is faster than calculating SHA1 locally.</p>
 <h2 id="tx-path">Tx path</h2>
 <p>Profile taken on Debian bullseye (testing, pre-release 11) w/ kernel 5.6.14.
-Running the <a href="https://github.com/chenshuo/recipes/blob/master/tpc/bin/chargen.cc">chargen</a> program
+Run the <a href="https://github.com/chenshuo/recipes/blob/master/tpc/bin/chargen.cc">chargen</a> program
 to keep sending data to a <code>discard</code> server.</p>
 <p><a href="../img/profile-chargen.html"><img alt="chargen" src="../img/profile-chargen.png" /></a></p>
 <h2 id="rx-path">Rx path</h2>
 <p>Profile taken on Ubuntu 18.04 w/ kernel 4.15
-Running the <a href="https://github.com/chenshuo/recipes/blob/master/tpc/bin/discard.cc">discard</a> program
+Run the <a href="https://github.com/chenshuo/recipes/blob/master/tpc/bin/discard.cc">discard</a> program
 to keep reading the socket.</p>
 <p><a href="../img/profile-discard.html"><img alt="discard" src="../img/profile-discard.png" /></a></p>
+<h2 id="loopback-w-ipv6">Loopback w/ IPv6</h2>
+<p>Profile taken on Ubuntu 20.04 w/ kernel 5.4.
+Run both <code>chargen</code> and <code>discard</code> on the same i7-3770 host,
+throughput was about 3300MiB/s.  <code>chargen</code> ran at 100% CPU, <code>discard</code> was about 74%.</p>
+<p><a href="../img/profile-loopback6.html"><img alt="discard" src="../img/profile-loopback6.png" /></a></p>
               
             </div>
           </div>
