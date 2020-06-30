@@ -103,11 +103,15 @@ directly connected using SPF cable.</p>
 <p><img alt="10gbe" src="../img/10gbe.jpg" /></p>
 <p>Thoughput was about 1100MiB/s, both machine runs ~40% CPU utilization in one thread.</p>
 <h2 id="tx-path">Tx path</h2>
-<p>Profile taken on Debian bullseye (testing, release 11) w/ kernel 5.6.14.
-<img alt="chargen" src="../img/profile-chargen.png" /></p>
+<p>Profile taken on Debian bullseye (testing, pre-release 11) w/ kernel 5.6.14.
+Running the <a href="https://github.com/chenshuo/recipes/blob/master/tpc/bin/chargen.cc">chargen</a> program
+to keep sending data to a <code>discard</code> server.</p>
+<p><a href="../img/profile-chargen.html"><img alt="chargen" src="../img/profile-chargen.png" /></a></p>
 <h2 id="rx-path">Rx path</h2>
 <p>Profile taken on Ubuntu 18.04 w/ kernel 4.15
-<img alt="discard" src="../img/profile-discard.png" /></p>
+Running the <a href="https://github.com/chenshuo/recipes/blob/master/tpc/bin/discard.cc">discard</a> program
+to keep reading the socket.</p>
+<p><a href="../img/profile-discard.html"><img alt="discard" src="../img/profile-discard.png" /></a></p>
               
             </div>
           </div>
