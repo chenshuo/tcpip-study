@@ -21,4 +21,4 @@ Profile taken on Ubuntu 18.04 w/ kernel 4.15
 Running the [discard](https://github.com/chenshuo/recipes/blob/master/tpc/bin/discard.cc) program
 to keep reading the socket.
 
-![discard](img/profile-discard.png)
+[![discard](img/profile-discard.png)](img/profile-discard.html)
