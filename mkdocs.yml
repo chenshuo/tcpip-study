@@ -5,3 +5,4 @@ nav:
   - Profiling: profile.md
   - Walkthrough: walkthrough.md
   - Links: links.md
+extra_css: [extra.css]
