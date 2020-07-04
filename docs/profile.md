@@ -1,6 +1,6 @@
 # Profiling Linux TCP/IP stack with perf and pprof
 
-At home, I have two Linux hosts with Mellanox 10GbE nic (bought used from Ebay in 2017),
+At home, I have two Linux hosts with Mellanox 10GbE nic (ConnectX EN 10GigE MT26448, bought used from Ebay in 2017)
 directly connected using SPF cable.
 
 ![10gbe](img/10gbe.jpg)

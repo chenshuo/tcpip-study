@@ -4,7 +4,7 @@
 
 `packetdrill/gtests/net/tcp/blocking/blocking-write.pkt`
 
-```text
+```c
 // Test for blocking write.
 --tolerance_usecs=10000
 
@@ -42,31 +42,31 @@
 ```
 
 `tcpdump -i any -n -ttt tcp port 8080`
-```text
+```c
 // Three-way handshake
-0.000000 remote:54321 > local:8080: [S], seq 0, win 50000, options [mss 1000,nop,wscale 0], length 0
-0.000640 local:8080 > remote:54321: [S.], seq 12345, ack 1, win 65535, options [mss 1460,nop,wscale 8], length 0
-0.111259 remote:54321 > local:8080: [.], ack 1, win 50000, length 0
+1 0.000000 remote:54321 > local:8080: [S], seq 0, win 50000, options [mss 1000,nop,wscale 0], length 0
+2 0.000640 local:8080 > remote:54321: [S.], seq 12345, ack 1, win 65535, options [mss 1460,nop,wscale 8], length 0
+3 0.111259 remote:54321 > local:8080: [.], ack 1, win 50000, length 0
 
 // cwnd = 10, mss = 1000, so send 10 * 1000 then wait for ACK.
-0.017588 local:8080 > remote:54321: [P.], seq 1:5001, ack 1, win 256, length 5000
-0.000199 local:8080 > remote:54321: [P.], seq 5001:10001, ack 1, win 256, length 5000
-0.101236 remote:54321 > local:8080: [.], ack 10001, win 50000, length 0
+4 0.017588 local:8080 > remote:54321: [P.], seq 1:5001, ack 1, win 256, length 5000
+5 0.000199 local:8080 > remote:54321: [P.], seq 5001:10001, ack 1, win 256, length 5000
+6 0.101236 remote:54321 > local:8080: [.], ack 10001, win 50000, length 0
 
 // slow-start, increase cwnd per ACK. cwnd = 20, so send 20 * 1000 then wait for ACK.
-0.000573 local:8080 > remote:54321: [P.], seq 10001:20001, ack 1, win 256, length 10000
-0.000276 local:8080 > remote:54321: [P.], seq 20001:30001, ack 1, win 256, length 10000
-0.099876 remote:54321 > local:8080: [.], ack 30001, win 50000, length 0
+7 0.000573 local:8080 > remote:54321: [P.], seq 10001:20001, ack 1, win 256, length 10000
+8 0.000276 local:8080 > remote:54321: [P.], seq 20001:30001, ack 1, win 256, length 10000
+9 0.099876 remote:54321 > local:8080: [.], ack 30001, win 50000, length 0
 
 // slow-start, again. write() now blocks.
-0.000490 local:8080 > remote:54321: [P.], seq 30001:35001, ack 1, win 256, length 5000
-0.000456 local:8080 > remote:54321: [P.], seq 35001:45001, ack 1, win 256, length 10000
-0.000182 local:8080 > remote:54321: [P.], seq 45001:55001, ack 1, win 256, length 10000
-0.000157 local:8080 > remote:54321: [P.], seq 55001:60001, ack 1, win 256, length 5000
-0.098661 remote:54321 > local:8080: [.], ack 36001, win 50000, length 0
+10 0.000490 local:8080 > remote:54321: [P.], seq 30001:35001, ack 1, win 256, length 5000
+11 0.000456 local:8080 > remote:54321: [P.], seq 35001:45001, ack 1, win 256, length 10000
+12 0.000182 local:8080 > remote:54321: [P.], seq 45001:55001, ack 1, win 256, length 10000
+13 0.000157 local:8080 > remote:54321: [P.], seq 55001:60001, ack 1, win 256, length 5000
+14 0.098661 remote:54321 > local:8080: [.], ack 36001, win 50000, length 0
 
 // the previous ACK unblocks write().
-0.001139 local:8080 > remote:54321: [P.], seq 60001:61001, ack 1, win 256, length 1000
-0.325737 local:8080 > remote:54321: [.], seq 36001:37001, ack 1, win 256, length 1000  // Re-xmit
-0.038498 local:8080 > remote:54321: [F.], seq 61001, ack 1, win 256, length 0
+15 0.001139 local:8080 > remote:54321: [P.], seq 60001:61001, ack 1, win 256, length 1000
+16 0.325737 local:8080 > remote:54321: [.], seq 36001:37001, ack 1, win 256, length 1000  // Re-xmit
+17 0.038498 local:8080 > remote:54321: [F.], seq 61001, ack 1, win 256, length 0
 ```
