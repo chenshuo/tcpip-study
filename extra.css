@@ -5,3 +5,9 @@
 .rst-content code {
   color: #080;
 }
+
+.hljs-comment, .hljs-quote
+{
+  color: #080;
+  font-style: normal;
+}
