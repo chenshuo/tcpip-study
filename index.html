@@ -129,16 +129,20 @@
 <h2 id="tcpip-implementations">TCP/IP Implementations</h2>
 <ul>
 <li>BSD family<ul>
-<li>4.4BSD-Lite2, convered in <em>TCP/IP Illustrated (vol. 2): The Implementation</em> by
+<li><img alt="bsd" src="img/bsd.png" /></li>
+<li>4.4BSD-Lite is convered in <em>TCP/IP Illustrated (vol. 2): The Implementation</em> by
   Gary R. Wright and W. Richard Stevens, 1995.</li>
 <li>FreeBSD</li>
+<li><a href="http://www.f-stack.org/">http://www.f-stack.org/</a> User space TCP/IP stack from FreeBSD 11.0</li>
 </ul>
 </li>
 <li>Linux<ul>
 <li>First in 0.98?</li>
+<li><a href="https://blog.cloudflare.com/why-we-use-the-linux-kernels-tcp-stack/">https://blog.cloudflare.com/why-we-use-the-linux-kernels-tcp-stack/</a></li>
+<li><a href="https://jvns.ca/blog/2016/06/30/why-do-we-use-the-linux-kernels-tcp-stack/">https://jvns.ca/blog/2016/06/30/why-do-we-use-the-linux-kernels-tcp-stack/</a></li>
 </ul>
 </li>
-<li>lwIP / uIP<ul>
+<li>lwIP / uIP / <a href="https://github.com/tass-belgium/picotcp">picoTCP</a><ul>
 <li>For microcontrollers, small footprint</li>
 </ul>
 </li>
@@ -146,10 +150,20 @@
 <li>User space, in Golang</li>
 </ul>
 </li>
+<li>Others, mostly user space<ul>
+<li><a href="https://shader.kaist.edu/mtcp/">https://shader.kaist.edu/mtcp/</a></li>
+<li><a href="http://seastar.io/networking/">http://seastar.io/networking/</a></li>
+</ul>
+</li>
 <li>Educational OSes<ul>
-<li>Minix</li>
-<li>Xinu, covered in <em>Internetworking With TCP/IP Volume II: Design, Implementation, and Internals, 3rd ed.</em> by
+<li>Minix <a href="https://github.com/chenshuo/old-minix/tree/master/src/inet">2.x</a>, 3.x uses lwIP.</li>
+<li>Xinu <a href="ftp://ftp.cs.purdue.edu/pub/comer/TCPIP-vol2.dist.tar.gz">code</a>,
+  covered in <em>Internetworking With TCP/IP Volume II: Design, Implementation, and Internals, 3rd ed.</em> by
   <a href="https://www.cs.purdue.edu/homes/comer/netbooks.html">Douglas E. Comer</a> and David L. Stevens, 1999.</li>
+</ul>
+</li>
+<li>Toy implementations<ul>
+<li><a href="https://github.com/saminiir/level-ip">https://github.com/saminiir/level-ip</a></li>
 </ul>
 </li>
 </ul>
@@ -224,5 +238,5 @@
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2020-07-04 16:22:31.821510+00:00
+Build Date UTC : 2020-07-08 23:53:55.524411+00:00
 -->
