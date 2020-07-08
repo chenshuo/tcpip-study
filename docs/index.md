@@ -22,19 +22,30 @@ _TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by Kevin R. Fall and W. Ri
 ## TCP/IP Implementations
 
 * BSD family
-    * 4.4BSD-Lite2, convered in _TCP/IP Illustrated (vol. 2): The Implementation_ by
+    * ![bsd](img/bsd.png)
+    * 4.4BSD-Lite is convered in _TCP/IP Illustrated (vol. 2): The Implementation_ by
       Gary R. Wright and W. Richard Stevens, 1995.
     * FreeBSD
+    * <http://www.f-stack.org/> User space TCP/IP stack from FreeBSD 11.0
 * Linux
     * First in 0.98?
-* lwIP / uIP
+    * <https://blog.cloudflare.com/why-we-use-the-linux-kernels-tcp-stack/>
+    * <https://jvns.ca/blog/2016/06/30/why-do-we-use-the-linux-kernels-tcp-stack/>
+* lwIP / uIP / [picoTCP](https://github.com/tass-belgium/picotcp)
     * For microcontrollers, small footprint
 * gvisor / [netstack](https://github.com/google/gvisor/tree/master/pkg/tcpip)
     * User space, in Golang
+* Others, mostly user space
+    * <https://shader.kaist.edu/mtcp/>
+    * <http://seastar.io/networking/>
 * Educational OSes
-    * Minix
-    * Xinu, covered in _Internetworking With TCP/IP Volume II: Design, Implementation, and Internals, 3rd ed._ by
+    * Minix [2.x](https://github.com/chenshuo/old-minix/tree/master/src/inet), 3.x uses lwIP.
+    * Xinu [code](ftp://ftp.cs.purdue.edu/pub/comer/TCPIP-vol2.dist.tar.gz),
+      covered in _Internetworking With TCP/IP Volume II: Design, Implementation, and Internals, 3rd ed._ by
       [Douglas E. Comer](https://www.cs.purdue.edu/homes/comer/netbooks.html) and David L. Stevens, 1999.
+* Toy implementations
+    * <https://github.com/saminiir/level-ip>
+
 
 ## Tools
 
