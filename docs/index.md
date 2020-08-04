@@ -4,9 +4,11 @@ Source of this site: <https://github.com/chenshuo/tcpip-study>
 
 ## TCP/IP Reference
 
-_TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by Kevin R. Fall and W. Richard Stevens, 2011/11.
+_TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by [Kevin R. Fall](http://kfall.com/) and [W. Richard Stevens](http://www.kohala.com/start/), 2011/11.
 
 * [RFC793](https://tools.ietf.org/html/rfc793) Transmission Control Protocol, 1981/09
+* [RFC896](https://tools.ietf.org/html/rfc896) Nagle algorithm, 1984/01.
+  [Minshall's update](https://tools.ietf.org/html/draft-minshall-nagle-00).
 * [RFC1122](https://tools.ietf.org/html/rfc1122) Requirements for Internet Hosts --- Communication Layers, 1989/10
 * [RFC5681](https://tools.ietf.org/html/rfc5681) TCP Congestion Control, 2009/09
 * [RFC6093](https://tools.ietf.org/html/rfc6093) On the Implementation of the TCP Urgent Mechanism, 2011/01,
@@ -22,7 +24,7 @@ _TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by Kevin R. Fall and W. Ri
 ## TCP/IP Implementations
 
 * BSD family
-    * ![bsd](img/bsd.png)
+   <p> ![bsd](img/bsd.png)
     * 4.4BSD-Lite is convered in _TCP/IP Illustrated (vol. 2): The Implementation_ by
       Gary R. Wright and W. Richard Stevens, 1995.
     * FreeBSD
@@ -65,4 +67,5 @@ Recent changes that I am aware of.
 
 ## Historical notes
 
-In 2004, Vint Cerf and Bob Kahn received the Turing Award for their foundational work on TCP/IP.
+In 2004, [Vinton Cerf](https://en.wikipedia.org/wiki/Vint_Cerf) and [Robert Kahn](https://en.wikipedia.org/wiki/Bob_Kahn) received the ACM Turing Award for their foundational work on TCP/IP.
+[A Protocol for Packet Network Intercommunication](https://www.cs.princeton.edu/courses/archive/fall06/cos561/papers/cerf74.pdf), May 1974.
