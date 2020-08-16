@@ -1,4 +1,5 @@
 site_name: Shuo's Linux TCP/IP notes
+google_analytics: ['UA-1220141-6', 'chenshuo.com']
 theme: readthedocs
 nav:
   - Home: index.md
