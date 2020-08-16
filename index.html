@@ -29,6 +29,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
   
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1220141-6', 'chenshuo.com');
+      ga('send', 'pageview');
+  </script>
+  
 </head>
 
 <body class="wy-body-for-nav" role="document">
@@ -111,9 +121,11 @@
                 <h1 id="shuo-chens-notes-on-linux-tcpip-stack">Shuo Chen's notes on Linux TCP/IP stack</h1>
 <p>Source of this site: <a href="https://github.com/chenshuo/tcpip-study">https://github.com/chenshuo/tcpip-study</a></p>
 <h2 id="tcpip-reference">TCP/IP Reference</h2>
-<p><em>TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed.</em> by Kevin R. Fall and W. Richard Stevens, 2011/11.</p>
+<p><em>TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed.</em> by <a href="http://kfall.com/">Kevin R. Fall</a> and <a href="http://www.kohala.com/start/">W. Richard Stevens</a>, 2011/11.</p>
 <ul>
 <li><a href="https://tools.ietf.org/html/rfc793">RFC793</a> Transmission Control Protocol, 1981/09</li>
+<li><a href="https://tools.ietf.org/html/rfc896">RFC896</a> Nagle algorithm, 1984/01.
+  <a href="https://tools.ietf.org/html/draft-minshall-nagle-00">Minshall's update</a>.</li>
 <li><a href="https://tools.ietf.org/html/rfc1122">RFC1122</a> Requirements for Internet Hosts --- Communication Layers, 1989/10</li>
 <li><a href="https://tools.ietf.org/html/rfc5681">RFC5681</a> TCP Congestion Control, 2009/09</li>
 <li><a href="https://tools.ietf.org/html/rfc6093">RFC6093</a> On the Implementation of the TCP Urgent Mechanism, 2011/01,
@@ -128,8 +140,8 @@
 </ul>
 <h2 id="tcpip-implementations">TCP/IP Implementations</h2>
 <ul>
-<li>BSD family<ul>
-<li><img alt="bsd" src="img/bsd.png" /></li>
+<li>BSD family
+   <p> <img alt="bsd" src="img/bsd.png" /><ul>
 <li>4.4BSD-Lite is convered in <em>TCP/IP Illustrated (vol. 2): The Implementation</em> by
   Gary R. Wright and W. Richard Stevens, 1995.</li>
 <li>FreeBSD</li>
@@ -184,7 +196,8 @@
 </li>
 </ul>
 <h2 id="historical-notes">Historical notes</h2>
-<p>In 2004, Vint Cerf and Bob Kahn received the Turing Award for their foundational work on TCP/IP.</p>
+<p>In 2004, <a href="https://en.wikipedia.org/wiki/Vint_Cerf">Vinton Cerf</a> and <a href="https://en.wikipedia.org/wiki/Bob_Kahn">Robert Kahn</a> received the ACM Turing Award for their foundational work on TCP/IP.
+<a href="https://www.cs.princeton.edu/courses/archive/fall06/cos561/papers/cerf74.pdf">A Protocol for Packet Network Intercommunication</a>, May 1974.</p>
               
             </div>
           </div>
@@ -238,5 +251,5 @@
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2020-08-03 21:53:48.301315+00:00
+Build Date UTC : 2020-08-16 16:56:41.074936+00:00
 -->
