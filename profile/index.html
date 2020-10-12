@@ -130,6 +130,7 @@ sha512           51745.33k   206941.63k   329443.07k   468301.82k   533897.22k  
 </code></pre>
 
 <p>In short, sending data through TCP is faster than calculating SHA1 locally.</p>
+<p>Rx is more expensive, it uses about 2x CPU cycles than Tx.</p>
 <h2 id="tx-path">Tx path</h2>
 <p>Profile taken on Debian bullseye (testing, pre-release 11) w/ kernel 5.6.14.
 Run the <a href="https://github.com/chenshuo/recipes/blob/master/tpc/bin/chargen.cc">chargen</a> program
@@ -144,7 +145,7 @@ to keep reading the socket.</p>
 <p>Profile taken on Ubuntu 20.04 w/ kernel 5.4.
 Run both <code>chargen</code> and <code>discard</code> on the same i7-3770 host,
 throughput was about 3300MiB/s.  <code>chargen</code> ran at 100% CPU, <code>discard</code> was about 74%.</p>
-<p><a href="../img/profile-loopback6.html"><img alt="discard" src="../img/profile-loopback6.png" /></a></p>
+<p><a href="../img/profile-loopback6.html"><img alt="loopback" src="../img/profile-loopback6.png" /></a></p>
               
             </div>
           </div>
