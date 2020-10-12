@@ -2,6 +2,10 @@
 
 Source of this site: <https://github.com/chenshuo/tcpip-study>
 
+The TCP state machine has three
+
+![TCP](img/statemachine.png)
+
 ## TCP/IP Reference
 
 _TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by [Kevin R. Fall](http://kfall.com/) and [W. Richard Stevens](http://www.kohala.com/start/), 2011/11.
@@ -13,7 +17,7 @@ _TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by [Kevin R. Fall](http://
 * [RFC5681](https://tools.ietf.org/html/rfc5681) TCP Congestion Control, 2009/09
 * [RFC6093](https://tools.ietf.org/html/rfc6093) On the Implementation of the TCP Urgent Mechanism, 2011/01,
   which recommends against the use of urgent mechanism.
-* [RFC7323](https://tools.ietf.org/html/rfc7323) TCP Extensions for High Performance
+* [RFC7323](https://tools.ietf.org/html/rfc7323) TCP Extensions for High Performance, obsoletes [RFC1323](https://tools.ietf.org/html/rfc1323)
 * [RFC7413](https://tools.ietf.org/html/rfc7414) TCP Fast Open
 * [RFC7414](https://tools.ietf.org/html/rfc7414) TCP Roadmap
 * [RFC8312](https://tools.ietf.org/html/rfc8312) [CUBIC](https://en.wikipedia.org/wiki/CUBIC_TCP),

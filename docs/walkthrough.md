@@ -1,5 +1,7 @@
 # Code Walkthrough
 
+![Sockets](img/sockets.png)
+
 ## Blocking write
 
 `packetdrill/gtests/net/tcp/blocking/blocking-write.pkt`
