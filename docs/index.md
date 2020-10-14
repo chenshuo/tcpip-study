@@ -34,7 +34,10 @@ _TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by [Kevin R. Fall](http://
     * FreeBSD
     * <http://www.f-stack.org/> User space TCP/IP stack from FreeBSD 11.0
 * Linux
-    * First in 0.98?
+    * First in 0.98 by Ross Biro, `net/tcp`, 1992-09-29
+    * Switched to a new one by Fred van Kempen in 0.99.10, `net/inet`, 1993-06-07
+    * In 1.2.10 -> 1.3.0, moved from `net/inet` to `net/ipv4`. Last update to `net/inet` was in 1.2.13
+    * In 2.1.8, added `net/ipv6`
     * <https://blog.cloudflare.com/why-we-use-the-linux-kernels-tcp-stack/>
     * <https://jvns.ca/blog/2016/06/30/why-do-we-use-the-linux-kernels-tcp-stack/>
 * lwIP / uIP / [picoTCP](https://github.com/tass-belgium/picotcp)
@@ -45,7 +48,7 @@ _TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by [Kevin R. Fall](http://
     * <https://shader.kaist.edu/mtcp/>
     * <http://seastar.io/networking/>
 * Educational OSes
-    * Minix [2.x](https://github.com/chenshuo/old-minix/tree/master/src/inet), 3.x uses lwIP.
+    * Minix [2.x](https://github.com/chenshuo/old-minix/tree/master/src/inet) has its own TCP/IP stack, 3.x uses lwIP instead.
     * Xinu [code](ftp://ftp.cs.purdue.edu/pub/comer/TCPIP-vol2.dist.tar.gz),
       covered in _Internetworking With TCP/IP Volume II: Design, Implementation, and Internals, 3rd ed._ by
       [Douglas E. Comer](https://www.cs.purdue.edu/homes/comer/netbooks.html) and David L. Stevens, 1999.
