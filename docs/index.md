@@ -35,9 +35,11 @@ _TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by [Kevin R. Fall](http://
     * <http://www.f-stack.org/> User space TCP/IP stack from FreeBSD 11.0
 * Linux
     * First in 0.98 by Ross Biro, `net/tcp`, 1992-09-29
-    * Switched to a new one by Fred van Kempen in 0.99.10, `net/inet`, 1993-06-07
+    * Switched to a new one (NET2) by Fred van Kempen in 0.99.10, `net/inet`, 1993-06-07
+    * NET3 by Swansea University Computer Society (Alan Cox) took place in 1.1.4.
     * In 1.2.10 -> 1.3.0, moved from `net/inet` to `net/ipv4`. Last update to `net/inet` was in 1.2.13
     * In 2.1.8, added `net/ipv6`
+    * In 2.2.0pre5, renamed to NET4, early 1999.
     * <https://blog.cloudflare.com/why-we-use-the-linux-kernels-tcp-stack/>
     * <https://jvns.ca/blog/2016/06/30/why-do-we-use-the-linux-kernels-tcp-stack/>
 * lwIP / uIP / [picoTCP](https://github.com/tass-belgium/picotcp)
