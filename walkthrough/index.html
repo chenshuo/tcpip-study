@@ -178,6 +178,40 @@
 16 0.325737 local:8080 &gt; remote:54321: [.], seq 36001:37001, ack 1, win 256, length 1000  // Re-xmit
 17 0.038498 local:8080 &gt; remote:54321: [F.], seq 61001, ack 1, win 256, length 0
 </code></pre>
+
+<p>Call trace of SYN, SYNACK</p>
+<pre><code class="text">IPv4
+ip_local_deliver_finish -&gt; ip_protocol_deliver_rcu -&gt; tcp_v4_rcv -&gt; tcp_v4_do_rcv
+    -&gt; tcp_rcv_state_process -&gt; tcp_v4_conn_request -&gt; tcp_conn_request -&gt; tcp_v4_send_synack
+    -&gt; ip_output
+
+IPv6
+ip6_input -&gt; ip6_input_finish -&gt; ip6_protocol_deliver_rcu -&gt; tcp_v6_rcv -&gt; tcp_v6_do_rcv
+    -&gt; tcp_rcv_state_process -&gt; tcp_v6_conn_request -&gt; tcp_conn_request -&gt; tcp_v6_send_synack
+    -&gt; ip6_xmit -&gt; dst_output -&gt; ip6_output
+</code></pre>
+
+<p>Call trace of <code>write(2)</code></p>
+<pre><code class="text">entry_SYSCALL_64 -&gt; do_syscall_64 -&gt; ksys_write -&gt; vfs_write -&gt; new_sync_write -&gt; call_write_iter
+    -&gt; sock_write_iter -&gt; sock_sendmsg -&gt; sock_sendmsg_nosec -&gt; tcp_sendmsg -&gt; tcp_sendmsg_locked
+    -&gt; tcp_push -&gt; __tcp_push_pending_frames -&gt; tcp_write_xmit -&gt; tcp_transmit_skb
+    -&gt; __tcp_transmit_skb -&gt; ip_queue_xmit -&gt; __ip_queue_xmit -&gt; ip_local_out -&gt; dst_output
+    -&gt; ip_output
+
+IPv6
+__tcp_transmit_skb -&gt; inet6_csk_xmit -&gt; ip6_xmit -&gt; dst_output -&gt; ip6_output
+</code></pre>
+
+<p>Call trace of receiving ACK from packet 6</p>
+<pre><code class="text">ip_local_deliver_finish -&gt; ip_protocol_deliver_rcu -&gt; tcp_v4_rcv -&gt; tcp_v4_do_rcv
+    -&gt; tcp_rcv_established -&gt; tcp_data_snd_check -&gt; tcp_push_pending_frames
+    -&gt; __tcp_push_pending_frames -&gt; ...
+</code></pre>
+
+<p>Call trace of <code>close(2)</code></p>
+<pre><code class="text">__fput -&gt; sock_close -&gt; __sock_release -&gt; inet_release -&gt; tcp_close -&gt; tcp_send_fin
+    -&gt; __tcp_push_pending_frames -&gt; tcp_write_xmit -&gt; tcp_transmit_skb -&gt; ...
+</code></pre>
               
             </div>
           </div>

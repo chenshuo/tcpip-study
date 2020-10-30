@@ -120,8 +120,10 @@
               
                 <h1 id="shuo-chens-notes-on-linux-tcpip-stack">Shuo Chen's notes on Linux TCP/IP stack</h1>
 <p>Source of this site: <a href="https://github.com/chenshuo/tcpip-study">https://github.com/chenshuo/tcpip-study</a></p>
-<p>The TCP state machine has three</p>
+<p>The TCP state machine has three inputs: Sockets API, Timers, and Data arrives.</p>
 <p><img alt="TCP" src="img/statemachine.png" /></p>
+<p>A closer look at Linux networking datapath callgraph:</p>
+<p><img alt="Callgraph" src="img/callgraph.png" /></p>
 <h2 id="tcpip-reference">TCP/IP Reference</h2>
 <p><em>TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed.</em> by <a href="http://kfall.com/">Kevin R. Fall</a> and <a href="http://www.kohala.com/start/">W. Richard Stevens</a>, 2011/11.</p>
 <ul>
@@ -258,5 +260,5 @@
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2020-10-22 20:55:02.864600+00:00
+Build Date UTC : 2020-10-30 23:22:07.350267+00:00
 -->
