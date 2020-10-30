@@ -6,11 +6,16 @@ Literatures I have or haven't read.
 * [Busypolling next generation](https://netdevconf.info/2.1/session.html?dumazet) by Eric Dumazet, 2017.
 * [Making Linux TCP Fast](https://netdevconf.info/1.2/session.html?yuchung-cheng) by Yuchung Cheng and Neal Cardwell, 2016.
   [paper](https://netdevconf.info/1.2/papers/bbr-netdev-1.2.new.new.pdf)
-* [Kernel Networking Walkthrough](https://www.slideshare.net/ThomasGraf5/linuxcon-2015-linux-kernel-networking-walkthrough) by Thomas Graf, LinuxCon 2015. Nice and short (~20 slides) intro to NAPI, RSS, RPS, GRO, TSO, FastOpen with pictures.
+* [Kernel Networking Walkthrough](https://www.slideshare.net/ThomasGraf5/linuxcon-2015-linux-kernel-networking-walkthrough) by Thomas Graf, LinuxCon 2015. Nice and short (~20 slides) intro to NAPI, RSS, RPS, GRO, TSO, FastOpen with pictures.  Next year: [Kernel Networking Explained](https://www.slideshare.net/ThomasGraf5/linux-networking-explained) by Thomas Graf, LinuxCon 2016, 27 slides.
+* [Linux Networking Architecture](https://www.slideshare.net/hugolu/the-linux-networking-architecture/63) slides by Hugo Lu, 2014.
+* [Queueing in the Linux Network Stack](https://www.coverfire.com/articles/queueing-in-the-linux-network-stack/)
+* [TCP small queues](https://lwn.net/Articles/507065/)
+* [Controlling Queue Delay](https://queue.acm.org/detail.cfm?id=2209336) by Kathleen Nichols and Van Jacobson, ACM Queue May 2012.
 * [TCP Implementation in Linux: A Brief Tutorial](http://www.ece.virginia.edu/mv/research/DOE09/publications/TCPlinux.pdf), 2008. Nice two-page overview of TCP/IP stack in Linux 2.6.19.
 * [Scaling in the Linux Networking Stack](https://www.kernel.org/doc/Documentation/networking/scaling.txt), kernel doc that describes RSS, RPS, RFS, XPS, etc.
 * [Segmentation Offloads in the Linux Networking Stack](https://www.kernel.org/doc/Documentation/networking/segmentation-offloads.txt), about TSO, GSO, GRO, etc.
 * [Programming with the Netpoll API](http://people.redhat.com/~jmoyer/netpoll-linux_kongress-2005.pdf) by Jeff Moyer, Linux Kongress 2005.
+* [Kernel data flow of 2.6.20](https://wiki.linuxfoundation.org/networking/kernel_flow) ![img](img/Network_data_flow_through_kernel.png)
 
 ## RFCs
 * [RFC3439](https://tools.ietf.org/html/rfc3439) Some Internet Architectural Guidelines and Philosophy, 2002-12.

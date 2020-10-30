@@ -72,3 +72,42 @@
 16 0.325737 local:8080 > remote:54321: [.], seq 36001:37001, ack 1, win 256, length 1000  // Re-xmit
 17 0.038498 local:8080 > remote:54321: [F.], seq 61001, ack 1, win 256, length 0
 ```
+
+Call trace of SYN, SYNACK
+```text
+IPv4
+ip_local_deliver_finish -> ip_protocol_deliver_rcu -> tcp_v4_rcv -> tcp_v4_do_rcv
+    -> tcp_rcv_state_process -> tcp_v4_conn_request -> tcp_conn_request -> tcp_v4_send_synack
+    -> ip_output
+
+IPv6
+ip6_input -> ip6_input_finish -> ip6_protocol_deliver_rcu -> tcp_v6_rcv -> tcp_v6_do_rcv
+    -> tcp_rcv_state_process -> tcp_v6_conn_request -> tcp_conn_request -> tcp_v6_send_synack
+    -> ip6_xmit -> dst_output -> ip6_output
+```
+
+
+Call trace of `write(2)`
+```text
+entry_SYSCALL_64 -> do_syscall_64 -> ksys_write -> vfs_write -> new_sync_write -> call_write_iter
+    -> sock_write_iter -> sock_sendmsg -> sock_sendmsg_nosec -> tcp_sendmsg -> tcp_sendmsg_locked
+    -> tcp_push -> __tcp_push_pending_frames -> tcp_write_xmit -> tcp_transmit_skb
+    -> __tcp_transmit_skb -> ip_queue_xmit -> __ip_queue_xmit -> ip_local_out -> dst_output
+    -> ip_output
+
+IPv6
+__tcp_transmit_skb -> inet6_csk_xmit -> ip6_xmit -> dst_output -> ip6_output
+```
+
+Call trace of receiving ACK from packet 6
+```text
+ip_local_deliver_finish -> ip_protocol_deliver_rcu -> tcp_v4_rcv -> tcp_v4_do_rcv
+    -> tcp_rcv_established -> tcp_data_snd_check -> tcp_push_pending_frames
+    -> __tcp_push_pending_frames -> ...
+```
+
+Call trace of `close(2)`
+```text
+__fput -> sock_close -> __sock_release -> inet_release -> tcp_close -> tcp_send_fin
+    -> __tcp_push_pending_frames -> tcp_write_xmit -> tcp_transmit_skb -> ...
+```

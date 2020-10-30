@@ -2,9 +2,13 @@
 
 Source of this site: <https://github.com/chenshuo/tcpip-study>
 
-The TCP state machine has three
+The TCP state machine has three inputs: Sockets API, Timers, and Data arrives.
 
 ![TCP](img/statemachine.png)
+
+A closer look at Linux networking datapath callgraph:
+
+![Callgraph](img/callgraph.png)
 
 ## TCP/IP Reference
 
