@@ -3,6 +3,7 @@ google_analytics: ['UA-1220141-6', 'chenshuo.com']
 theme: readthedocs
 nav:
   - Home: index.md
+  - Sockets: sockets.md
   - Profiling: profile.md
   - Walkthrough: walkthrough.md
   - Links: links.md
