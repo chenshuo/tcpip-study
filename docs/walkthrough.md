@@ -75,10 +75,20 @@
 
 Call trace of SYN, SYNACK
 ```text
+__do_softirq -> net_rx_action -> napi_poll -> virtnet_poll -> virtqueue_napi_complete
+    -> napi_complete_done -> gro_normal_list -> netif_receive_skb_list_internal
+    -> __netif_receive_skb_list -> __netif_receive_skb_list_core -> __netif_receive_skb_list_ptype
+    -> ip_list_rcv -> ip_sublist_rcv -> ip_list_rcv_finish -> ip_sublist_rcv_finish
+    -> dst_input -> ip_local_deliver -> ip_local_deliver_finish ->
+
 IPv4
 ip_local_deliver_finish -> ip_protocol_deliver_rcu -> tcp_v4_rcv -> tcp_v4_do_rcv
     -> tcp_rcv_state_process -> tcp_v4_conn_request -> tcp_conn_request -> tcp_v4_send_synack
     -> ip_output
+
+__do_softirq -> net_rx_action -> napi_poll -> process_backlog
+    -> __netif_receive_skb -> __netif_receive_skb_one_core
+    -> ip6_input ->
 
 IPv6
 ip6_input -> ip6_input_finish -> ip6_protocol_deliver_rcu -> tcp_v6_rcv -> tcp_v6_do_rcv
@@ -87,16 +97,51 @@ ip6_input -> ip6_input_finish -> ip6_protocol_deliver_rcu -> tcp_v6_rcv -> tcp_v
 ```
 
 
+
+Call trace of `read(2)`
+```text
+entry_SYSCALL_64 -> do_syscall_64 -> ksys_read -> vfs_read -> new_sync_read -> call_read_iter
+    -> sock_read_iter -> sock_recvmsg -> sock_recvmsg_nosec -> inet_recvmsg -> tcp_recvmsg
+```
+
+Call trace of `recvfrom`
+```text
+entry_SYSCALL_64 -> do_syscall_64 -> __x64_sys_recvfrom -> __se_sys_recvfrom -> __do_sys_recvfrom
+    -> __sys_recvfrom -> sock_recvmsg
+```
+
+Call trace of `recvmsg`
+```text
+entry_SYSCALL_64 -> do_syscall_64 -> __sys_recvmsg -> ___sys_recvmsg -> ____sys_recvmsg
+    -> sock_recvmsg
+```
+
+Call trace of `sendto`
+```text
+entry_SYSCALL_64 -> do_syscall_64 -> __x64_sys_sendto -> __se_sys_sendto -> __do_sys_sendto
+    -> __sys_sendto -> sock_sendmsg
+```
+
+Call trace of `sendmsg`
+```text
+entry_SYSCALL_64 -> do_syscall_64 -> __sys_sendmsg -> ___sys_sendmsg -> ____sys_sendmsg
+    -> sock_sendmsg
+```
+
 Call trace of `write(2)`
 ```text
 entry_SYSCALL_64 -> do_syscall_64 -> ksys_write -> vfs_write -> new_sync_write -> call_write_iter
     -> sock_write_iter -> sock_sendmsg -> sock_sendmsg_nosec -> tcp_sendmsg -> tcp_sendmsg_locked
     -> tcp_push -> __tcp_push_pending_frames -> tcp_write_xmit -> tcp_transmit_skb
     -> __tcp_transmit_skb -> ip_queue_xmit -> __ip_queue_xmit -> ip_local_out -> dst_output
-    -> ip_output
+    -> ip_output -> ip_finish_output -> __ip_finish_output -> ip_finish_output2 -> neigh_output
 
 IPv6
 __tcp_transmit_skb -> inet6_csk_xmit -> ip6_xmit -> dst_output -> ip6_output
+    -> ip6_finish_output2 -> neigh_output -> neigh_hh_output -> dev_queue_xmit
+    -> __dev_queue_xmit -> __dev_xmit_skb -> qdisc_run
+    -> __qdisc_run -> qdisc_restart -> sch_direct_xmit -> dev_hard_start_xmit
+    -> xmit_one -> netdev_start_xmit -> __netdev_start_xmit -> mlx4_en_*
 ```
 
 Call trace of receiving ACK from packet 6
