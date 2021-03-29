@@ -73,6 +73,78 @@
 17 0.038498 local:8080 > remote:54321: [F.], seq 61001, ack 1, win 256, length 0
 ```
 
+```text
+tcp_sendmsg(size=61k), cwnd=10
+  size_goal = 25k
+  1. copy 25k to skb
+    sk_wmem_queued = 1280 + 25000 = 26280
+    tcp_push_one
+      tcp_write_xmit
+      skb1 = 25k, pfrag = 25000/32768
+        cwnd_quota = 5
+        tso_fragment splits skb to 5k + 20k, sk_wmem_queued += 1280, skb1 = 5k, skb2 = 20k
+        tcp_transmit_skb(5k)
+          sk->tcp_rtx_queue.insert(skb1)
+  2. copy 5k, copy = size_goal - tcp_write_queue_tail(sk)->len = 25k - 20k = 5k
+    skb2 += 5k, pfrag = 30000/32768
+    sk_wmem_queued = 27560 + 5000 = 32560
+    __tcp_push_pending_frames
+      tcp_write_xmit
+        cwnd_quota = 5
+        tso_fragment splits skb to 5k + 20k, sk_wmem_queued += 1280, skb2 = 5k, skb3 = 20k
+        tcp_transmit_skb(5k)
+          sk->tcp_rtx_queue.insert(skb2)
+  3. copy 2768 (copied=32768)
+    sk_wmem_queued = 33840 + 2768 = 36608
+    sk->sk_write_queue = [skb3(len=22768)]
+  4. copy 2232 (copied=35000), size_goal - skb->len = 2232
+    alloc a new page frag, WHY no new skb?
+    sk_wmem_queued = 36608 + 2232 = 38840
+    tcp_push_one
+      cwnd_quota=0
+  5. copy 25k
+    alloc a new skb, sk_wmem_queued += 1280
+    sk_wmem_queued = 40120 + 25000 = 65120
+    tcp_push_one
+      cwnd_quota=0
+    (copied=60k)
+  6. trying to copy remaining 1k
+    sk->sk_wmem_queued (65120) > sk->sk_sndbuf (42000)
+    wait_for_space
+
+  1st ack 10000, cwnd=20
+    tcp_rcv_established
+      tcp_ack
+        tcp_clean_rtx_queue
+          tcp_rtx_queue_unlink_and_free
+            sk_wmem_free_skb
+      tcp_data_snd_check
+        tcp_push_pending_frames
+          tcp_write_xmit
+            tcp_transmit_skb(10k)
+            tcp_transmit_skb(10k)
+        sk->sk_wmem_queued: 65120 -> 55120
+        tcp_check_space
+          tcp_new_space
+            sk_stream_write_space, stream_wspace=-13120 stream_min_wspace=27560)
+
+  2nd ack 30000, cwnd=40
+    tcp_write_xmit
+      tcp_transmit_skb(5k)
+      tcp_transmit_skb(10k)
+      tcp_transmit_skb(10k)
+      tcp_transmit_skb(5k)
+    sk->sk_wmem_queued: 55120 -> 35120
+    sk_stream_write_space, stream_wspace=6880 stream_min_wspace=17560)
+
+  3rd ack 36000
+    sk->sk_wmem_queued: 35120 -> 27840
+    sk_stream_write_space, stream_wspace=14160 stream_min_wspace=13920
+    __sk_stream_is_writeable=true, wake up
+    tcp_sendmsg wakes up
+      tcp_transmit_skb(1k)
+```
+
 Call trace of SYN, SYNACK
 ```text
 __do_softirq -> net_rx_action -> napi_poll -> virtnet_poll -> virtqueue_napi_complete
