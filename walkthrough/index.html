@@ -63,6 +63,10 @@
                     </li>
                 </ul>
                 <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sockets/">Sockets</a>
+                    </li>
+                </ul>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../profile/">Profiling</a>
                     </li>
                 </ul>
@@ -114,7 +118,7 @@
 <p><img alt="Sockets" src="../img/sockets.png" /></p>
 <h2 id="blocking-write">Blocking write</h2>
 <p><code>packetdrill/gtests/net/tcp/blocking/blocking-write.pkt</code></p>
-<pre><code class="c">// Test for blocking write.
+<pre><code class="language-c">// Test for blocking write.
 --tolerance_usecs=10000
 
 `../common/defaults.sh
@@ -149,9 +153,8 @@
 // Reset to sysctls defaults.
 `/tmp/sysctl_restore_${PPID}.sh`
 </code></pre>
-
 <p><code>tcpdump -i any -n -ttt tcp port 8080</code></p>
-<pre><code class="c">// Three-way handshake
+<pre><code class="language-c">// Three-way handshake
 1 0.000000 remote:54321 &gt; local:8080: [S], seq 0, win 50000, options [mss 1000,nop,wscale 0], length 0
 2 0.000640 local:8080 &gt; remote:54321: [S.], seq 12345, ack 1, win 65535, options [mss 1460,nop,wscale 8], length 0
 3 0.111259 remote:54321 &gt; local:8080: [.], ack 1, win 50000, length 0
@@ -178,38 +181,138 @@
 16 0.325737 local:8080 &gt; remote:54321: [.], seq 36001:37001, ack 1, win 256, length 1000  // Re-xmit
 17 0.038498 local:8080 &gt; remote:54321: [F.], seq 61001, ack 1, win 256, length 0
 </code></pre>
+<pre><code class="language-text">tcp_sendmsg(size=61k), cwnd=10
+  size_goal = 25k
+  1. copy 25k to skb
+    sk_wmem_queued = 1280 + 25000 = 26280
+    tcp_push_one
+      tcp_write_xmit
+      skb1 = 25k, pfrag = 25000/32768
+        cwnd_quota = 5
+        tso_fragment splits skb to 5k + 20k, sk_wmem_queued += 1280, skb1 = 5k, skb2 = 20k
+        tcp_transmit_skb(5k)
+          sk-&gt;tcp_rtx_queue.insert(skb1)
+  2. copy 5k, copy = size_goal - tcp_write_queue_tail(sk)-&gt;len = 25k - 20k = 5k
+    skb2 += 5k, pfrag = 30000/32768
+    sk_wmem_queued = 27560 + 5000 = 32560
+    __tcp_push_pending_frames
+      tcp_write_xmit
+        cwnd_quota = 5
+        tso_fragment splits skb to 5k + 20k, sk_wmem_queued += 1280, skb2 = 5k, skb3 = 20k
+        tcp_transmit_skb(5k)
+          sk-&gt;tcp_rtx_queue.insert(skb2)
+  3. copy 2768 (copied=32768)
+    sk_wmem_queued = 33840 + 2768 = 36608
+    sk-&gt;sk_write_queue = [skb3(len=22768)]
+  4. copy 2232 (copied=35000), size_goal - skb-&gt;len = 2232
+    alloc a new page frag, WHY no new skb?
+    sk_wmem_queued = 36608 + 2232 = 38840
+    tcp_push_one
+      cwnd_quota=0
+  5. copy 25k
+    alloc a new skb, sk_wmem_queued += 1280
+    sk_wmem_queued = 40120 + 25000 = 65120
+    tcp_push_one
+      cwnd_quota=0
+    (copied=60k)
+  6. trying to copy remaining 1k
+    sk-&gt;sk_wmem_queued (65120) &gt; sk-&gt;sk_sndbuf (42000)
+    wait_for_space
 
+  1st ack 10000, cwnd=20
+    tcp_rcv_established
+      tcp_ack
+        tcp_clean_rtx_queue
+          tcp_rtx_queue_unlink_and_free
+            sk_wmem_free_skb
+      tcp_data_snd_check
+        tcp_push_pending_frames
+          tcp_write_xmit
+            tcp_transmit_skb(10k)
+            tcp_transmit_skb(10k)
+        sk-&gt;sk_wmem_queued: 65120 -&gt; 55120
+        tcp_check_space
+          tcp_new_space
+            sk_stream_write_space, stream_wspace=-13120 stream_min_wspace=27560)
+
+  2nd ack 30000, cwnd=40
+    tcp_write_xmit
+      tcp_transmit_skb(5k)
+      tcp_transmit_skb(10k)
+      tcp_transmit_skb(10k)
+      tcp_transmit_skb(5k)
+    sk-&gt;sk_wmem_queued: 55120 -&gt; 35120
+    sk_stream_write_space, stream_wspace=6880 stream_min_wspace=17560)
+
+  3rd ack 36000
+    sk-&gt;sk_wmem_queued: 35120 -&gt; 27840
+    sk_stream_write_space, stream_wspace=14160 stream_min_wspace=13920
+    __sk_stream_is_writeable=true, wake up
+    tcp_sendmsg wakes up
+      tcp_transmit_skb(1k)
+</code></pre>
 <p>Call trace of SYN, SYNACK</p>
-<pre><code class="text">IPv4
+<pre><code class="language-text">__do_softirq -&gt; net_rx_action -&gt; napi_poll -&gt; virtnet_poll -&gt; virtqueue_napi_complete
+    -&gt; napi_complete_done -&gt; gro_normal_list -&gt; netif_receive_skb_list_internal
+    -&gt; __netif_receive_skb_list -&gt; __netif_receive_skb_list_core -&gt; __netif_receive_skb_list_ptype
+    -&gt; ip_list_rcv -&gt; ip_sublist_rcv -&gt; ip_list_rcv_finish -&gt; ip_sublist_rcv_finish
+    -&gt; dst_input -&gt; ip_local_deliver -&gt; ip_local_deliver_finish -&gt;
+
+IPv4
 ip_local_deliver_finish -&gt; ip_protocol_deliver_rcu -&gt; tcp_v4_rcv -&gt; tcp_v4_do_rcv
     -&gt; tcp_rcv_state_process -&gt; tcp_v4_conn_request -&gt; tcp_conn_request -&gt; tcp_v4_send_synack
     -&gt; ip_output
+
+__do_softirq -&gt; net_rx_action -&gt; napi_poll -&gt; process_backlog
+    -&gt; __netif_receive_skb -&gt; __netif_receive_skb_one_core
+    -&gt; ip6_input -&gt;
 
 IPv6
 ip6_input -&gt; ip6_input_finish -&gt; ip6_protocol_deliver_rcu -&gt; tcp_v6_rcv -&gt; tcp_v6_do_rcv
     -&gt; tcp_rcv_state_process -&gt; tcp_v6_conn_request -&gt; tcp_conn_request -&gt; tcp_v6_send_synack
     -&gt; ip6_xmit -&gt; dst_output -&gt; ip6_output
 </code></pre>
-
+<p>Call trace of <code>read(2)</code></p>
+<pre><code class="language-text">entry_SYSCALL_64 -&gt; do_syscall_64 -&gt; ksys_read -&gt; vfs_read -&gt; new_sync_read -&gt; call_read_iter
+    -&gt; sock_read_iter -&gt; sock_recvmsg -&gt; sock_recvmsg_nosec -&gt; inet_recvmsg -&gt; tcp_recvmsg
+</code></pre>
+<p>Call trace of <code>recvfrom</code></p>
+<pre><code class="language-text">entry_SYSCALL_64 -&gt; do_syscall_64 -&gt; __x64_sys_recvfrom -&gt; __se_sys_recvfrom -&gt; __do_sys_recvfrom
+    -&gt; __sys_recvfrom -&gt; sock_recvmsg
+</code></pre>
+<p>Call trace of <code>recvmsg</code></p>
+<pre><code class="language-text">entry_SYSCALL_64 -&gt; do_syscall_64 -&gt; __sys_recvmsg -&gt; ___sys_recvmsg -&gt; ____sys_recvmsg
+    -&gt; sock_recvmsg
+</code></pre>
+<p>Call trace of <code>sendto</code></p>
+<pre><code class="language-text">entry_SYSCALL_64 -&gt; do_syscall_64 -&gt; __x64_sys_sendto -&gt; __se_sys_sendto -&gt; __do_sys_sendto
+    -&gt; __sys_sendto -&gt; sock_sendmsg
+</code></pre>
+<p>Call trace of <code>sendmsg</code></p>
+<pre><code class="language-text">entry_SYSCALL_64 -&gt; do_syscall_64 -&gt; __sys_sendmsg -&gt; ___sys_sendmsg -&gt; ____sys_sendmsg
+    -&gt; sock_sendmsg
+</code></pre>
 <p>Call trace of <code>write(2)</code></p>
-<pre><code class="text">entry_SYSCALL_64 -&gt; do_syscall_64 -&gt; ksys_write -&gt; vfs_write -&gt; new_sync_write -&gt; call_write_iter
+<pre><code class="language-text">entry_SYSCALL_64 -&gt; do_syscall_64 -&gt; ksys_write -&gt; vfs_write -&gt; new_sync_write -&gt; call_write_iter
     -&gt; sock_write_iter -&gt; sock_sendmsg -&gt; sock_sendmsg_nosec -&gt; tcp_sendmsg -&gt; tcp_sendmsg_locked
     -&gt; tcp_push -&gt; __tcp_push_pending_frames -&gt; tcp_write_xmit -&gt; tcp_transmit_skb
     -&gt; __tcp_transmit_skb -&gt; ip_queue_xmit -&gt; __ip_queue_xmit -&gt; ip_local_out -&gt; dst_output
-    -&gt; ip_output
+    -&gt; ip_output -&gt; ip_finish_output -&gt; __ip_finish_output -&gt; ip_finish_output2 -&gt; neigh_output
 
 IPv6
 __tcp_transmit_skb -&gt; inet6_csk_xmit -&gt; ip6_xmit -&gt; dst_output -&gt; ip6_output
+    -&gt; ip6_finish_output2 -&gt; neigh_output -&gt; neigh_hh_output -&gt; dev_queue_xmit
+    -&gt; __dev_queue_xmit -&gt; __dev_xmit_skb -&gt; qdisc_run
+    -&gt; __qdisc_run -&gt; qdisc_restart -&gt; sch_direct_xmit -&gt; dev_hard_start_xmit
+    -&gt; xmit_one -&gt; netdev_start_xmit -&gt; __netdev_start_xmit -&gt; mlx4_en_*
 </code></pre>
-
 <p>Call trace of receiving ACK from packet 6</p>
-<pre><code class="text">ip_local_deliver_finish -&gt; ip_protocol_deliver_rcu -&gt; tcp_v4_rcv -&gt; tcp_v4_do_rcv
+<pre><code class="language-text">ip_local_deliver_finish -&gt; ip_protocol_deliver_rcu -&gt; tcp_v4_rcv -&gt; tcp_v4_do_rcv
     -&gt; tcp_rcv_established -&gt; tcp_data_snd_check -&gt; tcp_push_pending_frames
     -&gt; __tcp_push_pending_frames -&gt; ...
 </code></pre>
-
 <p>Call trace of <code>close(2)</code></p>
-<pre><code class="text">__fput -&gt; sock_close -&gt; __sock_release -&gt; inet_release -&gt; tcp_close -&gt; tcp_send_fin
+<pre><code class="language-text">__fput -&gt; sock_close -&gt; __sock_release -&gt; inet_release -&gt; tcp_close -&gt; tcp_send_fin
     -&gt; __tcp_push_pending_frames -&gt; tcp_write_xmit -&gt; tcp_transmit_skb -&gt; ...
 </code></pre>
               

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Sockets - Shuo's Linux TCP/IP notes</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link href="../extra.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Sockets";
+    var mkdocs_page_input_path = "sockets.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1220141-6', 'chenshuo.com');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Shuo's Linux TCP/IP notes</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Sockets</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#struct-sockaddr_in6-is-bigger-than-struct-sockaddr">struct sockaddr_in6 is bigger than struct sockaddr</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#host-environment">Host environment</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#client">Client</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#server">Server</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#read2-vs-recv2">read(2) vs. recv(2)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#references">References</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../profile/">Profiling</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../walkthrough/">Walkthrough</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../links/">Links</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Shuo's Linux TCP/IP notes</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Sockets</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="ipv6-sockets-programming-notes">IPv6 Sockets Programming Notes</h1>
+<h2 id="struct-sockaddr_in6-is-bigger-than-struct-sockaddr"><code>struct sockaddr_in6</code> is bigger than <code>struct sockaddr</code></h2>
+<p>BSD Sockets API is not type-safe w.r.t. socket address structs,
+probably because it predates function signature checking in C.
+We often need to cast a <code>struct sockaddr_in*</code> or <code>struct sockaddr_in6*</code> to <code>struct sockaddr*</code>, like:</p>
+<pre><code>// Sockets API often takes struct sockaddr*, which could point to
+// sockaddr_in, sockaddr_in6, or sockaddr_un.
+
+int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
+</code></pre>
+<pre><code>// IPv4
+struct sockaddr_in listen_addr = {
+  .sin_family      = AF_INET,
+  .sin_port        = htons(8000),
+  .sin_addr.s_addr = htonl(INADDR_LOOPBACK),
+};
+
+int sockfd = socket(AF_INET, SOCK_STREAM, 0);
+if (bind(sockfd, (struct sockaddr *) &amp;listen_addr, sizeof listen_addr) &lt; 0) {
+  perror(&quot;bind&quot;);
+}
+</code></pre>
+<pre><code>// IPv6
+struct sockaddr_in6 addr6 = {
+  .sin6_family  = AF_INET6,
+  .sin6_port    = htons(8000),
+  .sin6_addr    = in6addr_any,
+};
+
+int sockfd = socket(AF_INET6, SOCK_STREAM, 0);
+if (bind(sockfd, (struct sockaddr *) &amp;addr6, sizeof addr6) &lt; 0) {
+  perror(&quot;bind&quot;);
+}
+</code></pre>
+<p>On platforms I tested, <code>sizeof(struct sockaddr) == sizeof(struct sockaddr_in) == 16</code>,
+while <code>sizeof(struct sockaddr_in6) == 28</code>.
+So sockets functions that take <code>struct sockaddr*</code> as input parameter usually work fine, e.g.
+<code>bind()</code>, <code>connect()</code>, <code>sendto()</code>.</p>
+<p>However, be careful about output parameter in <code>accept()</code>, <code>recvfrom()</code>, <code>getpeername()</code>, and <code>getsockname()</code>.
+Don't use <code>struct sockaddr</code> to hold the result, unless you know it's AF_INET not AF_INET6.</p>
+<div class="warning">
+Wrong UDP echo server for IPv6
+
+<pre><code>void udp_echo(int sockfd)
+{
+  struct sockaddr peerAddr;  // *** Can't hold sockaddr_in6
+  socklen_t addrLen;
+  char message[1024];
+
+  while (true) {
+    addrLen = sizeof peerAddr;
+    bzero(&amp;peerAddr, sizeof peerAddr);
+    ssize_t nr = recvfrom(sockfd, message, sizeof message, 0, &amp;peerAddr, &amp;addrLen);
+    // peerAddr is truncated in IPv6, so message won't be echoed back to the sender.
+    if (nr &gt;= 0) {
+      ssize_t nw = sendto(sockfd, message, nr, 0, &amp;peerAddr, addrLen);
+    }
+  }
+}
+</code></pre>
+
+</div>
+
+<p><code>strace(1)</code> output:</p>
+<pre><code>recvfrom(3, &quot;hello&quot;, 1024, 0, {sa_family=AF_INET6, sa_data=&quot;\222R\0\0\0\0\0\0\0\0\0\0\0\0&quot;}, [16-&gt;28]) = 5
+sendto(3, &quot;hello&quot;, 5, 0, {sa_family=AF_INET6, sin6_port=htons(37458), sin6_flowinfo=htonl(0), inet_pton(AF_INET6, &quot;::fa3b:3860:0:0&quot;, &amp;sin6_addr), sin6_scope_id=539754}, 28) = 5
+</code></pre>
+<p>Note that the address was truncated <code>[16-&gt;28]</code> in <code>recvfrom()</code>.</p>
+<div class="warning">
+Even worse, an address violation could happen when reading a `struct sockaddr` as `struct sockaddr_in6`.
+
+<pre><code>void printAddress(struct sockaddr* addr)
+{
+  char buf[INET6_ADDRSTRLEN];
+  if (peerAddr.sa_family == AF_INET) {
+    // ...
+  } else if (peerAddr.sa_family == AF_INET6) {
+    struct sockaddr_in6* addr6 = (struct sockaddr_in6*)&amp;peerAddr;  // ***
+    if (inet_ntop(AF_INET6, &amp;addr6-&gt;sin6_addr, buf, sizeof buf)) {
+      printf(&quot;[%s]:%u\n&quot;, buf, ntohs(addr6-&gt;sin6_port));
+    }
+  }
+}
+
+void printPeerNameWrong(int sockfd)
+{
+  struct sockaddr peerAddr;
+  socklen_t addrlen = sizeof peerAddr;
+  if (getpeername(sockfd, &amp;peerAddr, &amp;addrlen) &lt; 0) {
+    perror(&quot;getpeername&quot;);
+    return;
+  }
+  // !!! should check addrlen &lt;= sizeof peerAddr.
+  printAddress(&amp;peerAddr);
+}
+
+</code></pre>
+
+</div>
+
+<p>AddressSanitizer output:</p>
+<pre><code>==3735==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffd8e5a3380 at pc 0x7f0e484164c2 bp 0x7ffd8e5a3240 sp 0x7ffd8e5a29f0
+READ of size 16 at 0x7ffd8e5a3380 thread T0
+    #0 0x7f0e484164c1 in __interceptor_inet_ntop ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:2478
+    #1 0x5595a07923d1 in printAddress (/home/schen/cpp/a.out+0x13d1)
+    #2 0x5595a0792728 in printPeerNameWrong (/home/schen/cpp/a.out+0x1728)
+    #3 0x5595a0792b1c in main (/home/schen/cpp/a.out+0x1b1c)
+    #4 0x7f0e48237d09 in __libc_start_main ../csu/libc-start.c:308
+    #5 0x5595a07921e9 in _start (/home/schen/cpp/a.out+0x11e9)
+
+Address 0x7ffd8e5a3380 is located in stack of thread T0 at offset 80 in frame
+    #0 0x5595a0792645 in printPeerNameWrong (/home/schen/cpp/a.out+0x1645)
+
+  This frame has 2 object(s):
+    [48, 52) 'addrlen' (line 37)
+    [64, 80) 'peerAddr' (line 36) &lt;== Memory access at offset 80 overflows this variable
+SUMMARY: AddressSanitizer: stack-buffer-overflow ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:2478 in __interceptor_inet_ntop
+</code></pre>
+<p>This stack buffer overflow is not detected by Valgrind, instead, the program prints some
+truncated address like <code>2601:647:4500:32bd::</code> when it should print <code>2601:647:4500:32bd:8a51:xxff:fexx:xxxx</code>.</p>
+<p>In both cases above, <code>struct sockaddr_storage</code> should be used instead.</p>
+<p>A <code>reinterpret_cast</code> is usually needed in C++, or two <code>static_cast</code>
+from <code>struct sockaddr_in*</code> to <code>void*</code>, then to <code>struct sockaddr*</code>, like this:
+<code>static_cast&lt;sockaddr*&gt;(static_cast&lt;void*&gt;(&amp;addr))</code>.
+New functions like <code>inet_pton</code> and <code>inet_ntop</code> use <code>void*</code> for socket addresses,
+save us some casting.
+Also in C++, pass-by-reference (<code>struct sockaddr&amp;</code>) vs. pass-by-value,
+the latter may be a victim of object-slicing problem.</p>
+<h2 id="host-environment">Host environment</h2>
+<ol>
+<li>IPv4 only<ul>
+<li><code>socket(AF_INET, ...)</code> succeeds</li>
+<li><code>socket(AF_INET6, ...)</code> fails</li>
+</ul>
+</li>
+<li>IPv6 only<ul>
+<li><code>socket(AF_INET, ...)</code> fails</li>
+<li><code>socket(AF_INET6, ...)</code> succeeds</li>
+</ul>
+</li>
+<li>Dual-stack<ul>
+<li><code>socket(AF_INET, ...)</code> succeeds</li>
+<li><code>socket(AF_INET6, ...)</code> succeeds</li>
+</ul>
+</li>
+</ol>
+<h2 id="client">Client</h2>
+<p>Usually easy to write protocol-independent code.</p>
+<ol>
+<li>parse IP address &amp; port from text, select <code>sockaddr_in</code> or <code>sockaddr_in6</code> based on address format.</li>
+<li>create socket fd for saddr.sa_family.</li>
+<li>connect to saddr</li>
+<li>read/write as usual.</li>
+</ol>
+<h2 id="server">Server</h2>
+<ol>
+<li>IPv4 only, listen on 0.0.0.0:8000, serves IPv4 clients only.</li>
+<li>IPv6 dual-stack, listen on [::]:8000, serves both IPv4 and IPv6 clients. IPv4 clients show up as IPv4-mapped address, like <code>::ffff:10.0.0.118</code>.</li>
+<li>IPv6 only, listen on [::]:8000, turn on <code>IPV6_V6ONLY</code>, serves IPv6 clients only.</li>
+<li>Two sockets, one listens on [::]:8000, turn on <code>IPV6_V6ONLY</code>, another listens on 0.0.0.0:8000.
+   Serves IPv6 and IPv4 clients, respectively.<code>sshd</code> and <code>nginx</code> do this by default.</li>
+</ol>
+<p>System wide <code>IPV6_V6ONLY</code> on Linux:</p>
+<ul>
+<li>sysctl <code>net.ipv6.bindv6only</code></li>
+<li><code>/proc/sys/net/ipv6/bindv6only</code></li>
+</ul>
+<p>Linux has it off by default, but see ref below for different opinion from OpenBSD.</p>
+<h2 id="read2-vs-recv2"><code>read(2)</code> vs. <code>recv(2)</code></h2>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://tools.ietf.org/html/rfc3493">RFC3493</a> Basic Socket Interface Extensions for IPv6, 2020/02</li>
+<li><a href="https://lwn.net/Articles/688462/">lwn688462</a> Should distributors disable IPv4-mapped IPv6?</li>
+<li><a href="http://unpbook.com/">UNP3e</a> <em>Unix Network Programming 3/e</em>, Chapter 12.</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../profile/" class="btn btn-neutral float-right" title="Profiling">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../profile/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

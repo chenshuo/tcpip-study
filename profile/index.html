@@ -62,6 +62,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../sockets/">Sockets</a>
+                    </li>
+                </ul>
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">Profiling</a>
     <ul class="current">
@@ -120,7 +124,7 @@ directly connected using SPF cable.</p>
 <p><img alt="10gbe" src="../img/10gbe.jpg" /></p>
 <p>Thoughput was about 1100MiB/s over 10GbE, both machine runs ~40% CPU utilization in one thread.</p>
 <p>For comparison, run <code>openssl speed sha</code> on the Rx side machine, an i7-3770 @ 3.4GHz.</p>
-<pre><code class="bash">$ openssl speed sha
+<pre><code class="language-bash">$ openssl speed sha
 OpenSSL 1.1.1f  31 Mar 2020
 The 'numbers' are in 1000s of bytes per second processed.
 type             16 bytes     64 bytes    256 bytes   1024 bytes   8192 bytes  16384 bytes
@@ -128,7 +132,6 @@ sha1            137355.08k   323943.17k   603290.54k   770941.95k   843352.75k  
 sha256           75659.30k   167113.02k   289437.70k   354737.49k   379652.78k   381676.20k
 sha512           51745.33k   206941.63k   329443.07k   468301.82k   533897.22k   539525.12k
 </code></pre>
-
 <p>In short, sending data through TCP is faster than calculating SHA1 locally.</p>
 <p>Rx is more expensive, it uses about 2x CPU cycles than Tx.</p>
 <h2 id="tx-path">Tx path</h2>
@@ -156,7 +159,7 @@ throughput was about 3300MiB/s.  <code>chargen</code> ran at 100% CPU, <code>dis
         <a href="../walkthrough/" class="btn btn-neutral float-right" title="Walkthrough">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../sockets/" class="btn btn-neutral" title="Sockets"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -182,7 +185,7 @@ throughput was about 3300MiB/s.  <code>chargen</code> ran at 100% CPU, <code>dis
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../sockets/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
         <span style="margin-left: 15px"><a href="../walkthrough/" style="color: #fcfcfc">Next &raquo;</a></span>

@@ -75,6 +75,10 @@
                     </li>
                 </ul>
                 <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="sockets/">Sockets</a>
+                    </li>
+                </ul>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="profile/">Profiling</a>
                     </li>
                 </ul>
@@ -140,19 +144,23 @@
 <li><a href="https://tools.ietf.org/html/rfc8312">RFC8312</a> <a href="https://en.wikipedia.org/wiki/CUBIC_TCP">CUBIC</a>,
   Linux's default <a href="https://en.wikipedia.org/wiki/TCP_congestion_control">congestion control algorithm</a> since 2.6.19,
   replaced <a href="https://en.wikipedia.org/wiki/BIC_TCP">BIC</a> (default from 2.6.8 till 2.6.18.x)</li>
+<li><a href="https://tools.ietf.org/html/rfc8985">RFC8985</a> RACK-TLP Loss Detection Algorithm for TCP</li>
 <li>Many others</li>
 </ul>
 <h2 id="tcpip-implementations">TCP/IP Implementations</h2>
+<p>AFAIK, there are four independent mainstream TCP/IP stacks: BSD, Linux, Windows, Solaris.
+I guess BSD stack is also used on macOS and iOS, Android uses Linux stack.
+So I guess most of traffic on Internet happens between the first three TCP/IP stacks.</p>
 <ul>
 <li>BSD family, <a href="https://svnweb.freebsd.org/base/head/share/misc/bsd-family-tree?view=markup">BSD family tree</a>
-   <p> <img alt="bsd" src="img/bsd.png" /><ul>
+   <img alt="bsd" src="img/bsd.png" /><ul>
 <li>4.4BSD-Lite is convered in <em>TCP/IP Illustrated (vol. 2): The Implementation</em> by
   Gary R. Wright and W. Richard Stevens, 1995.</li>
 <li>FreeBSD</li>
-<li><a href="http://www.f-stack.org/">http://www.f-stack.org/</a> User space TCP/IP stack from FreeBSD 11.0</li>
+<li><a href="http://www.f-stack.org/">http://www.f-stack.org/</a> User space TCP/IP stack from FreeBSD 11.0, <a href="https://github.com/pkelsey/libuinet">https://github.com/pkelsey/libuinet</a>.</li>
 </ul>
 </li>
-<li>Linux<ul>
+<li>Linux, some early history<ul>
 <li>First in 0.98 by Ross Biro, <code>net/tcp</code>, 1992-09-29</li>
 <li>Switched to a new one (NET2) by Fred van Kempen in 0.99.10, <code>net/inet</code>, 1993-06-07</li>
 <li>NET3 by Swansea University Computer Society (Alan Cox) took place in 1.1.4.</li>
@@ -185,6 +193,9 @@
 </li>
 <li>Toy implementations<ul>
 <li><a href="https://github.com/saminiir/level-ip">https://github.com/saminiir/level-ip</a></li>
+<li><a href="https://github.com/chobits/tapip">https://github.com/chobits/tapip</a></li>
+<li><a href="https://github.com/tass-belgium/picotcp">https://github.com/tass-belgium/picotcp</a></li>
+<li>Stanford CS144 <a href="https://cs144.github.io">https://cs144.github.io</a></li>
 </ul>
 </li>
 </ul>
@@ -214,7 +225,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="profile/" class="btn btn-neutral float-right" title="Profiling">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="sockets/" class="btn btn-neutral float-right" title="Sockets">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
     </div>
@@ -242,7 +253,7 @@
       
       
       
-        <span style="margin-left: 15px"><a href="profile/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="sockets/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
@@ -260,5 +271,5 @@
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2020-10-30 23:22:07.350267+00:00
+Build Date UTC : 2021-05-04 17:20:19.476409+00:00
 -->
