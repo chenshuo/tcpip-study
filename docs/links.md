@@ -25,7 +25,7 @@ Next year: [Kernel Networking Explained](https://www.slideshare.net/ThomasGraf5/
 * [RFC1958](https://tools.ietf.org/html/rfc1958) Architectural Principles of the Internet, 1996-06.
 
 ## RFC drafts
-* <https://tools.ietf.org/html/draft-dukkipati-tcpm-tcp-loss-probe-01>
+* <https://tools.ietf.org/html/draft-dukkipati-tcpm-tcp-loss-probe-01>, early version of [RFC8985](https://tools.ietf.org/html/rfc8985)?
 * <https://tools.ietf.org/html/draft-cardwell-iccrg-bbr-congestion-control-00>
 
 ## Posts
