@@ -51,7 +51,7 @@ So I guess most of traffic on Internet happens between the first three TCP/IP st
     * In 2.2.0pre5, renamed to NET4, early 1999.
     * <https://blog.cloudflare.com/why-we-use-the-linux-kernels-tcp-stack/>
     * <https://jvns.ca/blog/2016/06/30/why-do-we-use-the-linux-kernels-tcp-stack/>
-* lwIP / uIP / [picoTCP](https://github.com/tass-belgium/picotcp)
+* [lwIP](https://en.wikipedia.org/wiki/LwIP) / uIP / [picoTCP](https://github.com/tass-belgium/picotcp)
     * For microcontrollers, small footprint
 * gvisor / [netstack](https://github.com/google/gvisor/tree/master/pkg/tcpip)
     * User space, in Golang
@@ -66,7 +66,6 @@ So I guess most of traffic on Internet happens between the first three TCP/IP st
 * Toy implementations
     * <https://github.com/saminiir/level-ip>
     * <https://github.com/chobits/tapip>
-    * <https://github.com/tass-belgium/picotcp>
     * Stanford CS144 <https://cs144.github.io>
 
 ## Tools
