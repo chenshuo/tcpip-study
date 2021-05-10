@@ -32,21 +32,24 @@ _TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by [Kevin R. Fall](http://
 
 ## TCP/IP Implementations
 
-AFAIK, there are four independent mainstream TCP/IP stacks: BSD, Linux, Windows, Solaris.
+AFAIK, there are four independent mainstream TCP/IP stacks: BSD, Linux, Windows,
+[Solaris](https://github.com/kofemann/opensolaris/blob/master/usr/src/uts/common/inet/tcp/tcp.c) ([Mentat TCP](https://en.wikipedia.org/wiki/Mentat_Portable_Streams) and [archived page](https://web.archive.org/web/19990422220032/http://www.mentat.com/tcp/tcpfaq.html).
 I guess BSD stack is also used on macOS and iOS, Android uses Linux stack.
 So I guess most of traffic on Internet happens between the first three TCP/IP stacks.
 
 * BSD family, [BSD family tree](https://svnweb.freebsd.org/base/head/share/misc/bsd-family-tree?view=markup)
    ![bsd](img/bsd.png)
-    * 4.4BSD-Lite is convered in _TCP/IP Illustrated (vol. 2): The Implementation_ by
-      Gary R. Wright and W. Richard Stevens, 1995.
-    * FreeBSD
+    * [4.2BSD](https://www.tuhs.org/cgi-bin/utree.pl?file=4.1cBSD/a/sys/netinet) was the first widely available TCP/IP implementation.
+    * [4.4BSD-Lite](https://github.com/chenshuo/4.4BSD-Lite2/tree/master/sys/netinet) is convered in great detail in
+    _TCP/IP Illustrated (vol. 2): The Implementation_ by Gary R. Wright and W. Richard Stevens, 1995.
+    * [FreeBSD](https://cgit.freebsd.org/src/tree/sys/netinet)
     * <http://www.f-stack.org/> User space TCP/IP stack from FreeBSD 11.0, <https://github.com/pkelsey/libuinet>.
 * Linux, some early history
-    * First in 0.98 by Ross Biro, `net/tcp`, 1992-09-29
-    * Switched to a new one (NET2) by Fred van Kempen in 0.99.10, `net/inet`, 1993-06-07
+    * First in 0.98 by Ross Biro, [`net/tcp`](https://elixir.bootlin.com/linux/0.98/source/net/tcp), 1992-09-29
+    * Switched to a new one (NET2) by Fred van Kempen in 0.99.10, [`net/inet`](https://elixir.bootlin.com/linux/0.99.10/source/net/inet), 1993-06-07
     * NET3 by Swansea University Computer Society (Alan Cox) took place in 1.1.4.
-    * In 1.2.10 -> 1.3.0, moved from `net/inet` to `net/ipv4`. Last update to `net/inet` was in 1.2.13
+    * In 1.2.10 -> 1.3.0, moved from `net/inet` to [`net/ipv4`](https://elixir.bootlin.com/linux/latest/source/net/ipv4).
+      Last update to [`net/inet`](https://elixir.bootlin.com/linux/1.2.13/source/net/inet) was in 1.2.13
     * In 2.1.8, added `net/ipv6`
     * In 2.2.0pre5, renamed to NET4, early 1999.
     * <https://blog.cloudflare.com/why-we-use-the-linux-kernels-tcp-stack/>
