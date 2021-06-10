@@ -28,6 +28,7 @@ _TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by [Kevin R. Fall](http://
   Linux's default [congestion control algorithm](https://en.wikipedia.org/wiki/TCP_congestion_control) since 2.6.19,
   replaced [BIC](https://en.wikipedia.org/wiki/BIC_TCP) (default from 2.6.8 till 2.6.18.x)
 * [RFC8985](https://tools.ietf.org/html/rfc8985) RACK-TLP Loss Detection Algorithm for TCP
+* [RFC9006](https://tools.ietf.org/html/rfc9006) TCP Usage Guidance in the Internet of Things (IoT), 2021-03.
 * Many others
 
 ## TCP/IP Implementations

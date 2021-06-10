@@ -13,6 +13,8 @@ Next year: [Kernel Networking Explained](https://www.slideshare.net/ThomasGraf5/
 * [Queueing in the Linux Network Stack](https://www.coverfire.com/articles/queueing-in-the-linux-network-stack/)
 * [TCP small queues](https://lwn.net/Articles/507065/)
 * [Controlling Queue Delay](https://queue.acm.org/detail.cfm?id=2209336) by Kathleen Nichols and Van Jacobson, ACM Queue May 2012.
+* [The classification and evolution of variants of TCP congestion control](https://www.researchgate.net/figure/The-classification-and-evolution-of-variants-of-TCP-congestion-control-Afanasyev-et-al_fig1_262053709)
+* [You don't know jack about Network Performance](https://queue.acm.org/detail.cfm?id=1066069) by Kevin Fall and Steve McCanne, ACM Queue June 2005.  Clearly explains four types of [network delay](https://en.wikipedia.org/wiki/Network_delay).
 * [TCP Implementation in Linux: A Brief Tutorial](http://www.ece.virginia.edu/mv/research/DOE09/publications/TCPlinux.pdf), 2008. Nice two-page overview of TCP/IP stack in Linux 2.6.19.
 * [Scaling in the Linux Networking Stack](https://www.kernel.org/doc/Documentation/networking/scaling.txt), kernel doc that describes RSS, RPS, RFS, XPS, etc.
 * [Segmentation Offloads in the Linux Networking Stack](https://www.kernel.org/doc/Documentation/networking/segmentation-offloads.txt), about TSO, GSO, GRO, etc.
@@ -20,13 +22,17 @@ Next year: [Kernel Networking Explained](https://www.slideshare.net/ThomasGraf5/
 * [Kernel data flow of 2.6.20](https://wiki.linuxfoundation.org/networking/kernel_flow) ![img](img/Network_data_flow_through_kernel.png)
 
 ## RFCs
+* [RFC1958](https://tools.ietf.org/html/rfc1958) Architectural Principles of the Internet, 1996-06.
+* [RFC2544](https://tools.ietf.org/html/rfc2544) Benchmarking Methodology for Network Interconnect Devices, 1999-03.
 * [RFC3439](https://tools.ietf.org/html/rfc3439) Some Internet Architectural Guidelines and Philosophy, 2002-12.
   "Layering Considered Harmful." linked from [Internet protocol suite](https://en.wikipedia.org/wiki/Internet_protocol_suite#Layer_names_and_number_of_layers_in_the_literature)
-* [RFC1958](https://tools.ietf.org/html/rfc1958) Architectural Principles of the Internet, 1996-06.
+* [RFC8900](https://tools.ietf.org/html/rfc8900) IP Fragmentation Considered Fragile
+
 
 ## RFC drafts
 * <https://tools.ietf.org/html/draft-dukkipati-tcpm-tcp-loss-probe-01>, early version of [RFC8985](https://tools.ietf.org/html/rfc8985)?
 * <https://tools.ietf.org/html/draft-cardwell-iccrg-bbr-congestion-control-00>
+
 
 ## Posts
 
@@ -36,3 +42,5 @@ Next year: [Kernel Networking Explained](https://www.slideshare.net/ThomasGraf5/
 * <https://spl0dge.wordpress.com/2013/09/08/building-a-wan-simulator/>
 * <https://web.archive.org/web/20160306040049/http://tdistler.com/2011/06/10/netem-wan-emulation-how-to-setup-a-netem-box>
 * John Nagle on Nagle's algorithm <https://news.ycombinator.com/item?id=9048947>, 2015.
+* [Coping with the TCP TIME-WAIT state on busy Linux servers](https://vincent.bernat.ch/en/blog/2014-tcp-time-wait-state-linux)
+* [Harping on ARP](https://lwn.net/Articles/45373/), [Multiple Interfaces on Same Ethernet Broadcast Network](https://www.kernel.org/doc/html/v4.18/networking/e100.html#multiple-interfaces-on-same-ethernet-broadcast-network)
