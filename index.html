@@ -173,6 +173,7 @@ So I guess most of traffic on Internet happens between the first three TCP/IP st
 <li>In 2.2.0pre5, renamed to NET4, early 1999.</li>
 <li><a href="https://blog.cloudflare.com/why-we-use-the-linux-kernels-tcp-stack/">https://blog.cloudflare.com/why-we-use-the-linux-kernels-tcp-stack/</a></li>
 <li><a href="https://jvns.ca/blog/2016/06/30/why-do-we-use-the-linux-kernels-tcp-stack/">https://jvns.ca/blog/2016/06/30/why-do-we-use-the-linux-kernels-tcp-stack/</a></li>
+<li>According to <a href="https://www.cs.cornell.edu/~ragarwal/pubs/network-stack.pdf">Understanding Host Network Stack Overheads</a>, <em>modern Linux network stack can achieve ~42Gbps throughput-per-core</em>.  In other words, a single TCP connection can sustain a 40Gbps NIC unidirectionally, but not an 100Gbps NIC.</li>
 </ul>
 </li>
 <li><a href="https://en.wikipedia.org/wiki/LwIP">lwIP</a> / uIP / <a href="https://github.com/tass-belgium/picotcp">picoTCP</a><ul>
@@ -274,5 +275,5 @@ So I guess most of traffic on Internet happens between the first three TCP/IP st
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2021-06-10 18:52:09.348145+00:00
+Build Date UTC : 2021-07-21 23:36:30.776602+00:00
 -->
