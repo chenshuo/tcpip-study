@@ -2,7 +2,7 @@
 
 Literatures I have or haven't read.
 
-* [Socksdirect: datacenter sockets can be fast and compatible](https://dlnext.acm.org/doi/abs/10.1145/3341302.3342071), SIGCOMM '19.
+* [Socksdirect: datacenter sockets can be fast and compatible](https://dlnext.acm.org/doi/abs/10.1145/3341302.3342071), SIGCOMM '19. [PDF](https://www.microsoft.com/en-us/research/uploads/prod/2019/08/p90-li.pdf)
 * [Busypolling next generation](https://netdevconf.info/2.1/session.html?dumazet) by Eric Dumazet, 2017.
 * [Making Linux TCP Fast](https://netdevconf.info/1.2/session.html?yuchung-cheng) by Yuchung Cheng and Neal Cardwell, 2016.
   [paper](https://netdevconf.info/1.2/papers/bbr-netdev-1.2.new.new.pdf)

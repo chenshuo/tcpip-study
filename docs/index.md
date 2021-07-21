@@ -55,6 +55,7 @@ So I guess most of traffic on Internet happens between the first three TCP/IP st
     * In 2.2.0pre5, renamed to NET4, early 1999.
     * <https://blog.cloudflare.com/why-we-use-the-linux-kernels-tcp-stack/>
     * <https://jvns.ca/blog/2016/06/30/why-do-we-use-the-linux-kernels-tcp-stack/>
+    * According to [Understanding Host Network Stack Overheads](https://www.cs.cornell.edu/~ragarwal/pubs/network-stack.pdf), _modern Linux network stack can achieve ~42Gbps throughput-per-core_.  In other words, a single TCP connection can sustain a 40Gbps NIC unidirectionally, but not an 100Gbps NIC.
 * [lwIP](https://en.wikipedia.org/wiki/LwIP) / uIP / [picoTCP](https://github.com/tass-belgium/picotcp)
     * For microcontrollers, small footprint
 * gvisor / [netstack](https://github.com/google/gvisor/tree/master/pkg/tcpip)
