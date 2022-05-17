@@ -1,69 +1,62 @@
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  
-  
-  <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Sockets - Shuo's Linux TCP/IP notes</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Sockets - Shuo's Linux TCP/IP notes</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Sockets";
+        var mkdocs_page_input_path = "sockets.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  <link rel="stylesheet" href="../css/theme.css" />
-  <link rel="stylesheet" href="../css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
-  <link href="../extra.css" rel="stylesheet" />
-  
-  <script>
-    // Current page data
-    var mkdocs_page_name = "Sockets";
-    var mkdocs_page_input_path = "sockets.md";
-    var mkdocs_page_url = null;
-  </script>
-  
-  <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
-  
-  <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-1220141-6', 'chenshuo.com');
-      ga('send', 'pageview');
-  </script>
-  
+        ga('create', 'UA-1220141-6', 'chenshuo.com');
+        ga('send', 'pageview');
+      </script>
+    
 </head>
 
 <body class="wy-body-for-nav" role="document">
 
   <div class="wy-grid-for-nav">
-
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-        <a href=".." class="icon icon-home"> Shuo's Linux TCP/IP notes</a>
-        <div role="search">
+          <a href=".." class="icon icon-home"> Shuo's Linux TCP/IP notes
+        </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
-                    </li>
-                </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Sockets</a>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Sockets</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#struct-sockaddr_in6-is-bigger-than-struct-sockaddr">struct sockaddr_in6 is bigger than struct sockaddr</a>
     </li>
@@ -78,51 +71,42 @@
     <li class="toctree-l2"><a class="reference internal" href="#references">References</a>
     </li>
     </ul>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../profile/">Profiling</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../walkthrough/">Walkthrough</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../links/">Links</a>
-                    </li>
-                </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../profile/">Profiling</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../walkthrough/">Walkthrough</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../links/">Links</a>
+                </li>
+              </ul>
       </div>
     </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="..">Shuo's Linux TCP/IP notes</a>
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Shuo's Linux TCP/IP notes</a>
+        
       </nav>
-
-      
       <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="..">Docs</a> &raquo;</li>
-    
-      
-    
-    <li>Sockets</li>
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Sockets</li>
     <li class="wy-breadcrumbs-aside">
-      
     </li>
   </ul>
-  
   <hr/>
 </div>
-          <div role="main">
-            <div class="section">
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
               
                 <h1 id="ipv6-sockets-programming-notes">IPv6 Sockets Programming Notes</h1>
 <h2 id="struct-sockaddr_in6-is-bigger-than-struct-sockaddr"><code>struct sockaddr_in6</code> is bigger than <code>struct sockaddr</code></h2>
@@ -293,6 +277,59 @@ the latter may be a victim of object-slicing problem.</p>
 </ul>
 <p>Linux has it off by default, but see ref below for different opinion from OpenBSD.</p>
 <h2 id="read2-vs-recv2"><code>read(2)</code> vs. <code>recv(2)</code></h2>
+<p>Table 12.1 Sending and receiving data on a socket,
+from page 598 of <em>The Design and Implementation of the FreeBSD Operating System, 2nd ed.</em>.</p>
+<table>
+<thead>
+<tr>
+<th>syscall</th>
+<th>Flags</th>
+<th>Address</th>
+<th>Scatter/Gather</th>
+<th>Aux Data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>read/write</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td>readv/writev</td>
+<td>N</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td>recv/send</td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td>recvfrom/sendto</td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td>recvmsg/sendmsg</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+</tbody>
+</table>
+<p>On x86-64 Linux, <code>recv(2)</code> is not a syscall in fact, it's a wrapper of <code>recvfrom(..., NULL, NULL)</code>.
+Call graph as of Linux 5.15:</p>
+<p><span class="graphviz-light-dark" data-library-default="#789abc" data-default="#0" data-light="#0" data-dark="#ffffff"></span><svg width="563pt" height="757pt" viewBox="0.00 0.00 563.00 757.22" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="graphviz dot"><g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 753.22)"><title>G</title><polygon fill="transparent" stroke="transparent" points="-4,4 -4,-753.22 559,-753.22 559,4 -4,4"/><g id="clust1" class="cluster"><title>cluster_x</title><polygon fill="transparent" stroke="#000000" stroke-dasharray="5,2" points="286,-171.48 286,-421.98 474,-421.98 474,-171.48 286,-171.48"/><text text-anchor="middle" x="380" y="-406.78" font-family="Times,serif" font-size="14.00" fill="#000000">net/socket.c</text></g><!-- sys_read --><g id="node1" class="node"><title>sys_read</title><polygon fill="none" stroke="#000000" points="555,-669.72 451,-669.72 451,-555.72 555,-555.72 555,-669.72"/><text text-anchor="middle" x="503" y="-654.52" font-family="Times,serif" font-size="14.00" fill="#000000">__x64_sys_read</text><text text-anchor="middle" x="503" y="-639.52" font-family="Times,serif" font-size="14.00" fill="#000000">__do_sys_read</text><text text-anchor="middle" x="503" y="-624.52" font-family="Times,serif" font-size="14.00" fill="#000000">ksys_read</text><text text-anchor="middle" x="503" y="-609.52" font-family="Times,serif" font-size="14.00" fill="#000000">vfs_read</text><text text-anchor="middle" x="503" y="-594.52" font-family="Times,serif" font-size="14.00" fill="#000000">new_sync_read</text><text text-anchor="middle" x="503" y="-563.52" font-family="Times,serif" font-size="14.00" fill="#000000">fs/read_write.c</text></g><!-- call_read_iter --><g id="node3" class="node"><title>call_read_iter</title><ellipse fill="none" stroke="#000000" cx="366" cy="-485.35" rx="64.19" ry="26.74"/><text text-anchor="middle" x="366" y="-489.15" font-family="Times,serif" font-size="14.00" fill="#000000">call_read_iter</text><text text-anchor="middle" x="366" y="-474.15" font-family="Times,serif" font-size="14.00" fill="#000000">linux/fs.h</text></g><!-- sys_read&#45;&gt;call_read_iter --><g id="edge2" class="edge"><title>sys_read&#45;&gt;call_read_iter</title><path fill="none" stroke="#000000" d="M450.84,-556.57C447.88,-553.71 444.92,-550.91 442,-548.22 429.99,-537.16 416.3,-525.69 403.88,-515.68"/><polygon fill="#000000" stroke="#000000" points="405.93,-512.84 395.94,-509.34 401.57,-518.31 405.93,-512.84"/></g><!-- read() --><g id="node2" class="node"><title>read()</title><ellipse fill="none" stroke="#000000" cx="503" cy="-731.22" rx="31.7" ry="18"/><text text-anchor="middle" x="503" y="-727.52" font-family="Times,serif" font-size="14.00" fill="#000000">read()</text></g><!-- read()&#45;&gt;sys_read --><g id="edge1" class="edge"><title>read()&#45;&gt;sys_read</title><path fill="none" stroke="#000000" d="M503,-713.03C503,-704.03 503,-692.37 503,-680.22"/><polygon fill="#000000" stroke="#000000" points="506.5,-679.95 503,-669.95 499.5,-679.95 506.5,-679.95"/></g><!-- sock_read_iter --><g id="node4" class="node"><title>sock_read_iter</title><ellipse fill="none" stroke="#000000" cx="363" cy="-372.98" rx="62.29" ry="18"/><text text-anchor="middle" x="363" y="-369.28" font-family="Times,serif" font-size="14.00" fill="#000000">sock_read_iter</text></g><!-- call_read_iter&#45;&gt;sock_read_iter --><g id="edge3" class="edge"><title>call_read_iter&#45;&gt;sock_read_iter</title><path fill="none" stroke="#000000" d="M365.3,-458.47C364.83,-441.27 364.22,-418.72 363.74,-401.24"/><polygon fill="#000000" stroke="#000000" points="367.24,-401.01 363.47,-391.11 360.24,-401.2 367.24,-401.01"/></g><!-- sock_recvmsg --><g id="node5" class="node"><title>sock_recvmsg</title><ellipse fill="none" stroke="#000000" cx="359" cy="-269.48" rx="61.99" ry="18"/><text text-anchor="middle" x="359" y="-265.78" font-family="Times,serif" font-size="14.00" fill="#000000">sock_recvmsg</text></g><!-- sock_read_iter&#45;&gt;sock_recvmsg --><g id="edge4" class="edge"><title>sock_read_iter&#45;&gt;sock_recvmsg</title><path fill="none" stroke="#000000" d="M362.32,-354.76C361.71,-339.23 360.8,-316.12 360.09,-298.03"/><polygon fill="#000000" stroke="#000000" points="363.57,-297.64 359.68,-287.78 356.58,-297.91 363.57,-297.64"/></g><!-- sock_recvmsg_nosec --><g id="node6" class="node"><title>sock_recvmsg_nosec</title><ellipse fill="none" stroke="#000000" cx="380" cy="-197.48" rx="85.59" ry="18"/><text text-anchor="middle" x="380" y="-193.78" font-family="Times,serif" font-size="14.00" fill="#000000">sock_recvmsg_nosec</text></g><!-- sock_recvmsg&#45;&gt;sock_recvmsg_nosec --><g id="edge5" class="edge"><title>sock_recvmsg&#45;&gt;sock_recvmsg_nosec</title><path fill="none" stroke="#000000" d="M364.08,-251.54C366.42,-243.74 369.25,-234.3 371.88,-225.56"/><polygon fill="#000000" stroke="#000000" points="375.3,-226.34 374.82,-215.76 368.59,-224.33 375.3,-226.34"/></g><!-- inet_recvmsg --><g id="node7" class="node"><title>inet_recvmsg</title><ellipse fill="none" stroke="#000000" cx="380" cy="-116.61" rx="79.39" ry="26.74"/><text text-anchor="middle" x="380" y="-120.41" font-family="Times,serif" font-size="14.00" fill="#000000">inet_recvmsg</text><text text-anchor="middle" x="380" y="-105.41" font-family="Times,serif" font-size="14.00" fill="#000000">net/ipv4/af_inet.c</text></g><!-- sock_recvmsg_nosec&#45;&gt;inet_recvmsg --><g id="edge6" class="edge"><title>sock_recvmsg_nosec&#45;&gt;inet_recvmsg</title><path fill="none" stroke="#000000" d="M380,-179.37C380,-171.88 380,-162.79 380,-153.91"/><polygon fill="#000000" stroke="#000000" points="383.5,-153.69 380,-143.69 376.5,-153.69 383.5,-153.69"/></g><!-- tcp_recvmsg --><g id="node8" class="node"><title>tcp_recvmsg</title><ellipse fill="none" stroke="#000000" cx="380" cy="-26.87" rx="64.19" ry="26.74"/><text text-anchor="middle" x="380" y="-30.67" font-family="Times,serif" font-size="14.00" fill="#000000">tcp_recvmsg</text><text text-anchor="middle" x="380" y="-15.67" font-family="Times,serif" font-size="14.00" fill="#000000">net/ipv4/tcp.c</text></g><!-- inet_recvmsg&#45;&gt;tcp_recvmsg --><g id="edge7" class="edge"><title>inet_recvmsg&#45;&gt;tcp_recvmsg</title><path fill="none" stroke="#000000" d="M380,-89.29C380,-81.32 380,-72.43 380,-63.94"/><polygon fill="#000000" stroke="#000000" points="383.5,-63.87 380,-53.87 376.5,-63.87 383.5,-63.87"/></g><!-- sys_recvmsg --><g id="node9" class="node"><title>sys_recvmsg</title><polygon fill="none" stroke="#000000" points="128,-422.48 0,-422.48 0,-323.48 128,-323.48 128,-422.48"/><text text-anchor="middle" x="64" y="-407.28" font-family="Times,serif" font-size="14.00" fill="#000000">__x64_sys_recvmsg</text><text text-anchor="middle" x="64" y="-392.28" font-family="Times,serif" font-size="14.00" fill="#000000">__se_sys_recvmsg</text><text text-anchor="middle" x="64" y="-377.28" font-family="Times,serif" font-size="14.00" fill="#000000">__do_sys_recvmsg</text><text text-anchor="middle" x="64" y="-362.28" font-family="Times,serif" font-size="14.00" fill="#000000">__sys_recvmsg</text><text text-anchor="middle" x="64" y="-331.28" font-family="Times,serif" font-size="14.00" fill="#000000">net/socket.c</text></g><!-- sys_recvmsg&#45;&gt;sock_recvmsg --><g id="edge9" class="edge"><title>sys_recvmsg&#45;&gt;sock_recvmsg</title><path fill="none" stroke="#000000" d="M128.2,-327.63C131.13,-326.15 134.07,-324.76 137,-323.48 187.67,-301.43 249.01,-287.68 294.36,-279.73"/><polygon fill="#000000" stroke="#000000" points="295.1,-283.15 304.37,-278.02 293.92,-276.25 295.1,-283.15"/></g><!-- recvmsg() --><g id="node10" class="node"><title>recvmsg()</title><ellipse fill="none" stroke="#000000" cx="64" cy="-485.35" rx="46.59" ry="18"/><text text-anchor="middle" x="64" y="-481.65" font-family="Times,serif" font-size="14.00" fill="#000000">recvmsg()</text></g><!-- recvmsg()&#45;&gt;sys_recvmsg --><g id="edge8" class="edge"><title>recvmsg()&#45;&gt;sys_recvmsg</title><path fill="none" stroke="#000000" d="M64,-467.1C64,-457.63 64,-445.27 64,-432.66"/><polygon fill="#000000" stroke="#000000" points="67.5,-432.55 64,-422.55 60.5,-432.55 67.5,-432.55"/></g><!-- sys_readv --><g id="node11" class="node"><title>sys_readv</title><polygon fill="none" stroke="#000000" points="432.5,-677.22 299.5,-677.22 299.5,-548.22 432.5,-548.22 432.5,-677.22"/><text text-anchor="middle" x="366" y="-662.02" font-family="Times,serif" font-size="14.00" fill="#000000">__x64_sys_readv</text><text text-anchor="middle" x="366" y="-647.02" font-family="Times,serif" font-size="14.00" fill="#000000">__do_sys_readv</text><text text-anchor="middle" x="366" y="-632.02" font-family="Times,serif" font-size="14.00" fill="#000000">do_readv</text><text text-anchor="middle" x="366" y="-617.02" font-family="Times,serif" font-size="14.00" fill="#000000">vfs_readv</text><text text-anchor="middle" x="366" y="-602.02" font-family="Times,serif" font-size="14.00" fill="#000000">do_iter_read</text><text text-anchor="middle" x="366" y="-587.02" font-family="Times,serif" font-size="14.00" fill="#000000">do_iter_readv_writev</text><text text-anchor="middle" x="366" y="-556.02" font-family="Times,serif" font-size="14.00" fill="#000000">fs/read_write.c</text></g><!-- sys_readv&#45;&gt;call_read_iter --><g id="edge11" class="edge"><title>sys_readv&#45;&gt;call_read_iter</title><path fill="none" stroke="#000000" d="M366,-547.93C366,-539.19 366,-530.47 366,-522.46"/><polygon fill="#000000" stroke="#000000" points="369.5,-522.39 366,-512.39 362.5,-522.39 369.5,-522.39"/></g><!-- readv() --><g id="node12" class="node"><title>readv()</title><ellipse fill="none" stroke="#000000" cx="366" cy="-731.22" rx="36.29" ry="18"/><text text-anchor="middle" x="366" y="-727.52" font-family="Times,serif" font-size="14.00" fill="#000000">readv()</text></g><!-- readv()&#45;&gt;sys_readv --><g id="edge10" class="edge"><title>readv()&#45;&gt;sys_readv</title><path fill="none" stroke="#000000" d="M366,-713.03C366,-705.84 366,-696.96 366,-687.48"/><polygon fill="#000000" stroke="#000000" points="369.5,-687.44 366,-677.44 362.5,-687.44 369.5,-687.44"/></g><!-- sys_recvfrom --><g id="node13" class="node"><title>sys_recvfrom</title><polygon fill="none" stroke="#000000" points="277.5,-422.48 146.5,-422.48 146.5,-323.48 277.5,-323.48 277.5,-422.48"/><text text-anchor="middle" x="212" y="-407.28" font-family="Times,serif" font-size="14.00" fill="#000000">__x64_sys_recvfrom</text><text text-anchor="middle" x="212" y="-392.28" font-family="Times,serif" font-size="14.00" fill="#000000">__se_sys_recvfrom</text><text text-anchor="middle" x="212" y="-377.28" font-family="Times,serif" font-size="14.00" fill="#000000">__do_sys_recvfrom</text><text text-anchor="middle" x="212" y="-362.28" font-family="Times,serif" font-size="14.00" fill="#000000">__sys_recvfrom</text><text text-anchor="middle" x="212" y="-331.28" font-family="Times,serif" font-size="14.00" fill="#000000">net/socket.c</text></g><!-- sys_recvfrom&#45;&gt;sock_recvmsg --><g id="edge13" class="edge"><title>sys_recvfrom&#45;&gt;sock_recvmsg</title><path fill="none" stroke="#000000" d="M277.57,-326.54C279.06,-325.51 280.54,-324.49 282,-323.48 297.04,-313.09 313.75,-301.59 327.75,-291.96"/><polygon fill="#000000" stroke="#000000" points="329.82,-294.78 336.08,-286.23 325.85,-289.01 329.82,-294.78"/></g><!-- recvfrom() --><g id="node14" class="node"><title>recvfrom()</title><ellipse fill="none" stroke="#000000" cx="210" cy="-485.35" rx="49.29" ry="18"/><text text-anchor="middle" x="210" y="-481.65" font-family="Times,serif" font-size="14.00" fill="#000000">recvfrom()</text></g><!-- recvfrom()&#45;&gt;sys_recvfrom --><g id="edge12" class="edge"><title>recvfrom()&#45;&gt;sys_recvfrom</title><path fill="none" stroke="#000000" d="M210.31,-467.1C210.48,-457.63 210.71,-445.27 210.94,-432.66"/><polygon fill="#000000" stroke="#000000" points="214.44,-432.61 211.12,-422.55 207.44,-432.49 214.44,-432.61"/></g><!-- recv() --><g id="node15" class="node"><title>recv()</title><ellipse fill="none" stroke="#000000" cx="209" cy="-731.22" rx="31.7" ry="18"/><text text-anchor="middle" x="209" y="-727.52" font-family="Times,serif" font-size="14.00" fill="#000000">recv()</text></g><!-- __libc_recv\nglibc on x86&#45;64 --><g id="node16" class="node"><title>__libc_recv\nglibc on x86&#45;64</title><ellipse fill="none" stroke="#000000" cx="209" cy="-612.72" rx="72.66" ry="26.74"/><text text-anchor="middle" x="209" y="-616.52" font-family="Times,serif" font-size="14.00" fill="#000000">__libc_recv</text><text text-anchor="middle" x="209" y="-601.52" font-family="Times,serif" font-size="14.00" fill="#000000">glibc on x86&#45;64</text></g><!-- recv()&#45;&gt;__libc_recv\nglibc on x86&#45;64 --><g id="edge14" class="edge"><title>recv()&#45;&gt;__libc_recv\nglibc on x86&#45;64</title><path fill="none" stroke="#000000" d="M209,-713.03C209,-696.46 209,-670.88 209,-649.82"/><polygon fill="#000000" stroke="#000000" points="212.5,-649.61 209,-639.61 205.5,-649.61 212.5,-649.61"/></g><!-- __libc_recv\nglibc on x86&#45;64&#45;&gt;recvfrom() --><g id="edge15" class="edge"><title>__libc_recv\nglibc on x86&#45;64&#45;&gt;recvfrom()</title><path fill="none" stroke="#000000" d="M209.21,-585.74C209.38,-564.64 209.61,-534.96 209.78,-513.53"/><polygon fill="#000000" stroke="#000000" points="213.28,-513.49 209.86,-503.46 206.28,-513.43 213.28,-513.49"/></g></g></svg></p>
 <h2 id="references">References</h2>
 <ul>
 <li><a href="https://tools.ietf.org/html/rfc3493">RFC3493</a> Basic Socket Interface Extensions for IPv6, 2020/02</li>
@@ -301,29 +338,21 @@ the latter may be a victim of object-slicing problem.</p>
 </ul>
               
             </div>
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../profile/" class="btn btn-neutral float-right" title="Profiling">Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
-        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-    
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-      
+          
         </div>
       </div>
 
@@ -331,19 +360,21 @@ the latter may be a victim of object-slicing problem.</p>
 
   </div>
 
-  <div class="rst-versions" role="note" aria-label="versions">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-      
-      
-        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
-      
-      
-        <span style="margin-left: 15px"><a href="../profile/" style="color: #fcfcfc">Next &raquo;</a></span>
-      
-    </span>
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../profile/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
 </div>
     <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
     <script src="../js/theme.js" defer></script>
+      <script src="https://cdn.jsdelivr.net/gh/rod2ik/cdn@main/mkdocs/javascripts/mkdocs-graphviz.js" defer></script>
       <script src="../search/main.js" defer></script>
     <script defer>
         window.onload = function () {
