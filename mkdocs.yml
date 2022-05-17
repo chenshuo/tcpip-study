@@ -8,3 +8,12 @@ nav:
   - Walkthrough: walkthrough.md
   - Links: links.md
 extra_css: [extra.css]
+markdown_extensions:
+  - mkdocs_graphviz:
+        light_theme: 000000
+        dark_theme: FFFFFF
+        color: 000000
+        bgcolor: none
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/gh/rod2ik/cdn@main/mkdocs/javascripts/mkdocs-graphviz.js

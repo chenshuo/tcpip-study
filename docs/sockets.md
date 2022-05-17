@@ -182,6 +182,51 @@ Linux has it off by default, but see ref below for different opinion from OpenBS
 
 ## `read(2)` vs. `recv(2)`
 
+Table 12.1 Sending and receiving data on a socket,
+from page 598 of *The Design and Implementation of the FreeBSD Operating System, 2nd ed.*.
+
+| syscall | Flags | Address | Scatter/Gather | Aux Data |
+| --- | --- | --- | --- | --- |
+| read/write      | N | N | N | N |
+| readv/writev    | N | N | Y | N |
+| recv/send       | Y | N | N | N |
+| recvfrom/sendto | Y | Y | N | N |
+| recvmsg/sendmsg | Y | Y | Y | Y |
+
+On x86-64 Linux, `recv(2)` is not a syscall in fact, it's a wrapper of `recvfrom(..., NULL, NULL)`.
+Call graph as of Linux 5.15:
+
+```dot
+digraph G {
+  rankdir = TB;
+  sys_read [label="__x64_sys_read\n__do_sys_read\nksys_read\nvfs_read\nnew_sync_read\n\nfs/read_write.c", shape=box]
+  # read_iter [label="call_read_iter\nsock_read_iter"]
+  "read()" -> sys_read -> "call_read_iter" -> "sock_read_iter" -> "sock_recvmsg" -> sock_recvmsg_nosec -> inet_recvmsg -> tcp_recvmsg
+  inet_recvmsg[label="inet_recvmsg\nnet/ipv4/af_inet.c"]
+  tcp_recvmsg[label="tcp_recvmsg\nnet/ipv4/tcp.c"]
+
+  "call_read_iter" [label="call_read_iter\nlinux/fs.h"]
+  sys_recvmsg [label="__x64_sys_recvmsg\n__se_sys_recvmsg\n__do_sys_recvmsg\n__sys_recvmsg\n\nnet/socket.c", shape=box]
+  "recvmsg()" -> sys_recvmsg -> "sock_recvmsg"
+
+  sys_readv [label="__x64_sys_readv\n__do_sys_readv\ndo_readv\nvfs_readv\ndo_iter_read\ndo_iter_readv_writev\n\nfs/read_write.c", shape=box]
+  "readv()" -> sys_readv -> "call_read_iter"
+
+  sys_recvfrom [label="__x64_sys_recvfrom\n__se_sys_recvfrom\n__do_sys_recvfrom\n__sys_recvfrom\n\nnet/socket.c", shape=box]
+  "recvfrom()" -> sys_recvfrom -> "sock_recvmsg"
+
+
+  "recv()" -> "__libc_recv\nglibc on x86-64" -> "recvfrom()"
+  // "recv()" [style=filled]
+
+  subgraph cluster_x {
+    graph [style="dashed", label="net/socket.c"]
+    sock_read_iter;sock_recvmsg;sock_recvmsg_nosec
+    // sys_recvfrom;sys_recvmsg
+  }
+}
+```
+
 ## References
 
 * [RFC3493](https://tools.ietf.org/html/rfc3493) Basic Socket Interface Extensions for IPv6, 2020/02

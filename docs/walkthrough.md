@@ -169,10 +169,16 @@ ip6_input -> ip6_input_finish -> ip6_protocol_deliver_rcu -> tcp_v6_rcv -> tcp_v
 ```
 
 
-
 Call trace of `read(2)`
 ```text
 entry_SYSCALL_64 -> do_syscall_64 -> ksys_read -> vfs_read -> new_sync_read -> call_read_iter
+    -> sock_read_iter -> sock_recvmsg -> sock_recvmsg_nosec -> inet_recvmsg -> tcp_recvmsg
+```
+
+Call trace of `readv(2)`
+```text
+entry_SYSCALL_64 -> do_syscall_x64 -> __x64_sys_readv -> __do_sys_readv -> do_readv -> vfs_readv
+    -> do_iter_read -> do_iter_readv_writev -> call_read_iter
     -> sock_read_iter -> sock_recvmsg -> sock_recvmsg_nosec -> inet_recvmsg -> tcp_recvmsg
 ```
 
