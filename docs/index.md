@@ -12,14 +12,14 @@ A closer look at Linux networking datapath callgraph:
 
 ## TCP/IP Reference
 
-_TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by [Kevin R. Fall](http://kfall.com/) and [W. Richard Stevens](http://www.kohala.com/start/), 2011/11.
+_TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by [Kevin R. Fall](http://kfall.com/) and [W. Richard Stevens](http://www.kohala.com/start/), 2011-11.
 
-* [RFC793](https://tools.ietf.org/html/rfc793) Transmission Control Protocol, 1981/09
-* [RFC896](https://tools.ietf.org/html/rfc896) Nagle algorithm, 1984/01.
+* [RFC793](https://tools.ietf.org/html/rfc793) Transmission Control Protocol, 1981-09
+* [RFC896](https://tools.ietf.org/html/rfc896) Nagle algorithm, 1984-01.
   [Minshall's update](https://tools.ietf.org/html/draft-minshall-nagle-00).
-* [RFC1122](https://tools.ietf.org/html/rfc1122) Requirements for Internet Hosts --- Communication Layers, 1989/10
-* [RFC5681](https://tools.ietf.org/html/rfc5681) TCP Congestion Control, 2009/09
-* [RFC6093](https://tools.ietf.org/html/rfc6093) On the Implementation of the TCP Urgent Mechanism, 2011/01,
+* [RFC1122](https://tools.ietf.org/html/rfc1122) Requirements for Internet Hosts --- Communication Layers, 1989-10
+* [RFC5681](https://tools.ietf.org/html/rfc5681) TCP Congestion Control, 2009-09
+* [RFC6093](https://tools.ietf.org/html/rfc6093) On the Implementation of the TCP Urgent Mechanism, 2011-01,
   which recommends against the use of urgent mechanism.
 * [RFC7323](https://tools.ietf.org/html/rfc7323) TCP Extensions for High Performance, obsoletes [RFC1323](https://tools.ietf.org/html/rfc1323)
 * [RFC7413](https://tools.ietf.org/html/rfc7414) TCP Fast Open
@@ -29,6 +29,7 @@ _TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by [Kevin R. Fall](http://
   replaced [BIC](https://en.wikipedia.org/wiki/BIC_TCP) (default from 2.6.8 till 2.6.18.x)
 * [RFC8985](https://tools.ietf.org/html/rfc8985) RACK-TLP Loss Detection Algorithm for TCP
 * [RFC9006](https://tools.ietf.org/html/rfc9006) TCP Usage Guidance in the Internet of Things (IoT), 2021-03.
+* [RFC9293](https://tools.ietf.org/html/rfc9293) Transmission Control Protocol (TCP), obsoletes RFC793 after 40+ yrs, 2022-08.
 * Many others
 
 ## TCP/IP Implementations

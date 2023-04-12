@@ -23,6 +23,7 @@ Next year: [Kernel Networking Explained](https://www.slideshare.net/ThomasGraf5/
 
 ## RFCs
 * [RFC1958](https://tools.ietf.org/html/rfc1958) Architectural Principles of the Internet, 1996-06.
+* [RFC2525](https://tools.ietf.org/html/rfc2525) Known TCP Implementation Problems, 1999-03.
 * [RFC2544](https://tools.ietf.org/html/rfc2544) Benchmarking Methodology for Network Interconnect Devices, 1999-03.
 * [RFC3439](https://tools.ietf.org/html/rfc3439) Some Internet Architectural Guidelines and Philosophy, 2002-12.
   "Layering Considered Harmful." linked from [Internet protocol suite](https://en.wikipedia.org/wiki/Internet_protocol_suite#Layer_names_and_number_of_layers_in_the_literature)
