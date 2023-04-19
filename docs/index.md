@@ -25,9 +25,9 @@ _TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by [Kevin R. Fall](http://
 * [RFC7413](https://tools.ietf.org/html/rfc7413) TCP Fast Open
 * [RFC7414](https://tools.ietf.org/html/rfc7414) TCP Roadmap
 * [RFC8289](https://tools.ietf.org/html/rfc8289) Controlled Delay Active Queue Management
-* [RFC8312](https://tools.ietf.org/html/rfc8312) [CUBIC](https://en.wikipedia.org/wiki/CUBIC_TCP),
+* [RFC8312](https://tools.ietf.org/html/rfc8312) CC-[CUBIC](https://en.wikipedia.org/wiki/CUBIC_TCP),
   Linux's default [congestion control algorithm](https://en.wikipedia.org/wiki/TCP_congestion_control) since 2.6.19,
-  replaced [BIC](https://en.wikipedia.org/wiki/BIC_TCP) (default from 2.6.8 till 2.6.18.x)
+  replaced [BIC](https://en.wikipedia.org/wiki/BIC_TCP) (default from 2.6.8 till 2.6.18.x).  FreeBSD will use CUBIC as [the new default](https://reviews.freebsd.org/D36537), replacing [NewReno](https://freebsdfoundation.org/wp-content/uploads/2021/05/TCP-Cubic-is-Ready-to-Take-Flight.pdf).
 * [RFC8985](https://tools.ietf.org/html/rfc8985) RACK-TLP Loss Detection Algorithm for TCP
 * [RFC9006](https://tools.ietf.org/html/rfc9006) TCP Usage Guidance in the Internet of Things (IoT), 2021-03.
 * [RFC9293](https://tools.ietf.org/html/rfc9293) Transmission Control Protocol (TCP), obsoletes RFC793 after 40+ yrs, 2022-08.
