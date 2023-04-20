@@ -132,7 +132,7 @@
 <li><a href="https://tools.ietf.org/html/rfc5681">RFC5681</a> TCP Congestion Control, 2009-09</li>
 <li><a href="https://tools.ietf.org/html/rfc6093">RFC6093</a> On the Implementation of the TCP Urgent Mechanism, 2011-01,
   which recommends against the use of urgent mechanism.</li>
-<li><a href="https://www.rfc-editor.org/rfc/rfc6349">RFC6349</a> Framework for TCP Throughput Testing, 2011-08.</li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc6582">RFC6582</a> The NewReno Modification to TCP's Fast Recovery Algorithm, 2012-04</li>
 <li><a href="https://tools.ietf.org/html/rfc7323">RFC7323</a> TCP Extensions for High Performance, obsoletes <a href="https://tools.ietf.org/html/rfc1323">RFC1323</a></li>
 <li><a href="https://tools.ietf.org/html/rfc7413">RFC7413</a> TCP Fast Open</li>
 <li><a href="https://tools.ietf.org/html/rfc7414">RFC7414</a> TCP Roadmap</li>
@@ -141,13 +141,12 @@
   Linux's default <a href="https://en.wikipedia.org/wiki/TCP_congestion_control">congestion control algorithm</a> since 2.6.19,
   replaced <a href="https://en.wikipedia.org/wiki/BIC_TCP">BIC</a> (default from 2.6.8 till 2.6.18.x).  FreeBSD will use CUBIC as <a href="https://reviews.freebsd.org/D36537">the new default</a>, replacing <a href="https://freebsdfoundation.org/wp-content/uploads/2021/05/TCP-Cubic-is-Ready-to-Take-Flight.pdf">NewReno</a>.</li>
 <li><a href="https://tools.ietf.org/html/rfc8985">RFC8985</a> RACK-TLP Loss Detection Algorithm for TCP</li>
-<li><a href="https://tools.ietf.org/html/rfc9006">RFC9006</a> TCP Usage Guidance in the Internet of Things (IoT), 2021-03.</li>
 <li><a href="https://tools.ietf.org/html/rfc9293">RFC9293</a> Transmission Control Protocol (TCP), obsoletes RFC793 after 40+ yrs, 2022-08.</li>
-<li>Many others</li>
+<li>Many others in 'Links' page.</li>
 </ul>
 <h2 id="tcpip-implementations">TCP/IP Implementations</h2>
 <p>AFAIK, there are four independent mainstream TCP/IP stacks: BSD, Linux, Windows,
-<a href="https://github.com/kofemann/opensolaris/blob/master/usr/src/uts/common/inet/tcp/tcp.c">Solaris</a> (<a href="https://en.wikipedia.org/wiki/Mentat_Portable_Streams">Mentat TCP</a> and <a href="https://web.archive.org/web/19990422220032/http://www.mentat.com/tcp/tcpfaq.html">archived page</a>.
+and <a href="https://github.com/kofemann/opensolaris/blob/master/usr/src/uts/common/inet/tcp/tcp.c">Solaris</a> (<a href="https://en.wikipedia.org/wiki/Mentat_Portable_Streams">Mentat TCP</a> and <a href="https://web.archive.org/web/19990422220032/http://www.mentat.com/tcp/tcpfaq.html">archived page</a>.
 I guess BSD stack is also used on macOS and iOS, Android uses Linux stack.
 So I guess most of traffic on Internet happens between the first three TCP/IP stacks.</p>
 <ul>
@@ -160,7 +159,9 @@ So I guess most of traffic on Internet happens between the first three TCP/IP st
 <li><a href="http://www.f-stack.org/">http://www.f-stack.org/</a> User space TCP/IP stack from FreeBSD 11.0, <a href="https://github.com/pkelsey/libuinet">https://github.com/pkelsey/libuinet</a>.</li>
 </ul>
 </li>
-<li>Linux, some early history<ul>
+<li>
+<p>Linux, some early history</p>
+<ul>
 <li>First in 0.98 by Ross Biro, <a href="https://elixir.bootlin.com/linux/0.98/source/net/tcp"><code>net/tcp</code></a>, 1992-09-29</li>
 <li>Switched to a new one (NET2) by Fred van Kempen in 0.99.10, <a href="https://elixir.bootlin.com/linux/0.99.10/source/net/inet"><code>net/inet</code></a>, 1993-06-07</li>
 <li>NET3 by Swansea University Computer Society (Alan Cox) took place in 1.1.4.</li>
@@ -170,10 +171,11 @@ So I guess most of traffic on Internet happens between the first three TCP/IP st
 <li>In 2.2.0pre5, renamed to NET4, early 1999.</li>
 <li><a href="https://blog.cloudflare.com/why-we-use-the-linux-kernels-tcp-stack/">https://blog.cloudflare.com/why-we-use-the-linux-kernels-tcp-stack/</a></li>
 <li><a href="https://jvns.ca/blog/2016/06/30/why-do-we-use-the-linux-kernels-tcp-stack/">https://jvns.ca/blog/2016/06/30/why-do-we-use-the-linux-kernels-tcp-stack/</a></li>
-<li>According to <a href="https://www.cs.cornell.edu/~ragarwal/pubs/network-stack.pdf">Understanding Host Network Stack Overheads</a>, <em>modern Linux network stack can achieve ~42Gbps throughput-per-core</em>.  In other words, a single TCP connection can sustain a 40Gbps NIC unidirectionally, but not an 100Gbps NIC.</li>
 </ul>
 </li>
-<li><a href="https://en.wikipedia.org/wiki/LwIP">lwIP</a> / uIP / <a href="https://github.com/tass-belgium/picotcp">picoTCP</a><ul>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/LwIP">lwIP</a> / uIP / <a href="https://github.com/tass-belgium/picotcp">picoTCP</a></p>
+<ul>
 <li>For microcontrollers, small footprint</li>
 </ul>
 </li>
@@ -267,5 +269,5 @@ So I guess most of traffic on Internet happens between the first three TCP/IP st
 
 <!--
 MkDocs version : 1.4.2
-Build Date UTC : 2023-04-20 19:49:38.300284+00:00
+Build Date UTC : 2023-04-20 21:45:12.938539+00:00
 -->

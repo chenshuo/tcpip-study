@@ -80,6 +80,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#bandwidth-limit">Bandwidth limit</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#performance">Performance</a>
+    </li>
     </ul>
                 </li>
               </ul>
@@ -289,6 +291,10 @@ Transferred 14.5MBytes in 12.180s, 111 syscalls, 131072.0 Bytes/syscall
 </code></pre>
 <p><img alt="bandwidth" src="../img/bandwidth-limit.png" /></p>
 <p>This is probably the best case, as all availabe bandwidth is utilized.</p>
+<h2 id="performance">Performance</h2>
+<p>According to <a href="https://www.cs.cornell.edu/~ragarwal/pubs/network-stack.pdf">Understanding Host Network Stack Overheads</a> SIGCOMM'21,
+<em>modern Linux network stack can achieve ~42Gbps throughput-per-core</em>.  In other words, a single TCP connection can sustain a 40Gbps NIC unidirectionally, but not an 100Gbps NIC.</p>
+<p>Eric reported <a href="https://netdevconf.info/0x16/session.html?State-of-the-union-in-TCP-land">170Gbps single flow on 200Gbps NIC</a> in netdev conf 2022-10, with receiver zero copy and <a href="https://netdevconf.info/0x15/session.html?BIG-TCP">BIG TCP</a>.</p>
               
             </div>
           </div><footer>
