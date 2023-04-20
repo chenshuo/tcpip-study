@@ -20,7 +20,7 @@ h2 h2-eth0:s1-eth2
 s1 lo:  s1-eth1:h1-eth0 s1-eth2:h2-eth0
 ```
 
-TODO: default topo
+![mininet](img/mininet.png)
 
 
 ```

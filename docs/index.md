@@ -6,6 +6,10 @@ The TCP state machine has three inputs: Sockets API, Timers, and Data arrives.
 
 ![TCP](img/statemachine.png)
 
+Overview of packet flow:
+
+![](img/packet-flow.png)
+
 A closer look at Linux networking datapath callgraph:
 
 ![Callgraph](img/callgraph.png)
