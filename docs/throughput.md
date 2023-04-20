@@ -1,12 +1,14 @@
 # TCP Throughput
 
+TCP Throughput <= Bytes in flight / RTT, where RTT = round-trip time.
+
 ## TCP trace segment graph
 
 `tcptrace` is a tool written by [Shawn Ostermann](http://oucsace.cs.ohio.edu/~osterman/) at Ohio University, http://tcptrace.org. Wireshark can produce nice interactive graphs.
 
 ![FreeBSD](img/freebsd-newreno.png)
 
-NewReno congestion control, slow start after packet loss.
+Here we show FreeBSD's NewReno congestion control, slow start after packet loss.
 
 
 ## Mininet
@@ -22,6 +24,7 @@ s1 lo:  s1-eth1:h1-eth0 s1-eth2:h2-eth0
 
 ![mininet](img/mininet.png)
 
+Packets are captured at sender side `tcpdump -i s1-eth1 -s 128`.
 
 ```
 mininet> h1 ping -c 4 h2
@@ -80,9 +83,10 @@ PING 10.0.0.2 (10.0.0.2) 56(84) bytes of data.
 
 `iperf3 -c server --fq-rate 10M`
 
-No bursts.
 
 ![sender-fq](img/client-limit-fq.png)
+
+No bursts.
 
 ## Slow receiver
 
@@ -90,7 +94,9 @@ No bursts.
 
 ![receiver](img/server-limit.png)
 
-## Small `snd_wnd`
+Small window size.
+
+## Small Rwnd (`snd_wnd`)
 
 ```
 mininet> h1 bin/tcpperf -c h2
@@ -113,6 +119,8 @@ Transferred 623MBytes in 10.238s, 4754 syscalls, 131072.0 Bytes/syscall
 Throughput is limited by Rwnd (`snd_wnd`), 100ms * 66.7MB/s = 6.5MB.
 
 ![recv](img/sndwnd-limit.png)
+
+Window is filled up as soon as advertised.
 
 Set larger `tcp_rmem` on receiver, for larger sndwnd.
 
@@ -153,6 +161,8 @@ Throughput is limited by sndbuf, 100ms * 160MB/s = 16MB.
 
 
 ![sndbuf](img/sndbuf-limit.png)
+
+Rwnd is only half filled, in a burst.
 
 Higher throughput achived by larger `sndbuf`.
 
@@ -210,3 +220,4 @@ Transferred 14.5MBytes in 12.180s, 111 syscalls, 131072.0 Bytes/syscall
 
 ![bandwidth](img/bandwidth-limit.png)
 
+This is probably the best case, as all availabe bandwidth is utilized.

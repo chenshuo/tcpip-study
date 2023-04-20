@@ -7,6 +7,7 @@ nav:
   - Throughput: throughput.md
   - Profiling: profile.md
   - Walkthrough: walkthrough.md
+  - Slow Start: slowstart.md
   - Links: links.md
 extra_css: [extra.css]
 markdown_extensions:
