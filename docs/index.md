@@ -25,7 +25,7 @@ _TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by [Kevin R. Fall](http://
 * [RFC5681](https://tools.ietf.org/html/rfc5681) TCP Congestion Control, 2009-09
 * [RFC6093](https://tools.ietf.org/html/rfc6093) On the Implementation of the TCP Urgent Mechanism, 2011-01,
   which recommends against the use of urgent mechanism.
-* [RFC6349](https://www.rfc-editor.org/rfc/rfc6349) Framework for TCP Throughput Testing, 2011-08.
+* [RFC6582](https://www.rfc-editor.org/rfc/rfc6582) The NewReno Modification to TCP's Fast Recovery Algorithm, 2012-04
 * [RFC7323](https://tools.ietf.org/html/rfc7323) TCP Extensions for High Performance, obsoletes [RFC1323](https://tools.ietf.org/html/rfc1323)
 * [RFC7413](https://tools.ietf.org/html/rfc7413) TCP Fast Open
 * [RFC7414](https://tools.ietf.org/html/rfc7414) TCP Roadmap
@@ -34,14 +34,13 @@ _TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by [Kevin R. Fall](http://
   Linux's default [congestion control algorithm](https://en.wikipedia.org/wiki/TCP_congestion_control) since 2.6.19,
   replaced [BIC](https://en.wikipedia.org/wiki/BIC_TCP) (default from 2.6.8 till 2.6.18.x).  FreeBSD will use CUBIC as [the new default](https://reviews.freebsd.org/D36537), replacing [NewReno](https://freebsdfoundation.org/wp-content/uploads/2021/05/TCP-Cubic-is-Ready-to-Take-Flight.pdf).
 * [RFC8985](https://tools.ietf.org/html/rfc8985) RACK-TLP Loss Detection Algorithm for TCP
-* [RFC9006](https://tools.ietf.org/html/rfc9006) TCP Usage Guidance in the Internet of Things (IoT), 2021-03.
 * [RFC9293](https://tools.ietf.org/html/rfc9293) Transmission Control Protocol (TCP), obsoletes RFC793 after 40+ yrs, 2022-08.
-* Many others
+* Many others in 'Links' page.
 
 ## TCP/IP Implementations
 
 AFAIK, there are four independent mainstream TCP/IP stacks: BSD, Linux, Windows,
-[Solaris](https://github.com/kofemann/opensolaris/blob/master/usr/src/uts/common/inet/tcp/tcp.c) ([Mentat TCP](https://en.wikipedia.org/wiki/Mentat_Portable_Streams) and [archived page](https://web.archive.org/web/19990422220032/http://www.mentat.com/tcp/tcpfaq.html).
+and [Solaris](https://github.com/kofemann/opensolaris/blob/master/usr/src/uts/common/inet/tcp/tcp.c) ([Mentat TCP](https://en.wikipedia.org/wiki/Mentat_Portable_Streams) and [archived page](https://web.archive.org/web/19990422220032/http://www.mentat.com/tcp/tcpfaq.html).
 I guess BSD stack is also used on macOS and iOS, Android uses Linux stack.
 So I guess most of traffic on Internet happens between the first three TCP/IP stacks.
 
@@ -62,7 +61,7 @@ So I guess most of traffic on Internet happens between the first three TCP/IP st
     * In 2.2.0pre5, renamed to NET4, early 1999.
     * <https://blog.cloudflare.com/why-we-use-the-linux-kernels-tcp-stack/>
     * <https://jvns.ca/blog/2016/06/30/why-do-we-use-the-linux-kernels-tcp-stack/>
-    * According to [Understanding Host Network Stack Overheads](https://www.cs.cornell.edu/~ragarwal/pubs/network-stack.pdf), _modern Linux network stack can achieve ~42Gbps throughput-per-core_.  In other words, a single TCP connection can sustain a 40Gbps NIC unidirectionally, but not an 100Gbps NIC.
+
 * [lwIP](https://en.wikipedia.org/wiki/LwIP) / uIP / [picoTCP](https://github.com/tass-belgium/picotcp)
     * For microcontrollers, small footprint
 * gvisor / [netstack](https://github.com/google/gvisor/tree/master/pkg/tcpip)
