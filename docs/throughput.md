@@ -88,7 +88,7 @@ No bursts.
 
 `iperf3 -s --server-bitrate-limit 10M`
 
-TODO
+![receiver](img/server-limit.png)
 
 ## Small `snd_wnd`
 
