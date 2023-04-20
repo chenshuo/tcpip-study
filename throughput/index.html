@@ -72,7 +72,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#slow-receiver">Slow receiver</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#small-snd_wnd">Small snd_wnd</a>
+    <li class="toctree-l2"><a class="reference internal" href="#small-rwnd-snd_wnd">Small Rwnd (snd_wnd)</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#small-sndbuf">Small sndbuf</a>
     </li>
@@ -89,6 +89,10 @@
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../walkthrough/">Walkthrough</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../slowstart/">Slow Start</a>
                 </li>
               </ul>
               <ul>
@@ -119,10 +123,11 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="tcp-throughput">TCP Throughput</h1>
+<p>TCP Throughput &lt;= Bytes in flight / RTT, where RTT = round-trip time.</p>
 <h2 id="tcp-trace-segment-graph">TCP trace segment graph</h2>
 <p><code>tcptrace</code> is a tool written by <a href="http://oucsace.cs.ohio.edu/~osterman/">Shawn Ostermann</a> at Ohio University, http://tcptrace.org. Wireshark can produce nice interactive graphs.</p>
 <p><img alt="FreeBSD" src="../img/freebsd-newreno.png" /></p>
-<p>NewReno congestion control, slow start after packet loss.</p>
+<p>Here we show FreeBSD's NewReno congestion control, slow start after packet loss.</p>
 <h2 id="mininet">Mininet</h2>
 <p>All graphs below are from Linux using CUBIC cc, running under <a href="http://mininet.org">Mininet</a>.</p>
 <pre><code>mininet&gt; net
@@ -131,6 +136,7 @@ h2 h2-eth0:s1-eth2
 s1 lo:  s1-eth1:h1-eth0 s1-eth2:h2-eth0
 </code></pre>
 <p><img alt="mininet" src="../img/mininet.png" /></p>
+<p>Packets are captured at sender side <code>tcpdump -i s1-eth1 -s 128</code>.</p>
 <pre><code>mininet&gt; h1 ping -c 4 h2
 PING 10.0.0.2 (10.0.0.2) 56(84) bytes of data.
 64 bytes from 10.0.0.2: icmp_seq=1 ttl=64 time=0.252 ms
@@ -176,12 +182,13 @@ PING 10.0.0.2 (10.0.0.2) 56(84) bytes of data.
 <p><img alt="sender" src="../img/client-limit.png" /></p>
 <h2 id="slow-sender-using-fq-pacing">Slow sender using FQ pacing</h2>
 <p><code>iperf3 -c server --fq-rate 10M</code></p>
-<p>No bursts.</p>
 <p><img alt="sender-fq" src="../img/client-limit-fq.png" /></p>
+<p>No bursts.</p>
 <h2 id="slow-receiver">Slow receiver</h2>
 <p><code>iperf3 -s --server-bitrate-limit 10M</code></p>
 <p><img alt="receiver" src="../img/server-limit.png" /></p>
-<h2 id="small-snd_wnd">Small <code>snd_wnd</code></h2>
+<p>Small window size.</p>
+<h2 id="small-rwnd-snd_wnd">Small Rwnd (<code>snd_wnd</code>)</h2>
 <pre><code>mininet&gt; h1 bin/tcpperf -c h2
 Connected 10.0.0.1:37662 -&gt; 10.0.0.2:2009, congestion control: cubic
 Time (s)  Throughput   Bitrate    Cwnd    Rwnd  sndbuf  ssthresh  rtt/var
@@ -200,6 +207,7 @@ Transferred 623MBytes in 10.238s, 4754 syscalls, 131072.0 Bytes/syscall
 </code></pre>
 <p>Throughput is limited by Rwnd (<code>snd_wnd</code>), 100ms * 66.7MB/s = 6.5MB.</p>
 <p><img alt="recv" src="../img/sndwnd-limit.png" /></p>
+<p>Window is filled up as soon as advertised.</p>
 <p>Set larger <code>tcp_rmem</code> on receiver, for larger sndwnd.</p>
 <pre><code>mininet&gt; h2 sysctl -A |grep tcp_.mem
 net.ipv4.tcp_rmem = 10240   87380   16777216
@@ -229,6 +237,7 @@ Transferred 1425MBytes in 10.134s, 10869 syscalls, 131072.0 Bytes/syscall
 </code></pre>
 <p>Throughput is limited by sndbuf, 100ms * 160MB/s = 16MB.</p>
 <p><img alt="sndbuf" src="../img/sndbuf-limit.png" /></p>
+<p>Rwnd is only half filled, in a burst.</p>
 <p>Higher throughput achived by larger <code>sndbuf</code>.</p>
 <pre><code>mininet&gt; h1 sysctl -w net.ipv4.tcp_wmem=&quot;10240 131072 65536000&quot;
 net.ipv4.tcp_wmem = 10240 131072 65536000
@@ -279,6 +288,7 @@ Time (s)  Throughput   Bitrate    Cwnd    Rwnd  sndbuf  ssthresh  rtt/var
 Transferred 14.5MBytes in 12.180s, 111 syscalls, 131072.0 Bytes/syscall
 </code></pre>
 <p><img alt="bandwidth" src="../img/bandwidth-limit.png" /></p>
+<p>This is probably the best case, as all availabe bandwidth is utilized.</p>
               
             </div>
           </div><footer>
