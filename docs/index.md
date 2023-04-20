@@ -25,6 +25,7 @@ _TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by [Kevin R. Fall](http://
 * [RFC5681](https://tools.ietf.org/html/rfc5681) TCP Congestion Control, 2009-09
 * [RFC6093](https://tools.ietf.org/html/rfc6093) On the Implementation of the TCP Urgent Mechanism, 2011-01,
   which recommends against the use of urgent mechanism.
+* [RFC6349](https://www.rfc-editor.org/rfc/rfc6349) Framework for TCP Throughput Testing, 2011-08.
 * [RFC7323](https://tools.ietf.org/html/rfc7323) TCP Extensions for High Performance, obsoletes [RFC1323](https://tools.ietf.org/html/rfc1323)
 * [RFC7413](https://tools.ietf.org/html/rfc7413) TCP Fast Open
 * [RFC7414](https://tools.ietf.org/html/rfc7414) TCP Roadmap
