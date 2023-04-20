@@ -4,6 +4,7 @@ theme: readthedocs
 nav:
   - Home: index.md
   - Sockets: sockets.md
+  - Throughput: throughput.md
   - Profiling: profile.md
   - Walkthrough: walkthrough.md
   - Links: links.md

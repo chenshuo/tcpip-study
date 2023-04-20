@@ -5,6 +5,8 @@ directly connected using SPF cable.
 
 ![10gbe](img/10gbe.jpg)
 
+![10gbe](img/direct-10gbe.png)
+
 Thoughput was about 1100MiB/s over 10GbE, both machine runs ~40% CPU utilization in one thread.
 
 For comparison, run `openssl speed sha` on the Rx side machine, an i7-3770 @ 3.4GHz.
