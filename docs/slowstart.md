@@ -23,7 +23,12 @@ In new setting, 1.4 * (10+20+40) ~= 100k can be sent in 3RTT.
 
 ## HyStart++
 
-* <https://datatracker.ietf.org/doc/html/draft-ietf-tcpm-hystartplusplus>
+Stardard slow start ends when a packet loss is detected, but this often causes overshoot.
 
+_HyStart++ uses "increase in round-trip delay" as a heuristic to find an exit point before possible overshoot._
+
+* <https://datatracker.ietf.org/doc/html/draft-ietf-tcpm-hystartplusplus>
+* Linux incorporated HyStart++ to CUBIC in v2.6.29, 2009. [commit by Sangtae Ha](https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=ae27e98a51526595837ab7498b23d6478a198960).
+* FreeBSD adds HyStart++ to its newreno CC <https://reviews.freebsd.org/D32373> in 2021, but not released as of 13.2.
 * <https://blog.cloudflare.com/cubic-and-hystart-support-in-quiche/>
 
