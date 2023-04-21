@@ -120,8 +120,10 @@
 <li><a href="https://netdevconf.info/1.2/session.html?yuchung-cheng">Making Linux TCP Fast</a> by Yuchung Cheng and Neal Cardwell, 2016.
   <a href="https://netdevconf.info/1.2/papers/bbr-netdev-1.2.new.new.pdf">paper</a></li>
 <li><a href="https://www.slideshare.net/ThomasGraf5/linuxcon-2015-linux-kernel-networking-walkthrough">Kernel Networking Walkthrough</a> by Thomas Graf (tglx), LinuxCon 2015.
-Nice and short (~20 slides) intro to NAPI, RSS, RPS, GRO, TSO, FastOpen with pictures.
-Next year: <a href="https://www.slideshare.net/ThomasGraf5/linux-networking-explained">Kernel Networking Explained</a> by Thomas Graf, LinuxCon 2016, 27 slides.</li>
+Nice and short (~20 slides) intro to NAPI, RSS, RPS, GRO, TSO, FastOpen with pictures.<ul>
+<li>Next year: <a href="https://www.slideshare.net/ThomasGraf5/linux-networking-explained">Kernel Networking Explained</a> also by Thomas Graf, LinuxCon 2016, 27 slides.</li>
+</ul>
+</li>
 <li><a href="https://www.slideshare.net/hugolu/the-linux-networking-architecture/63">Linux Networking Architecture</a> slides by Hugo Lu, 2014.</li>
 <li><a href="https://www.coverfire.com/articles/queueing-in-the-linux-network-stack/">Queueing in the Linux Network Stack</a>, 2013.</li>
 <li><a href="https://lwn.net/Articles/507065/">TCP small queues</a>, LWN 2012.</li>
@@ -140,6 +142,7 @@ Next year: <a href="https://www.slideshare.net/ThomasGraf5/linux-networking-expl
 <li><a href="https://tools.ietf.org/html/rfc1958">RFC1958</a> Architectural Principles of the Internet, 1996-06.</li>
 <li><a href="https://tools.ietf.org/html/rfc2525">RFC2525</a> Known TCP Implementation Problems, 1999-03.</li>
 <li><a href="https://tools.ietf.org/html/rfc2544">RFC2544</a> Benchmarking Methodology for Network Interconnect Devices, 1999-03.</li>
+<li><a href="https://tools.ietf.org/html/rfc3150">RFC3150</a> End-to-end Performance Implications of Slow Links, 2001-07.</li>
 <li><a href="https://tools.ietf.org/html/rfc3439">RFC3439</a> Some Internet Architectural Guidelines and Philosophy, 2002-12.
   "Layering Considered Harmful." linked from <a href="https://en.wikipedia.org/wiki/Internet_protocol_suite#Layer_names_and_number_of_layers_in_the_literature">Internet protocol suite</a></li>
 <li><a href="https://www.rfc-editor.org/rfc/rfc6349">RFC6349</a> Framework for TCP Throughput Testing, 2011-08.</li>
@@ -157,8 +160,11 @@ Next year: <a href="https://www.slideshare.net/ThomasGraf5/linux-networking-expl
 <li><a href="https://seclists.org/tcpdump/2009/q3/14">Reply from David Miller</a> about capturing packets when GSO is on.</li>
 <li><a href="https://calomel.org/network_loss_emulation.html">https://calomel.org/network_loss_emulation.html</a></li>
 <li><a href="https://spl0dge.wordpress.com/2013/09/08/building-a-wan-simulator/">https://spl0dge.wordpress.com/2013/09/08/building-a-wan-simulator/</a></li>
-<li><a href="https://web.archive.org/web/20160306040049/http://tdistler.com/2011/06/10/netem-wan-emulation-how-to-setup-a-netem-box">https://web.archive.org/web/20160306040049/http://tdistler.com/2011/06/10/netem-wan-emulation-how-to-setup-a-netem-box</a></li>
-<li>John Nagle on Nagle's algorithm <a href="https://news.ycombinator.com/item?id=9048947">https://news.ycombinator.com/item?id=9048947</a>, 2015.</li>
+<li><a href="https://web.archive.org/web/20160306040049/http://tdistler.com/2011/06/10/netem-wan-emulation-how-to-setup-a-netem-box">https://web.archive.org/web/20160306040049/http://tdistler.com/2011/06/10/netem-wan-emulation-how-to-setup-a-netem-box</a> set up a bridge and introduce packet loss and delay.</li>
+<li>John Nagle on Nagle's algorithm <a href="https://news.ycombinator.com/item?id=9048947">https://news.ycombinator.com/item?id=9048947</a>, 2015.<ul>
+<li><em>Sigh. If you're doing bulk file transfers, you never hit that problem. If you're sending enough data to fill up outgoing buffers, there's no delay. If you send all the data and close the TCP connection, there's no delay after the last packet. If you do send, reply, send, reply, there's no delay. If you do bulk sends, there's no delay. If you do send, send, reply, there's a delay.</em></li>
+</ul>
+</li>
 <li><a href="https://vincent.bernat.ch/en/blog/2014-tcp-time-wait-state-linux">Coping with the TCP TIME-WAIT state on busy Linux servers</a></li>
 <li><a href="https://lwn.net/Articles/45373/">Harping on ARP</a>, <a href="https://www.kernel.org/doc/html/v4.18/networking/e100.html#multiple-interfaces-on-same-ethernet-broadcast-network">Multiple Interfaces on Same Ethernet Broadcast Network</a></li>
 </ul>

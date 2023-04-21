@@ -72,7 +72,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#slow-receiver">Slow receiver</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#small-rwnd-snd_wnd">Small Rwnd (snd_wnd)</a>
+    <li class="toctree-l2"><a class="reference internal" href="#small-rwnd">Small Rwnd</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#small-sndbuf">Small sndbuf</a>
     </li>
@@ -190,7 +190,7 @@ PING 10.0.0.2 (10.0.0.2) 56(84) bytes of data.
 <p><code>iperf3 -s --server-bitrate-limit 10M</code></p>
 <p><img alt="receiver" src="../img/server-limit.png" /></p>
 <p>Small window size.</p>
-<h2 id="small-rwnd-snd_wnd">Small Rwnd (<code>snd_wnd</code>)</h2>
+<h2 id="small-rwnd">Small Rwnd</h2>
 <pre><code>mininet&gt; h1 bin/tcpperf -c h2
 Connected 10.0.0.1:37662 -&gt; 10.0.0.2:2009, congestion control: cubic
 Time (s)  Throughput   Bitrate    Cwnd    Rwnd  sndbuf  ssthresh  rtt/var
@@ -210,7 +210,7 @@ Transferred 623MBytes in 10.238s, 4754 syscalls, 131072.0 Bytes/syscall
 <p>Throughput is limited by Rwnd (<code>snd_wnd</code>), 100ms * 66.7MB/s = 6.5MB.</p>
 <p><img alt="recv" src="../img/sndwnd-limit.png" /></p>
 <p>Window is filled up as soon as advertised.</p>
-<p>Set larger <code>tcp_rmem</code> on receiver, for larger sndwnd.</p>
+<p>Set larger <code>tcp_rmem</code> on receiver, for larger Rwnd.</p>
 <pre><code>mininet&gt; h2 sysctl -A |grep tcp_.mem
 net.ipv4.tcp_rmem = 10240   87380   16777216
 net.ipv4.tcp_wmem = 10240   87380   16777216
@@ -261,15 +261,51 @@ Time (s)  Throughput   Bitrate    Cwnd    Rwnd  sndbuf  ssthresh  rtt/var
 Transferred 2703MBytes in 10.154s, 20625 syscalls, 131072.0 Bytes/syscall
 </code></pre>
 <h2 id="small-cwnd">Small Cwnd</h2>
-<p>TODO:</p>
-<ol>
-<li>
-<p>clamp</p>
-</li>
-<li>
-<p>packet loss</p>
-</li>
-</ol>
+<p>Congestion control algorithms decide congestion window (Cwnd).</p>
+<p>With RTT = 100ms, FreeBSD newreno CC sometimes increases Cwnd slowly.
+It reaches max bandwidth after ~30 seconds.</p>
+<pre><code>freebsd:~/recipes/tpc % bin/tcpperf -c 172.16.0.59 -b 100G -t 30
+Connected 172.16.0.77:31839 -&gt; 172.16.0.59:2009, congestion control: newreno
+Time (s)  Throughput   Bitrate    Cwnd    Rwnd  sndbuf  ssthresh  rtt/var
+  0.000s   0.00kB/s   0.00kbps  14.1Ki  63.6Ki  32.8Ki    1024Mi  202.0ms/101000
+  1.104s    356kB/s   2849kbps  45.5Ki   435Ki  96.8Ki    1024Mi  123.8ms/42562
+  2.007s    580kB/s   4643kbps  71.2Ki   589Ki   137Ki    1024Mi  107.5ms/13937
+  3.010s    915kB/s   7318kbps  99.7Ki   593Ki   201Ki    1024Mi  102.3ms/3750
+  4.014s   1176kB/s   9404kbps   128Ki   593Ki   257Ki    1024Mi  100.9ms/1187
+  5.017s   1437kB/s   11.5Mbps   162Ki  1307Ki   321Ki    1024Mi  100.5ms/687
+  6.021s   1829kB/s   14.6Mbps   191Ki  1307Ki   377Ki    1024Mi  100.4ms/562
+  7.024s   2090kB/s   16.7Mbps   219Ki  1287Ki   441Ki    1024Mi  100.4ms/687
+  8.028s   2481kB/s   19.9Mbps   248Ki  1266Ki   497Ki    1024Mi  100.5ms/687
+  9.032s   2611kB/s   20.9Mbps   276Ki  1246Ki   553Ki    1024Mi  100.5ms/750
+ 10.035s   3005kB/s   24.0Mbps   311Ki  1820Ki   617Ki    1024Mi  100.4ms/500
+ 11.038s   3396kB/s   27.2Mbps   339Ki  1894Ki   681Ki    1024Mi  100.4ms/500
+ 12.042s   3526kB/s   28.2Mbps   368Ki  1919Ki   737Ki    1024Mi  100.5ms/625
+ 13.047s   4045kB/s   32.4Mbps   418Ki  1852Ki   857Ki    1024Mi  101.2ms/1375
+ 14.050s   4701kB/s   37.6Mbps   480Ki  1868Ki  1009Ki    1024Mi  100.4ms/562
+ 15.054s   5354kB/s   42.8Mbps   553Ki  2361Ki  1169Ki    1024Mi  101.3ms/2000
+ 16.039s   6255kB/s   50.0Mbps   641Ki  2681Ki  1377Ki    1024Mi  100.6ms/687
+ 17.002s   7212kB/s   57.7Mbps   727Ki  2696Ki  1561Ki    1024Mi  102.2ms/4062
+ 18.006s   8098kB/s   64.8Mbps   813Ki  2684Ki  1769Ki    1024Mi  100.7ms/687
+ 19.010s   8617kB/s   68.9Mbps   898Ki  2663Ki  1817Ki    1024Mi  100.5ms/625
+ 20.013s   9662kB/s   77.3Mbps  1004Ki  2914Ki  1817Ki    1024Mi  100.4ms/500
+ 21.017s   10.7MB/s   85.7Mbps  1118Ki  2893Ki  1817Ki    1024Mi  100.4ms/500
+ 22.021s   11.9MB/s   95.0Mbps  1235Ki  3010Ki  1817Ki    1024Mi  100.4ms/500
+ 23.025s   13.2MB/s    106Mbps  1369Ki  2989Ki  1817Ki    1024Mi  100.3ms/437
+ 24.029s   14.5MB/s    116Mbps  1497Ki  2916Ki  1817Ki    1024Mi  100.5ms/687
+ 25.033s   15.9MB/s    127Mbps  1634Ki  2930Ki  1817Ki    1024Mi  100.3ms/437
+ 26.037s   17.2MB/s    138Mbps  1796Ki  3030Ki  1817Ki    1024Mi  100.4ms/562
+ 27.001s   18.2MB/s    146Mbps  2010Ki  3066Ki  1817Ki    1024Mi  100.8ms/687
+ 28.005s   18.5MB/s    148Mbps  2191Ki  3026Ki  1817Ki    1024Mi  100.7ms/687
+ 29.008s   18.4MB/s    147Mbps  2419Ki  2986Ki  1817Ki    1024Mi  100.4ms/562
+ 30.012s   18.5MB/s    148Mbps  2619Ki  2992Ki  1817Ki    1024Mi  100.7ms/625
+Transferred 234MBytes in 30.113s, 1787 syscalls, 131072.0 Bytes/syscall
+</code></pre>
+<p>Before Cwnd reaches sndbuf (1.8MB), throughput is dominated by Cwnd.
+e.g. at 20-th second: Cwnd = 1000K, throughput = 1000K / 0.1s = 10MB/s.</p>
+<p>After that, throughput is domnated by sndbuf in this case.
+e.g. at 30-th second, sndbuf = 1.8MB, throughput = 18MB/s.</p>
+<p>Linux uses CUBIC by default, so it's not easily reproducible on Linux.
+FreeBSD will switch to CUBIC (in release 14?).</p>
 <h2 id="bandwidth-limit">Bandwidth limit</h2>
 <pre><code>mininet&gt; s1 tc qdisc replace dev s1-eth2 root netem delay 10ms rate 10Mbit
 
