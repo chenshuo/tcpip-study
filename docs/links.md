@@ -10,7 +10,7 @@ Literatures I have or haven't read.
   [paper](https://netdevconf.info/1.2/papers/bbr-netdev-1.2.new.new.pdf)
 * [Kernel Networking Walkthrough](https://www.slideshare.net/ThomasGraf5/linuxcon-2015-linux-kernel-networking-walkthrough) by Thomas Graf (tglx), LinuxCon 2015.
 Nice and short (~20 slides) intro to NAPI, RSS, RPS, GRO, TSO, FastOpen with pictures.
-Next year: [Kernel Networking Explained](https://www.slideshare.net/ThomasGraf5/linux-networking-explained) by Thomas Graf, LinuxCon 2016, 27 slides.
+    * Next year: [Kernel Networking Explained](https://www.slideshare.net/ThomasGraf5/linux-networking-explained) also by Thomas Graf, LinuxCon 2016, 27 slides.
 * [Linux Networking Architecture](https://www.slideshare.net/hugolu/the-linux-networking-architecture/63) slides by Hugo Lu, 2014.
 * [Queueing in the Linux Network Stack](https://www.coverfire.com/articles/queueing-in-the-linux-network-stack/), 2013.
 * [TCP small queues](https://lwn.net/Articles/507065/), LWN 2012.
@@ -24,10 +24,12 @@ Next year: [Kernel Networking Explained](https://www.slideshare.net/ThomasGraf5/
 * [Programming with the Netpoll API](http://people.redhat.com/~jmoyer/netpoll-linux_kongress-2005.pdf) by Jeff Moyer, Linux Kongress 2005.
 * [Kernel data flow of 2.6.20](https://wiki.linuxfoundation.org/networking/kernel_flow) ![img](img/Network_data_flow_through_kernel.png)
 
+
 ## RFCs
 * [RFC1958](https://tools.ietf.org/html/rfc1958) Architectural Principles of the Internet, 1996-06.
 * [RFC2525](https://tools.ietf.org/html/rfc2525) Known TCP Implementation Problems, 1999-03.
 * [RFC2544](https://tools.ietf.org/html/rfc2544) Benchmarking Methodology for Network Interconnect Devices, 1999-03.
+* [RFC3150](https://tools.ietf.org/html/rfc3150) End-to-end Performance Implications of Slow Links, 2001-07.
 * [RFC3439](https://tools.ietf.org/html/rfc3439) Some Internet Architectural Guidelines and Philosophy, 2002-12.
   "Layering Considered Harmful." linked from [Internet protocol suite](https://en.wikipedia.org/wiki/Internet_protocol_suite#Layer_names_and_number_of_layers_in_the_literature)
 * [RFC6349](https://www.rfc-editor.org/rfc/rfc6349) Framework for TCP Throughput Testing, 2011-08.
@@ -46,7 +48,8 @@ Next year: [Kernel Networking Explained](https://www.slideshare.net/ThomasGraf5/
 * [Reply from David Miller](https://seclists.org/tcpdump/2009/q3/14) about capturing packets when GSO is on.
 * <https://calomel.org/network_loss_emulation.html>
 * <https://spl0dge.wordpress.com/2013/09/08/building-a-wan-simulator/>
-* <https://web.archive.org/web/20160306040049/http://tdistler.com/2011/06/10/netem-wan-emulation-how-to-setup-a-netem-box>
+* <https://web.archive.org/web/20160306040049/http://tdistler.com/2011/06/10/netem-wan-emulation-how-to-setup-a-netem-box> set up a bridge and introduce packet loss and delay.
 * John Nagle on Nagle's algorithm <https://news.ycombinator.com/item?id=9048947>, 2015.
+    * _Sigh. If you're doing bulk file transfers, you never hit that problem. If you're sending enough data to fill up outgoing buffers, there's no delay. If you send all the data and close the TCP connection, there's no delay after the last packet. If you do send, reply, send, reply, there's no delay. If you do bulk sends, there's no delay. If you do send, send, reply, there's a delay._
 * [Coping with the TCP TIME-WAIT state on busy Linux servers](https://vincent.bernat.ch/en/blog/2014-tcp-time-wait-state-linux)
 * [Harping on ARP](https://lwn.net/Articles/45373/), [Multiple Interfaces on Same Ethernet Broadcast Network](https://www.kernel.org/doc/html/v4.18/networking/e100.html#multiple-interfaces-on-same-ethernet-broadcast-network)
