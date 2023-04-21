@@ -8,6 +8,7 @@ nav:
   - Profiling: profile.md
   - Walkthrough: walkthrough.md
   - Slow Start: slowstart.md
+  - Reno CC: reno.md
   - Links: links.md
 extra_css: [extra.css]
 markdown_extensions:
