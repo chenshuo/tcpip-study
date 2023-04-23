@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Reno CC - Shuo's Linux TCP/IP notes</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Reno CC";
+        var mkdocs_page_input_path = "reno.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-1220141-6', 'chenshuo.com');
+        ga('send', 'pageview');
+      </script>
+    
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Shuo's Linux TCP/IP notes
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../sockets/">Sockets</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../throughput/">Throughput</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../profile/">Profiling</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../walkthrough/">Walkthrough</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../slowstart/">Slow Start</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Reno CC</a>
+    <ul class="current">
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../links/">Links</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Shuo's Linux TCP/IP notes</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Reno CC</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="reno-congestion-control">Reno Congestion Control</h1>
+<p>Classic Reno CC algorithm fits in one page from <code>linux/net/ipv4/tcp_cong.c</code></p>
+<pre><code>/*
+ * TCP Reno congestion control
+ * This is special case used for fallback as well.
+ */
+/* This is Jacobson's slow start and congestion avoidance.
+ * SIGCOMM '88, p. 328.
+ */
+void tcp_reno_cong_avoid(struct sock *sk, u32 ack, u32 acked)
+{
+        struct tcp_sock *tp = tcp_sk(sk);
+
+        if (!tcp_is_cwnd_limited(sk))
+                return;
+
+        /* In &quot;safe&quot; area, increase. */
+        if (tcp_in_slow_start(tp)) {
+                acked = tcp_slow_start(tp, acked);
+                if (!acked)
+                        return;
+        }
+        /* In dangerous area, increase slowly. */
+        tcp_cong_avoid_ai(tp, tcp_snd_cwnd(tp), acked);
+}
+EXPORT_SYMBOL_GPL(tcp_reno_cong_avoid);
+
+/* Slow start is used when congestion window is no greater than the slow start
+ * threshold. We base on RFC2581 and also handle stretch ACKs properly.
+ * We do not implement RFC3465 Appropriate Byte Counting (ABC) per se but
+ * something better;) a packet is only considered (s)acked in its entirety to
+ * defend the ACK attacks described in the RFC. Slow start processes a stretch
+ * ACK of degree N as if N acks of degree 1 are received back to back except
+ * ABC caps N to 2. Slow start exits when cwnd grows over ssthresh and
+ * returns the leftover acks to adjust cwnd in congestion avoidance mode.
+ */
+u32 tcp_slow_start(struct tcp_sock *tp, u32 acked)
+{
+        u32 cwnd = min(tcp_snd_cwnd(tp) + acked, tp-&gt;snd_ssthresh);
+
+        acked -= cwnd - tcp_snd_cwnd(tp);
+        tcp_snd_cwnd_set(tp, min(cwnd, tp-&gt;snd_cwnd_clamp));
+
+        return acked;
+}
+EXPORT_SYMBOL_GPL(tcp_slow_start);
+
+/* In theory this is tp-&gt;snd_cwnd += 1 / tp-&gt;snd_cwnd (or alternative w),
+ * for every packet that was ACKed.
+ */
+void tcp_cong_avoid_ai(struct tcp_sock *tp, u32 w, u32 acked)
+{
+        // I guess &quot;ai&quot; here stands for additive increase
+        // ...
+}
+
+/* Slow start threshold is half the congestion window (min 2) */
+u32 tcp_reno_ssthresh(struct sock *sk)
+{
+        const struct tcp_sock *tp = tcp_sk(sk);
+
+        return max(tcp_snd_cwnd(tp) &gt;&gt; 1U, 2U);
+}
+EXPORT_SYMBOL_GPL(tcp_reno_ssthresh);
+</code></pre>
+<p>Where <code>tcp_in_slow_start()</code> and <code>tcp_is_cwnd_limited()</code> are defined in `linux/include/net/tcp.h':</p>
+<pre><code>static inline bool tcp_in_slow_start(const struct tcp_sock *tp)
+{
+        return tcp_snd_cwnd(tp) &lt; tp-&gt;snd_ssthresh;
+}
+
+/* We follow the spirit of RFC2861 to validate cwnd but implement a more
+ * flexible approach. The RFC suggests cwnd should not be raised unless
+ * it was fully used previously. And that's exactly what we do in
+ * congestion avoidance mode. But in slow start we allow cwnd to grow
+ * as long as the application has used half the cwnd.
+ * Example :
+ *    cwnd is 10 (IW10), but application sends 9 frames.
+ *    We allow cwnd to reach 18 when all frames are ACKed.
+ * This check is safe because it's as aggressive as slow start which already
+ * risks 100% overshoot. The advantage is that we discourage application to
+ * either send more filler packets or data to artificially blow up the cwnd
+ * usage, and allow application-limited process to probe bw more aggressively.
+ */
+static inline bool tcp_is_cwnd_limited(const struct sock *sk)
+{
+        const struct tcp_sock *tp = tcp_sk(sk);
+
+        if (tp-&gt;is_cwnd_limited)
+                return true;
+
+        /* If in slow start, ensure cwnd grows to twice what was ACKed. */
+        if (tcp_in_slow_start(tp))
+                return tcp_snd_cwnd(tp) &lt; 2 * tp-&gt;max_packets_out;
+
+        return false;
+}
+</code></pre>
+<p><code>tcp_reno_cong_avoid()</code> gets called from <code>tcp_rcv_established()</code>.</p>
+<pre><code>tcp_rcv_established()
+  -&gt; tcp_queue_rcv()  // If income segment have payload
+  -&gt; tcp_ack()  // This routine deals with incoming acks, but not outgoing ones.
+    -&gt; tcp_cong_control() // Common entry point, called toward the end of
+                          // processing an ACK with precise rate info.
+                          // All transmission or retransmission are delayed afterwards.
+      -&gt; if tcp_in_cwnd_reduction():
+           tcp_cwnd_reduction()
+         elif tcp_may_raise_cwnd():
+            tcp_cong_avoid(): icsk-&gt;icsk_ca_ops-&gt;cong_avoid()
+              -&gt; tcp_reno_cong_avoid() or cubictcp_cong_avoid()
+  -&gt; tcp_data_snd_check()   // If we can send more data
+    -&gt; tcp_push_pending_frames()
+    -&gt; tcp_check_space()  // check if new space made available
+      -&gt; tcp_new_space()  // if SOCK_NOSPACE is set in sk-&gt;sk_socket-&gt;flags
+        -&gt; if tcp_should_expand_sndbuf():
+             tcp_sndbuf_expand()
+  -&gt; __tcp_ack_snd_check()  // Check if sending an ack is needed.
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../slowstart/" class="btn btn-neutral float-left" title="Slow Start"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../links/" class="btn btn-neutral float-right" title="Links">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../slowstart/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../links/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="https://cdn.jsdelivr.net/gh/rod2ik/cdn@main/mkdocs/javascripts/mkdocs-graphviz.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

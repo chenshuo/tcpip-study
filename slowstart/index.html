@@ -74,9 +74,15 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="./">Slow Start</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#kernel-knobs">Kernel knobs</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#hystart">HyStart++</a>
     </li>
     </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../reno/">Reno CC</a>
                 </li>
               </ul>
               <ul>
@@ -111,32 +117,136 @@
 <ul>
 <li>Cwnd increases nMSS upon receipt of an ACK covering new data of nMSS.</li>
 <li>Effectively Cwnd doubles every round-trip time, Cwnd = IW * 2 ^ nRTT.</li>
+<li>Exits when a packet loss is detected, sets ssthresh to Cwnd/2, as per Reno CC.</li>
+<li>Linux doesn't increase Cwnd if transmitting is not limited by Cwnd, see <code>cubictcp_cong_avoid()</code> in <code>tcp_cubic.c</code> and <code>tcp_reno_cong_avoid()</code> in <code>tcp_cong.c</code>).</li>
 </ul>
 <p>With Initial Window = 10:</p>
 <p><img alt="" src="../img/slow-start.png" /></p>
+<h2 id="kernel-knobs">Kernel knobs</h2>
+<pre><code>$ sysctl -A |grep tcp_.mem
+                  #  min    default     max
+net.ipv4.tcp_rmem = 4096    131072  6291456
+net.ipv4.tcp_wmem = 4096    16384   4194304
+</code></pre>
+<p>For <code>tcp_wmem[1] == 16K</code>, the default <code>sndbuf</code> is 16K.
+Which is greater than 10 (initial window) * 1460 (typical IPv4 MSS),
+works well for slow start.</p>
 <p>Linux 4.20 changed <code>tcp_rmem[1]</code> from 87k to 128KiB, <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=a337531b942bd8a03e7052444d7e36972aac2d92">commit by Yuchung Cheng in 2018-09</a>.
-So SYN rwin increased from 43k to 65k.</p>
+So SYN rwin increased from 43k to 65k (when <code>tcp_adv_win_scale == 1</code>).</p>
 <p>With IW=10 and MSS=1.4k, during slow start,
 the old setting will hit window full on 3rd RTT,
 limit sent bytes to ~70kB.
 In new setting, 1.4 * (10+20+40) ~= 100k can be sent in 3RTT.</p>
 <p><img alt="" src="../img/slow-start-10ms.png" /></p>
 <p><img alt="" src="../img/slow-start-10ms-large-rwnd.png" /></p>
+<p>From <code>linux-stable/Documentation/networking/ip-sysctl.rst</code>:</p>
+<pre><code>tcp_adv_win_scale - INTEGER
+        Count buffering overhead as bytes/2^tcp_adv_win_scale
+        (if tcp_adv_win_scale &gt; 0) or bytes-bytes/2^(-tcp_adv_win_scale),
+        if it is &lt;= 0.  Default: 1
+</code></pre>
+<p>In other words,</p>
+<table>
+<thead>
+<tr>
+<th><code>tcp_adv_win_scale</code></th>
+<th>Advertised window ratio</th>
+<th>Max adv window when <code>tcp_rmem[2] == 8M</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>100%</td>
+<td>8M</td>
+</tr>
+<tr>
+<td>1 (default since Linux 3.4)</td>
+<td>50%</td>
+<td>4M</td>
+</tr>
+<tr>
+<td>2</td>
+<td>75%</td>
+<td>6M</td>
+</tr>
+<tr>
+<td>3</td>
+<td>87.5%</td>
+<td>7M</td>
+</tr>
+<tr>
+<td>-1</td>
+<td>50%</td>
+<td>4M</td>
+</tr>
+<tr>
+<td>-2</td>
+<td>25%</td>
+<td>2M</td>
+</tr>
+<tr>
+<td>-3</td>
+<td>12.5%</td>
+<td>1M</td>
+</tr>
+</tbody>
+</table>
+<p>This value was changed in Linux 3.4 from 2 to 1.
+Here's a brief history:</p>
+<table>
+<thead>
+<tr>
+<th>Kernel Version</th>
+<th><code>tcp_adv_win_scale</code></th>
+<th>sysctl <code>tcp_rmem[]</code></th>
+<th>Initial advertised rcvwnd</th>
+<th>Max rcvwnd</th>
+<th>commit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Before 3.4</td>
+<td>2</td>
+<td>"4096 87380 4MiB"</td>
+<td>65535 = (87380 * 0.75)</td>
+<td>3MiB = (4MiB * 0.75)</td>
+<td></td>
+</tr>
+<tr>
+<td>3.4 to 4.19</td>
+<td>1</td>
+<td>"4096 87380 6MiB"</td>
+<td>43800 = (87380 * 0.5)</td>
+<td>3MiB = (6MiB * 0.5)</td>
+<td><a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=b49960a05e32121d29316cfdf653894b88ac9190">2012-05</a></td>
+</tr>
+<tr>
+<td>Since 4.20</td>
+<td>1</td>
+<td>"4096 128KiB 6MiB"</td>
+<td>64Ki = (128Ki * 0.5)</td>
+<td>3MiB = (6MiB * 0.5)</td>
+<td><a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=a337531b942bd8a03e7052444d7e36972aac2d92">2018-09</a></td>
+</tr>
+</tbody>
+</table>
 <h2 id="hystart">HyStart++</h2>
+<p>Stardard slow start ends when a packet loss is detected, but this often causes overshoot.</p>
+<p><em>HyStart++ uses "increase in round-trip delay" as a heuristic to find an exit point before possible overshoot.</em></p>
 <ul>
-<li>
-<p><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tcpm-hystartplusplus">https://datatracker.ietf.org/doc/html/draft-ietf-tcpm-hystartplusplus</a></p>
-</li>
-<li>
-<p><a href="https://blog.cloudflare.com/cubic-and-hystart-support-in-quiche/">https://blog.cloudflare.com/cubic-and-hystart-support-in-quiche/</a></p>
-</li>
+<li><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tcpm-hystartplusplus">https://datatracker.ietf.org/doc/html/draft-ietf-tcpm-hystartplusplus</a></li>
+<li>Linux incorporated HyStart++ to CUBIC in v2.6.29, 2009. <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=ae27e98a51526595837ab7498b23d6478a198960">commit by Sangtae Ha</a>.</li>
+<li>FreeBSD adds HyStart++ to its newreno CC <a href="https://reviews.freebsd.org/D32373">https://reviews.freebsd.org/D32373</a> in 2021, but not released as of 13.2.</li>
+<li><a href="https://blog.cloudflare.com/cubic-and-hystart-support-in-quiche/">https://blog.cloudflare.com/cubic-and-hystart-support-in-quiche/</a></li>
 </ul>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../walkthrough/" class="btn btn-neutral float-left" title="Walkthrough"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../links/" class="btn btn-neutral float-right" title="Links">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../reno/" class="btn btn-neutral float-right" title="Reno CC">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -162,7 +272,7 @@ In new setting, 1.4 * (10+20+40) ~= 100k can be sent in 3RTT.</p>
       <span><a href="../walkthrough/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../links/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../reno/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
