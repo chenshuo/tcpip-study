@@ -116,8 +116,8 @@ tcp_rcv_established()
       -> if tcp_in_cwnd_reduction():
            tcp_cwnd_reduction()
          elif tcp_may_raise_cwnd():
-            tcp_cong_avoid(): icsk->icsk_ca_ops->cong_avoid()
-              -> tcp_reno_cong_avoid() or cubictcp_cong_avoid()
+           tcp_cong_avoid(): icsk->icsk_ca_ops->cong_avoid()
+             -> tcp_reno_cong_avoid() or cubictcp_cong_avoid()
   -> tcp_data_snd_check()   // If we can send more data
     -> tcp_push_pending_frames()
     -> tcp_check_space()  // check if new space made available

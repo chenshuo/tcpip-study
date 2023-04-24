@@ -1,6 +1,7 @@
 # TCP Throughput
 
 TCP Throughput <= Bytes in flight / RTT, where RTT = round-trip time.
+Max bytes in flight = min(Cwnd, Rwnd, sndbuf).
 
 ## TCP trace segment graph
 
@@ -192,7 +193,10 @@ Transferred 2703MBytes in 10.154s, 20625 syscalls, 131072.0 Bytes/syscall
 Congestion control algorithms decide congestion window (Cwnd).
 
 With RTT = 100ms, FreeBSD newreno CC sometimes increases Cwnd slowly.
-It reaches max bandwidth after ~30 seconds.
+
+![](img/freebsd-cwnd-limit.png)
+
+In the following example, reaches max bandwidth after ~30 seconds.
 
 ```
 freebsd:~/recipes/tpc % bin/tcpperf -c 172.16.0.59 -b 100G -t 30
