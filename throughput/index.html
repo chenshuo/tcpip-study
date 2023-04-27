@@ -129,7 +129,8 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="tcp-throughput">TCP Throughput</h1>
-<p>TCP Throughput &lt;= Bytes in flight / RTT, where RTT = round-trip time.</p>
+<p>TCP Throughput &lt;= Bytes in flight / RTT, where RTT = round-trip time.
+Max bytes in flight = min(Cwnd, Rwnd, sndbuf, BDP).</p>
 <h2 id="tcp-trace-segment-graph">TCP trace segment graph</h2>
 <p><code>tcptrace</code> is a tool written by <a href="http://oucsace.cs.ohio.edu/~osterman/">Shawn Ostermann</a> at Ohio University, http://tcptrace.org. Wireshark can produce nice interactive graphs.</p>
 <p><img alt="FreeBSD" src="../img/freebsd-newreno.png" /></p>
@@ -266,8 +267,9 @@ Transferred 2703MBytes in 10.154s, 20625 syscalls, 131072.0 Bytes/syscall
 </code></pre>
 <h2 id="small-cwnd">Small Cwnd</h2>
 <p>Congestion control algorithms decide congestion window (Cwnd).</p>
-<p>With RTT = 100ms, FreeBSD newreno CC sometimes increases Cwnd slowly.
-It reaches max bandwidth after ~30 seconds.</p>
+<p>With RTT = 100ms, FreeBSD newreno CC sometimes increases Cwnd slowly.</p>
+<p><img alt="" src="../img/freebsd-cwnd-limit.png" /></p>
+<p>In the following example, reaches max bandwidth after ~30 seconds.</p>
 <pre><code>freebsd:~/recipes/tpc % bin/tcpperf -c 172.16.0.59 -b 100G -t 30
 Connected 172.16.0.77:31839 -&gt; 172.16.0.59:2009, congestion control: newreno
 Time (s)  Throughput   Bitrate    Cwnd    Rwnd  sndbuf  ssthresh  rtt/var

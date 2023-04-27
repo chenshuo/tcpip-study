@@ -216,8 +216,8 @@ static inline bool tcp_is_cwnd_limited(const struct sock *sk)
       -&gt; if tcp_in_cwnd_reduction():
            tcp_cwnd_reduction()
          elif tcp_may_raise_cwnd():
-            tcp_cong_avoid(): icsk-&gt;icsk_ca_ops-&gt;cong_avoid()
-              -&gt; tcp_reno_cong_avoid() or cubictcp_cong_avoid()
+           tcp_cong_avoid(): icsk-&gt;icsk_ca_ops-&gt;cong_avoid()
+             -&gt; tcp_reno_cong_avoid() or cubictcp_cong_avoid()
   -&gt; tcp_data_snd_check()   // If we can send more data
     -&gt; tcp_push_pending_frames()
     -&gt; tcp_check_space()  // check if new space made available
