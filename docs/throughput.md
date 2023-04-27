@@ -1,7 +1,7 @@
 # TCP Throughput
 
 TCP Throughput <= Bytes in flight / RTT, where RTT = round-trip time.
-Max bytes in flight = min(Cwnd, Rwnd, sndbuf).
+Max bytes in flight = min(Cwnd, Rwnd, sndbuf, BDP).
 
 ## TCP trace segment graph
 

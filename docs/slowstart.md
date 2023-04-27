@@ -48,15 +48,15 @@ tcp_adv_win_scale - INTEGER
 
 In other words,
 
-| `tcp_adv_win_scale` | Advertised window ratio | Max adv window when `tcp_rmem[2] == 8M` |
+| `tcp_adv_win_scale` | Advertised window ratio | Max adv win when `tcp_rmem[2] == 8M` |
 | ------------------  | ----------------------- | --- |
-| 0 |  100% | 8M |
+| 0                   |  100% | 8M |
 | 1 (default since Linux 3.4) |   50% | 4M |
-| 2 |   75% | 6M |
-| 3 | 87.5% | 7M |
-| -1 | 50% | 4M |
-| -2 | 25% | 2M |
-| -3 | 12.5% | 1M |
+| 2                   |   75% | 6M |
+| 3                   | 87.5% | 7M |
+| -1                  | 50%   | 4M |
+| -2                  | 25%   | 2M |
+| -3                  | 12.5% | 1M |
 
 This value was changed in Linux 3.4 from 2 to 1.
 Here's a brief history:
