@@ -268,7 +268,7 @@ Transferred 2703MBytes in 10.154s, 20625 syscalls, 131072.0 Bytes/syscall
 <h2 id="small-cwnd">Small Cwnd</h2>
 <p>Congestion control algorithms decide congestion window (Cwnd).</p>
 <p>With RTT = 100ms, FreeBSD newreno CC sometimes increases Cwnd slowly.</p>
-<p><img alt="" src="../img/freebsd-cwnd-limit.png" /></p>
+<p><img alt="" src="../img/freebsd-slow-start.png" /></p>
 <p>In the following example, reaches max bandwidth after ~30 seconds.</p>
 <pre><code>freebsd:~/recipes/tpc % bin/tcpperf -c 172.16.0.59 -b 100G -t 30
 Connected 172.16.0.77:31839 -&gt; 172.16.0.59:2009, congestion control: newreno
@@ -310,8 +310,9 @@ Transferred 234MBytes in 30.113s, 1787 syscalls, 131072.0 Bytes/syscall
 e.g. at 20-th second: Cwnd = 1000K, throughput = 1000K / 0.1s = 10MB/s.</p>
 <p>After that, throughput is domnated by sndbuf in this case.
 e.g. at 30-th second, sndbuf = 1.8MB, throughput = 18MB/s.</p>
-<p>Linux uses CUBIC by default, so it's not easily reproducible on Linux.
-FreeBSD will switch to CUBIC (in release 14?).</p>
+<p>See discussion on freebsd-net mailing list 2023-05:
+<a href="https://lists.freebsd.org/archives/freebsd-net/2023-May/003282.html">https://lists.freebsd.org/archives/freebsd-net/2023-May/003282.html</a>
+and <a href="../slowstart/#freebsd">Slow Start</a></p>
 <h2 id="bandwidth-limit">Bandwidth limit</h2>
 <pre><code>mininet&gt; s1 tc qdisc replace dev s1-eth2 root netem delay 10ms rate 10Mbit
 
