@@ -194,7 +194,7 @@ Congestion control algorithms decide congestion window (Cwnd).
 
 With RTT = 100ms, FreeBSD newreno CC sometimes increases Cwnd slowly.
 
-![](img/freebsd-cwnd-limit.png)
+![](img/freebsd-slow-start.png)
 
 In the following example, reaches max bandwidth after ~30 seconds.
 

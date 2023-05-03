@@ -82,7 +82,10 @@ FreeBSD will switch to CUBIC (in release 14?).
 ## FreeBSD
 
 As noticed in [Low throughput due to small cwnd](throughput.md#small-cwnd),
-FreeBSD slow-start is sometimes much slower than Linux, and underutilizes the bandwidth.
+FreeBSD slow-start is sometimes much slower than Linux,
+and underutilizes the bandwidth of a link with long delay (say 50ms ~ 100ms).
+
+![](img/freebsd-throughput.png)
 
 As I analyzed in <https://lists.freebsd.org/archives/freebsd-net/2023-May/003282.html>,
 it's due to bad interaction with LRO and delayed-ACKs of receiver side.
