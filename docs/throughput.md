@@ -242,8 +242,9 @@ e.g. at 20-th second: Cwnd = 1000K, throughput = 1000K / 0.1s = 10MB/s.
 After that, throughput is domnated by sndbuf in this case.
 e.g. at 30-th second, sndbuf = 1.8MB, throughput = 18MB/s.
 
-Linux uses CUBIC by default, so it's not easily reproducible on Linux.
-FreeBSD will switch to CUBIC (in release 14?).
+See discussion on freebsd-net mailing list 2023-05:
+<https://lists.freebsd.org/archives/freebsd-net/2023-May/003282.html>
+and [Slow Start](slowstart.md#freebsd)
 
 ## Bandwidth limit
 
