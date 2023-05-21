@@ -1,6 +1,8 @@
 site_name: Shuo's Linux TCP/IP notes
-google_analytics: ['UA-1220141-6', 'chenshuo.com']
-theme: readthedocs
+theme:
+  name: readthedocs
+  analytics:
+    gtag: G-4PL3B2ZGE8
 nav:
   - Home: index.md
   - Sockets: sockets.md
