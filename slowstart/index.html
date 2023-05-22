@@ -240,7 +240,7 @@ Here's a brief history:</p>
 <p>Stardard slow start ends when a packet loss is detected, but this often causes overshoot.</p>
 <p><em>HyStart++ uses "increase in round-trip delay" as a heuristic to find an exit point before possible overshoot.</em></p>
 <ul>
-<li><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tcpm-hystartplusplus">https://datatracker.ietf.org/doc/html/draft-ietf-tcpm-hystartplusplus</a></li>
+<li><a href="https://tools.ietf.org/html/rfc9406">RFC9406</a> HyStart++: Modified Slow Start for TCP, 2023-05.</li>
 <li>Linux incorporated HyStart++ to CUBIC in v2.6.29, 2009. <a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=ae27e98a51526595837ab7498b23d6478a198960">commit by Sangtae Ha</a>.</li>
 <li>FreeBSD adds HyStart++ to its newreno CC <a href="https://reviews.freebsd.org/D32373">https://reviews.freebsd.org/D32373</a> in 2021, but not released as of 13.2.
 FreeBSD will switch to CUBIC (in release 14?).</li>
