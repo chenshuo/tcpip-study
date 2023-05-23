@@ -16,7 +16,6 @@ Nice and short (~20 slides) intro to NAPI, RSS, RPS, GRO, TSO, FastOpen with pic
 * [Queueing in the Linux Network Stack](https://www.coverfire.com/articles/queueing-in-the-linux-network-stack/), 2013.
 * [TCP small queues](https://lwn.net/Articles/507065/), LWN 2012.
 * [Controlling Queue Delay](https://queue.acm.org/detail.cfm?id=2209336) by Kathleen Nichols and Van Jacobson, ACM Queue May 2012.
-* [The classification and evolution of variants of TCP congestion control](https://www.researchgate.net/figure/The-classification-and-evolution-of-variants-of-TCP-congestion-control-Afanasyev-et-al_fig1_262053709)
 * [EECS 489: Computer Networks at umich.edu](https://www.eecs.umich.edu/courses/eecs489/w10/syllabus.html)
 * [You don't know jack about Network Performance](https://queue.acm.org/detail.cfm?id=1066069) by Kevin Fall and Steve McCanne, ACM Queue June 2005.  Clearly explains four types of [network delay](https://en.wikipedia.org/wiki/Network_delay).
 * [TCP Implementation in Linux: A Brief Tutorial](http://www.ece.virginia.edu/mv/research/DOE09/publications/TCPlinux.pdf), 2008. Nice two-page overview of TCP/IP stack in Linux 2.6.19.
@@ -24,6 +23,7 @@ Nice and short (~20 slides) intro to NAPI, RSS, RPS, GRO, TSO, FastOpen with pic
 * [Segmentation Offloads in the Linux Networking Stack](https://www.kernel.org/doc/Documentation/networking/segmentation-offloads.txt), about TSO, GSO, GRO, etc.
 * [Programming with the Netpoll API](http://people.redhat.com/~jmoyer/netpoll-linux_kongress-2005.pdf) by Jeff Moyer, Linux Kongress 2005.
 * [Kernel data flow of 2.6.20](https://wiki.linuxfoundation.org/networking/kernel_flow) ![img](img/Network_data_flow_through_kernel.png)
+* [Computer Networks: A Systems Approach 6/e](https://book.systemsapproach.org/) by Larry Peterson and Bruce Davie, 2020.
 
 
 ## RFCs
@@ -43,15 +43,33 @@ Nice and short (~20 slides) intro to NAPI, RSS, RPS, GRO, TSO, FastOpen with pic
 * <https://tools.ietf.org/html/draft-cardwell-iccrg-bbr-congestion-control-00>
 
 
+## Congestion Control
+
+* [TCP Congestion Control: A Systems Approach](https://tcpcc.systemsapproach.org/) by Peterson, Brakmo, and Davie.
+* [The Great Internet TCP Congestion Control Census](https://www.comp.nus.edu.sg/~ayush/images/sigmetrics2020-gordon.pdf) by Ayush Mishra, et al., SIGMETRICS 2020.
+[Slides 1](https://www.comp.nus.edu.sg/~bleong/slides/sigmetrics19-gordon-slides.pdf),
+[slides 2](https://datatracker.ietf.org/meeting/109/materials/slides-109-iccrg-the-great-internet-tcp-congestion-control-census-00).
+* [The classification and evolution of variants of TCP congestion control](https://www.researchgate.net/figure/The-classification-and-evolution-of-variants-of-TCP-congestion-control-Afanasyev-et-al_fig1_262053709)
+
+
+## Emulation of lossy link
+
+* <https://mininet.org/>
+* [High Speed Network Protocols and Security Workshop](http://ce.sc.edu/cyberinfra/workshop_2020.html), 2020.
+    * [Network Tools and Protocols Lab Manual](http://ce.sc.edu/cyberinfra/workshops/Material/NTP/NTP.pdf)
+    * [High-Speed Networks: A Tutorial](https://link.springer.com/book/10.1007/978-3-030-88841-1), 2022.
+* <https://calomel.org/network_loss_emulation.html>
+* <https://spl0dge.wordpress.com/2013/09/08/building-a-wan-simulator/>
+* <https://web.archive.org/web/20160306040049/http://tdistler.com/2011/06/10/netem-wan-emulation-how-to-setup-a-netem-box> set up a bridge and introduce packet loss and delay.
+
+
 ## Posts
 
 * [Segmentation and Checksum Offloading: Turning Off with ethtool](https://sandilands.info/sgordon/segmentation-offloading-with-wireshark-and-ethtool) by Dr Steven Gordon, 2010
 * [Reply from David Miller](https://seclists.org/tcpdump/2009/q3/14) about capturing packets when GSO is on.
-* <https://calomel.org/network_loss_emulation.html>
-* <https://spl0dge.wordpress.com/2013/09/08/building-a-wan-simulator/>
-* <https://web.archive.org/web/20160306040049/http://tdistler.com/2011/06/10/netem-wan-emulation-how-to-setup-a-netem-box> set up a bridge and introduce packet loss and delay.
 * John Nagle on Nagle's algorithm <https://news.ycombinator.com/item?id=9048947>, 2015.
-    * _Sigh. If you're doing bulk file transfers, you never hit that problem. If you're sending enough data to fill up outgoing buffers, there's no delay. If you send all the data and close the TCP connection, there's no delay after the last packet. If you do send, reply, send, reply, there's no delay. If you do bulk sends, there's no delay. If you do send, send, reply, there's a delay._
+> Sigh. If you're doing bulk file transfers, you never hit that problem. If you're sending enough data to fill up outgoing buffers, there's no delay. If you send all the data and close the TCP connection, there's no delay after the last packet. If you do send, reply, send, reply, there's no delay. If you do bulk sends, there's no delay. If you do send, send, reply, there's a delay.
 * [Coping with the TCP TIME-WAIT state on busy Linux servers](https://vincent.bernat.ch/en/blog/2014-tcp-time-wait-state-linux)
 * [Harping on ARP](https://lwn.net/Articles/45373/), [Multiple Interfaces on Same Ethernet Broadcast Network](https://www.kernel.org/doc/html/v4.18/networking/e100.html#multiple-interfaces-on-same-ethernet-broadcast-network)
 * [Increase HTTP Performance by Fitting In the Initial TCP Slow Start Window](https://sirupsen.com/napkin/problem-15)
+* [Experimenting with TCP Congestion control](https://dipsingh.github.io/TCP-Congestion-Experiment/)

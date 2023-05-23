@@ -11,6 +11,13 @@ p {
   color: #080;
 }
 
+.rst-content blockquote{
+  padding: 0 1em;
+  margin-left: 1em;
+  margin-bottom: 0;
+  border-left: .25em solid;
+}
+
 .hljs-comment, .hljs-quote
 {
   color: #080;

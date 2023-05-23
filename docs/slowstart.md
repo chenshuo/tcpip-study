@@ -140,7 +140,7 @@ I intuitively guess `cwnd` grows quadratically after that,
 i.e. two segments/ACKs per RTT, then three segments/ACKs per RTT, and so on.
 
 FreeBSD 13.x TCP sender closely follows RFC 5681 with RFC 3465 extension,
-It also addressed the LRO of the sender side (multiple ACKs being aggregated into one).
+It also addressed the LRO of the sender side (multiple ACKs being coalesced into one).
 `sys/netinet/cc/cc_newreno.c`
 
 ```c
