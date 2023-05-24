@@ -9,11 +9,13 @@ nav:
   - Throughput: throughput.md
   - Profiling: profile.md
   - Walkthrough: walkthrough.md
+  - Nagle's Algothrim: nagle.md
   - Slow Start: slowstart.md
   - Loss Recovery: recovery.md
   - Reno CC: reno.md
   - W. Richard Stevens: stevens.md
   - Links: links.md
+  - History: history.md
 extra_css: [extra.css]
 markdown_extensions:
   - mkdocs_graphviz:

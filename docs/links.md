@@ -67,8 +67,6 @@ Nice and short (~20 slides) intro to NAPI, RSS, RPS, GRO, TSO, FastOpen with pic
 
 * [Segmentation and Checksum Offloading: Turning Off with ethtool](https://sandilands.info/sgordon/segmentation-offloading-with-wireshark-and-ethtool) by Dr Steven Gordon, 2010
 * [Reply from David Miller](https://seclists.org/tcpdump/2009/q3/14) about capturing packets when GSO is on.
-* John Nagle on Nagle's algorithm <https://news.ycombinator.com/item?id=9048947>, 2015.
-> Sigh. If you're doing bulk file transfers, you never hit that problem. If you're sending enough data to fill up outgoing buffers, there's no delay. If you send all the data and close the TCP connection, there's no delay after the last packet. If you do send, reply, send, reply, there's no delay. If you do bulk sends, there's no delay. If you do send, send, reply, there's a delay.
 * [Coping with the TCP TIME-WAIT state on busy Linux servers](https://vincent.bernat.ch/en/blog/2014-tcp-time-wait-state-linux)
 * [Harping on ARP](https://lwn.net/Articles/45373/), [Multiple Interfaces on Same Ethernet Broadcast Network](https://www.kernel.org/doc/html/v4.18/networking/e100.html#multiple-interfaces-on-same-ethernet-broadcast-network)
 * [Increase HTTP Performance by Fitting In the Initial TCP Slow Start Window](https://sirupsen.com/napkin/problem-15)

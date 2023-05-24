@@ -18,9 +18,8 @@ A closer look at Linux networking datapath callgraph:
 
 _TCP/IP Illustrated (vol. 1): The Protocols, 2nd ed._ by [Kevin R. Fall](http://kfall.com/) and [W. Richard Stevens](http://www.kohala.com/start/), 2011-11.
 
-* [RFC793](https://tools.ietf.org/html/rfc793) Transmission Control Protocol, 1981-09
-* [RFC896](https://tools.ietf.org/html/rfc896) Nagle algorithm, 1984-01.
-  [Minshall's update](https://tools.ietf.org/html/draft-minshall-nagle-00).
+* [RFC793](https://tools.ietf.org/html/rfc793) Transmission Control Protocol, Jon Postel, 1981-09.
+* [RFC813](https://tools.ietf.org/html/rfc813) Window and Acknowledgement Strategy in TCP, David D. Clark, 1982-07.
 * [RFC1122](https://tools.ietf.org/html/rfc1122) Requirements for Internet Hosts --- Communication Layers, 1989-10
 * [RFC5681](https://tools.ietf.org/html/rfc5681) TCP Congestion Control, 2009-09
 * [RFC6093](https://tools.ietf.org/html/rfc6093) On the Implementation of the TCP Urgent Mechanism, 2011-01,
@@ -94,9 +93,3 @@ Recent changes that I am aware of.
   [slides](https://www.files.netdevconf.info/d/4ee0a09788fe49709855/) and [video](https://youtu.be/MAni0_lN7zE).
     * [Linux 4.20](https://kernelnewbies.org/Linux_4.20#TCP:_switch_to_Early_Departure_Time_model) [switched](https://lwn.net/ml/netdev/20180921155154.49489-1-edumazet@google.com/) to
       Early Departure Time model in 2018/09, and [refined](https://lwn.net/ml/netdev/20181015163758.232436-1-edumazet@google.com/) in 2018/10.
-
-
-## Historical notes
-
-In 2004, [Vinton Cerf](https://en.wikipedia.org/wiki/Vint_Cerf) and [Robert Kahn](https://en.wikipedia.org/wiki/Bob_Kahn) received the ACM Turing Award for their foundational work on TCP/IP.
-[A Protocol for Packet Network Intercommunication](https://www.cs.princeton.edu/courses/archive/fall06/cos561/papers/cerf74.pdf), May 1974.
