@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>W. Richard Stevens - Shuo's Linux TCP/IP notes</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "W. Richard Stevens";
+        var mkdocs_page_input_path = "stevens.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-4PL3B2ZGE8"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-4PL3B2ZGE8');
+      </script>
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Shuo's Linux TCP/IP notes
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../sockets/">Sockets</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../throughput/">Throughput</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../profile/">Profiling</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../walkthrough/">Walkthrough</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../slowstart/">Slow Start</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../recovery/">Loss Recovery</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../reno/">Reno CC</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">W. Richard Stevens</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#unix-network-programming">Unix Network Programming</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tcpip-illustrated">TCP/IP Illustrated</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#apue">APUE</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#rfcs">RFCs</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../links/">Links</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Shuo's Linux TCP/IP notes</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>W. Richard Stevens</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="w-richard-stevens">W. Richard Stevens</h1>
+<p><a href="https://en.wikipedia.org/wiki/W._Richard_Stevens">W. Richard Stevens</a> (1951 ~ 1999) was an extraordinary tech writer and teacher.
+He's considered as <a href="https://www.salon.com/2000/09/01/rich_stevens/">Guru of the Unix gurus</a>.</p>
+<blockquote>
+<p>"I really believe that my background is fundamental to the success of <em>Unix Network Programming</em> and my other books," he said.
+"That is, I was not one of the developers at Berkeley or AT&amp;T, so the writing of UNP was not a 'memory dump.'
+Everything that is in the book I had to dig out of somewhere and understand myself."</p>
+</blockquote>
+<h2 id="unix-network-programming">Unix Network Programming</h2>
+<p>Before he published <em>Unix Network Programming 1/e</em> in 1990, there was very limited resource on how to program with BSD Sockets API.
+Besides manpages, I could only found two short tutorials from BSD documents, ~20 pages each.</p>
+<ul>
+<li><a href="http://www.bitsavers.org/pdf/mtXinu/MT_XINU_PS1_Apr_1986.pdf">An Introductory 4.3BSD Interprocess Communication Tutorial</a>, Stuart Sechrest, 1986.</li>
+<li><a href="http://www2.units.it/mumolo/reti_nettuno/bsdsocket.pdf">An Advanced 4.3BSD Interprocess Communication Tutorial</a>, Samuel J. Leffler, et al., 1986.</li>
+</ul>
+<p>Quote from <a href="https://www.usenix.org/about/awards/flame">Usenix Lifetime Achievement Award</a>:</p>
+<blockquote>
+<p>He made network programming accessible, even possible, to learn.</p>
+</blockquote>
+<h2 id="tcpip-illustrated">TCP/IP Illustrated</h2>
+<p>Quote from <a href="https://www.usenix.org/about/awards/flame">Usenix Lifetime Achievement Award</a>:</p>
+<blockquote>
+<p>His three volume work, <em>TCP/IP Illustrated</em>, was so complete and true to reality
+that it is used as a reference by members of the Internet Engineering Task Force,
+the group charged with creating and maintaining the standards for the Internet.</p>
+</blockquote>
+<p>For example, <em>TCP/IP Illustrated, vol. 1: The Protocols</em> was published in Jan 1994.
+It often appeared as the reference of TCP, on many papers and RFCs published after that.</p>
+<ul>
+<li><a href="https://sites.cs.ucsb.edu/~almeroth/classes/F05.276/papers/vegas.pdf">TCP Vegas: End to End Congestion Avoidance on a Global Internet</a>, <a href="http://www.brakmo.org/lawrence/papers.html">Lawrence Brakmo</a> and <a href="https://www.cs.princeton.edu/~llp/">Larry Peterson</a>, JSAC 1995.</li>
+<li><a href="http://www.brakmo.org/lawrence/brakmo95bsdtcp.pdf">Performance Problems in BSD4.4 TCP</a>, L. Brakmo and L. Peterson, 1995.</li>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc2018">RFC1948</a>: Defending Against Sequence Number Attacks, 1996.</li>
+<li><a href="https://ee.lbl.gov/papers/sacks.pdf">Simulation-based Comparisons of Tahoe, Reno, and SACK TCP</a>, <a href="http://www.kfall.com/">Kevin Fall</a> and <a href="https://en.wikipedia.org/wiki/Sally_Floyd">Sally Floyd</a>, 1996.</li>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc2018">RFC2018</a>: TCP Selective Acknowledgment Options, 1996.</li>
+<li><a href="http://conferences.sigcomm.org/sigcomm/1997/papers/p054.pdf">Automated Packet Trace Analysis of TCP Implementations</a>, Vern Paxson, 1997.</li>
+<li><a href="https://www.cs.utexas.edu/users/lam/395t/papers/Mathis1998.pdf">The Macroscopic Behavior of the TCP Congestion Avoidance Algorithm</a>, <a href="https://dblp.org/pid/00/3534.html">Matthew Mathis</a>, et al., 1998.</li>
+<li><a href="https://cseweb.ucsd.edu/~savage/papers/CCR99.pdf">TCP Congestion Control with a Misbehaving Receiver</a>, <a href="https://cseweb.ucsd.edu/~savage/">Stefan Savage</a>, et al., 1999.</li>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc2525">RFC2525</a>: Known TCP Implementation Problems, 1999.</li>
+</ul>
+<h2 id="apue">APUE</h2>
+<p>Quote Dennis Ritchie's Foreword to the Second Edition</p>
+<blockquote>
+<p>In fact, I would claim that a central reason for the [Unix] system’s longevity has been that
+it has attracted remarkably talented writers to explain its beauties and mysteries.
+Brian Kernighan is one of these;  Rich Stevens is certainly another.
+The first edition of this book, along with his series of books about networking,
+are rightfully regarded as remarkably well-crafted works of exposition, and became hugely popular.</p>
+</blockquote>
+<h2 id="rfcs">RFCs</h2>
+<p>Besides the classic books he wrote, W. Stevens authored and co-authored two series of RFCs.</p>
+<ul>
+<li>TCP Congestion Control<ul>
+<li>RFC2001: TCP Slow Start, Congestion Avoidance, Fast Retransmit, and Fast Recovery Algorithms, W. Stevens, 1997<ul>
+<li>First RFC to document TCP congestion control, much of this memo is taken from TCPv1 and TCPv2 books.</li>
+</ul>
+</li>
+<li>RFC2581: TCP Congestion Control, M. Allman, V. Paxson, W. Stevens, 1999.</li>
+</ul>
+</li>
+</ul>
+<p>In RFC5681, the current standard of TCP congestion control, in Acknowledgments:</p>
+<blockquote>
+<p>W. Richard ("Rich") Stevens wrote the first version of this document
+ [RFC2001] and co-authored the second version [RFC2581].  This present
+ version much benefits from his clarity and thoughtfulness of
+ description, and we are grateful for Rich's contributions in
+ elucidating TCP congestion control, as well as in more broadly
+ helping us understand numerous issues relating to networking.</p>
+</blockquote>
+<ul>
+<li>IPv6 Sockets API<ul>
+<li>RFC 2133: Basic Socket Interface Extensions for IPv6, Gilligan, R., Thomson, S., Bound, J., and W. Stevens, 1997.<ul>
+<li>RFC 2533: 1999</li>
+<li>RFC 3493: 2003</li>
+</ul>
+</li>
+<li>RFC 2292: Advanced Sockets API for IPv6, W. Stevens and M. Thomas, 1998.<ul>
+<li>RFC 3542: 2003</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>In other words, Rich Stevens not only documented the Sockets API, he helped design it.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../reno/" class="btn btn-neutral float-left" title="Reno CC"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../links/" class="btn btn-neutral float-right" title="Links">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../reno/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../links/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="https://cdn.jsdelivr.net/gh/rod2ik/cdn@main/mkdocs/javascripts/mkdocs-graphviz.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

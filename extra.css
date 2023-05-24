@@ -11,6 +11,23 @@ p {
   color: #080;
 }
 
+.rst-content blockquote {
+  color: #666;
+  padding: 0 1em;
+  margin-left: 1em;
+  margin-bottom: 0;
+  border-left: .25em solid;
+}
+
+.rst-content h2 {
+  margin-top: 24px;
+  margin-bottom: 12px;
+}
+
+.rst-content .section ul {
+  margin-bottom: 12px;
+}
+
 .hljs-comment, .hljs-quote
 {
   color: #080;

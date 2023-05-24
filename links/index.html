@@ -74,7 +74,15 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../recovery/">Loss Recovery</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../reno/">Reno CC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../stevens/">W. Richard Stevens</a>
                 </li>
               </ul>
               <ul class="current">
@@ -83,6 +91,10 @@
     <li class="toctree-l2"><a class="reference internal" href="#rfcs">RFCs</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#rfc-drafts">RFC drafts</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#congestion-control">Congestion Control</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#emulation-of-lossy-link">Emulation of lossy link</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#posts">Posts</a>
     </li>
@@ -131,7 +143,6 @@ Nice and short (~20 slides) intro to NAPI, RSS, RPS, GRO, TSO, FastOpen with pic
 <li><a href="https://www.coverfire.com/articles/queueing-in-the-linux-network-stack/">Queueing in the Linux Network Stack</a>, 2013.</li>
 <li><a href="https://lwn.net/Articles/507065/">TCP small queues</a>, LWN 2012.</li>
 <li><a href="https://queue.acm.org/detail.cfm?id=2209336">Controlling Queue Delay</a> by Kathleen Nichols and Van Jacobson, ACM Queue May 2012.</li>
-<li><a href="https://www.researchgate.net/figure/The-classification-and-evolution-of-variants-of-TCP-congestion-control-Afanasyev-et-al_fig1_262053709">The classification and evolution of variants of TCP congestion control</a></li>
 <li><a href="https://www.eecs.umich.edu/courses/eecs489/w10/syllabus.html">EECS 489: Computer Networks at umich.edu</a></li>
 <li><a href="https://queue.acm.org/detail.cfm?id=1066069">You don't know jack about Network Performance</a> by Kevin Fall and Steve McCanne, ACM Queue June 2005.  Clearly explains four types of <a href="https://en.wikipedia.org/wiki/Network_delay">network delay</a>.</li>
 <li><a href="http://www.ece.virginia.edu/mv/research/DOE09/publications/TCPlinux.pdf">TCP Implementation in Linux: A Brief Tutorial</a>, 2008. Nice two-page overview of TCP/IP stack in Linux 2.6.19.</li>
@@ -139,6 +150,7 @@ Nice and short (~20 slides) intro to NAPI, RSS, RPS, GRO, TSO, FastOpen with pic
 <li><a href="https://www.kernel.org/doc/Documentation/networking/segmentation-offloads.txt">Segmentation Offloads in the Linux Networking Stack</a>, about TSO, GSO, GRO, etc.</li>
 <li><a href="http://people.redhat.com/~jmoyer/netpoll-linux_kongress-2005.pdf">Programming with the Netpoll API</a> by Jeff Moyer, Linux Kongress 2005.</li>
 <li><a href="https://wiki.linuxfoundation.org/networking/kernel_flow">Kernel data flow of 2.6.20</a> <img alt="img" src="../img/Network_data_flow_through_kernel.png" /></li>
+<li><a href="https://book.systemsapproach.org/">Computer Networks: A Systems Approach 6/e</a> by Larry Peterson and Bruce Davie, 2020.</li>
 </ul>
 <h2 id="rfcs">RFCs</h2>
 <ul>
@@ -157,26 +169,44 @@ Nice and short (~20 slides) intro to NAPI, RSS, RPS, GRO, TSO, FastOpen with pic
 <li><a href="https://tools.ietf.org/html/draft-dukkipati-tcpm-tcp-loss-probe-01">https://tools.ietf.org/html/draft-dukkipati-tcpm-tcp-loss-probe-01</a>, early version of <a href="https://tools.ietf.org/html/rfc8985">RFC8985</a>?</li>
 <li><a href="https://tools.ietf.org/html/draft-cardwell-iccrg-bbr-congestion-control-00">https://tools.ietf.org/html/draft-cardwell-iccrg-bbr-congestion-control-00</a></li>
 </ul>
+<h2 id="congestion-control">Congestion Control</h2>
+<ul>
+<li><a href="https://tcpcc.systemsapproach.org/">TCP Congestion Control: A Systems Approach</a> by Peterson, Brakmo, and Davie.</li>
+<li><a href="https://www.comp.nus.edu.sg/~ayush/images/sigmetrics2020-gordon.pdf">The Great Internet TCP Congestion Control Census</a> by Ayush Mishra, et al., SIGMETRICS 2020.
+<a href="https://www.comp.nus.edu.sg/~bleong/slides/sigmetrics19-gordon-slides.pdf">Slides 1</a>,
+<a href="https://datatracker.ietf.org/meeting/109/materials/slides-109-iccrg-the-great-internet-tcp-congestion-control-census-00">slides 2</a>.</li>
+<li><a href="https://www.researchgate.net/figure/The-classification-and-evolution-of-variants-of-TCP-congestion-control-Afanasyev-et-al_fig1_262053709">The classification and evolution of variants of TCP congestion control</a></li>
+</ul>
+<h2 id="emulation-of-lossy-link">Emulation of lossy link</h2>
+<ul>
+<li><a href="https://mininet.org/">https://mininet.org/</a></li>
+<li><a href="http://ce.sc.edu/cyberinfra/workshop_2020.html">High Speed Network Protocols and Security Workshop</a>, 2020.<ul>
+<li><a href="http://ce.sc.edu/cyberinfra/workshops/Material/NTP/NTP.pdf">Network Tools and Protocols Lab Manual</a></li>
+<li><a href="https://link.springer.com/book/10.1007/978-3-030-88841-1">High-Speed Networks: A Tutorial</a>, 2022.</li>
+</ul>
+</li>
+<li><a href="https://calomel.org/network_loss_emulation.html">https://calomel.org/network_loss_emulation.html</a></li>
+<li><a href="https://spl0dge.wordpress.com/2013/09/08/building-a-wan-simulator/">https://spl0dge.wordpress.com/2013/09/08/building-a-wan-simulator/</a></li>
+<li><a href="https://web.archive.org/web/20160306040049/http://tdistler.com/2011/06/10/netem-wan-emulation-how-to-setup-a-netem-box">https://web.archive.org/web/20160306040049/http://tdistler.com/2011/06/10/netem-wan-emulation-how-to-setup-a-netem-box</a> set up a bridge and introduce packet loss and delay.</li>
+</ul>
 <h2 id="posts">Posts</h2>
 <ul>
 <li><a href="https://sandilands.info/sgordon/segmentation-offloading-with-wireshark-and-ethtool">Segmentation and Checksum Offloading: Turning Off with ethtool</a> by Dr Steven Gordon, 2010</li>
 <li><a href="https://seclists.org/tcpdump/2009/q3/14">Reply from David Miller</a> about capturing packets when GSO is on.</li>
-<li><a href="https://calomel.org/network_loss_emulation.html">https://calomel.org/network_loss_emulation.html</a></li>
-<li><a href="https://spl0dge.wordpress.com/2013/09/08/building-a-wan-simulator/">https://spl0dge.wordpress.com/2013/09/08/building-a-wan-simulator/</a></li>
-<li><a href="https://web.archive.org/web/20160306040049/http://tdistler.com/2011/06/10/netem-wan-emulation-how-to-setup-a-netem-box">https://web.archive.org/web/20160306040049/http://tdistler.com/2011/06/10/netem-wan-emulation-how-to-setup-a-netem-box</a> set up a bridge and introduce packet loss and delay.</li>
-<li>John Nagle on Nagle's algorithm <a href="https://news.ycombinator.com/item?id=9048947">https://news.ycombinator.com/item?id=9048947</a>, 2015.<ul>
-<li><em>Sigh. If you're doing bulk file transfers, you never hit that problem. If you're sending enough data to fill up outgoing buffers, there's no delay. If you send all the data and close the TCP connection, there's no delay after the last packet. If you do send, reply, send, reply, there's no delay. If you do bulk sends, there's no delay. If you do send, send, reply, there's a delay.</em></li>
-</ul>
+<li>John Nagle on Nagle's algorithm <a href="https://news.ycombinator.com/item?id=9048947">https://news.ycombinator.com/item?id=9048947</a>, 2015.<blockquote>
+<p>Sigh. If you're doing bulk file transfers, you never hit that problem. If you're sending enough data to fill up outgoing buffers, there's no delay. If you send all the data and close the TCP connection, there's no delay after the last packet. If you do send, reply, send, reply, there's no delay. If you do bulk sends, there's no delay. If you do send, send, reply, there's a delay.</p>
+</blockquote>
 </li>
 <li><a href="https://vincent.bernat.ch/en/blog/2014-tcp-time-wait-state-linux">Coping with the TCP TIME-WAIT state on busy Linux servers</a></li>
 <li><a href="https://lwn.net/Articles/45373/">Harping on ARP</a>, <a href="https://www.kernel.org/doc/html/v4.18/networking/e100.html#multiple-interfaces-on-same-ethernet-broadcast-network">Multiple Interfaces on Same Ethernet Broadcast Network</a></li>
 <li><a href="https://sirupsen.com/napkin/problem-15">Increase HTTP Performance by Fitting In the Initial TCP Slow Start Window</a></li>
+<li><a href="https://dipsingh.github.io/TCP-Congestion-Experiment/">Experimenting with TCP Congestion control</a></li>
 </ul>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../reno/" class="btn btn-neutral float-left" title="Reno CC"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../stevens/" class="btn btn-neutral float-left" title="W. Richard Stevens"><span class="icon icon-circle-arrow-left"></span> Previous</a>
     </div>
 
   <hr/>
@@ -199,7 +229,7 @@ Nice and short (~20 slides) intro to NAPI, RSS, RPS, GRO, TSO, FastOpen with pic
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../reno/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../stevens/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
   </span>

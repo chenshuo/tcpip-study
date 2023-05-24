@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Profiling - Shuo's Linux TCP/IP notes</title>
+    <title>Loss Recovery - Shuo's Linux TCP/IP notes</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Profiling";
-        var mkdocs_page_input_path = "profile.md";
+        var mkdocs_page_name = "Loss Recovery";
+        var mkdocs_page_input_path = "recovery.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -61,16 +61,8 @@
                 <li class="toctree-l1"><a class="reference internal" href="../throughput/">Throughput</a>
                 </li>
               </ul>
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">Profiling</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#tx-path">Tx path</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#rx-path">Rx path</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#loopback-w-ipv6">Loopback w/ IPv6</a>
-    </li>
-    </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../profile/">Profiling</a>
                 </li>
               </ul>
               <ul>
@@ -81,8 +73,10 @@
                 <li class="toctree-l1"><a class="reference internal" href="../slowstart/">Slow Start</a>
                 </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../recovery/">Loss Recovery</a>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Loss Recovery</a>
+    <ul class="current">
+    </ul>
                 </li>
               </ul>
               <ul>
@@ -111,7 +105,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-      <li>Profiling</li>
+      <li>Loss Recovery</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -120,44 +114,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="profiling-linux-tcpip-stack-with-perf-and-pprof">Profiling Linux TCP/IP stack with perf and pprof</h1>
-<p>At home, I have two Linux hosts with Mellanox 10GbE nic (ConnectX EN 10GigE MT26448, bought used from Ebay in 2017)
-directly connected using SPF cable.</p>
-<p><img alt="10gbe" src="../img/10gbe.jpg" /></p>
-<p><img alt="10gbe" src="../img/direct-10gbe.png" /></p>
-<p>Thoughput was about 1100MiB/s over 10GbE, both machine runs ~40% CPU utilization in one thread.</p>
-<p>For comparison, run <code>openssl speed sha</code> on the Rx side machine, an i7-3770 @ 3.4GHz.</p>
-<pre><code class="language-bash">$ openssl speed sha
-OpenSSL 1.1.1f  31 Mar 2020
-The 'numbers' are in 1000s of bytes per second processed.
-type             16 bytes     64 bytes    256 bytes   1024 bytes   8192 bytes  16384 bytes
-sha1            137355.08k   323943.17k   603290.54k   770941.95k   843352.75k   849619.63k
-sha256           75659.30k   167113.02k   289437.70k   354737.49k   379652.78k   381676.20k
-sha512           51745.33k   206941.63k   329443.07k   468301.82k   533897.22k   539525.12k
-</code></pre>
-<p>In short, sending data through TCP is faster than calculating SHA1 locally.</p>
-<p>Rx is more expensive, it uses about 2x CPU cycles than Tx.</p>
-<h2 id="tx-path">Tx path</h2>
-<p>Profile taken on Debian bullseye (testing, pre-release 11) w/ kernel 5.6.14.
-Run the <a href="https://github.com/chenshuo/recipes/blob/master/tpc/bin/chargen.cc">chargen</a> program
-to keep sending data to a <code>discard</code> server.</p>
-<p><a href="../img/profile-chargen.html"><img alt="chargen" src="../img/profile-chargen.png" /></a></p>
-<h2 id="rx-path">Rx path</h2>
-<p>Profile taken on Ubuntu 18.04 w/ kernel 4.15
-Run the <a href="https://github.com/chenshuo/recipes/blob/master/tpc/bin/discard.cc">discard</a> program
-to keep reading the socket.</p>
-<p><a href="../img/profile-discard.html"><img alt="discard" src="../img/profile-discard.png" /></a></p>
-<h2 id="loopback-w-ipv6">Loopback w/ IPv6</h2>
-<p>Profile taken on Ubuntu 20.04 w/ kernel 5.4.
-Run both <code>chargen</code> and <code>discard</code> on the same i7-3770 host,
-throughput was about 3300MiB/s.  <code>chargen</code> ran at 100% CPU, <code>discard</code> was about 74%.</p>
-<p><a href="../img/profile-loopback6.html"><img alt="loopback" src="../img/profile-loopback6.png" /></a></p>
+                <h1 id="tcp-loss-recovery">TCP loss recovery</h1>
+<p>There are a number of ways to recovery from packet (segment) loss, here's a list that I am aware of.</p>
+<ul>
+<li>RTO, since 1981 (RFC793), most basic, catch-all.</li>
+<li>Fast retransmit, since 1988. 3 duplicated ACKS.</li>
+<li>SACK</li>
+<li>FACK</li>
+<li>Early retransmit</li>
+<li>RACK and TLP</li>
+</ul>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../throughput/" class="btn btn-neutral float-left" title="Throughput"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../walkthrough/" class="btn btn-neutral float-right" title="Walkthrough">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../slowstart/" class="btn btn-neutral float-left" title="Slow Start"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../reno/" class="btn btn-neutral float-right" title="Reno CC">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -180,10 +152,10 @@ throughput was about 3300MiB/s.  <code>chargen</code> ran at 100% CPU, <code>dis
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../throughput/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../slowstart/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../walkthrough/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../reno/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

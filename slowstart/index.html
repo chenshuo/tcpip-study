@@ -86,7 +86,15 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../recovery/">Loss Recovery</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../reno/">Reno CC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../stevens/">W. Richard Stevens</a>
                 </li>
               </ul>
               <ul>
@@ -291,7 +299,7 @@ RTT5: got 4th ACK, cwnd = 18, send 18 MSS with TSO
 I intuitively guess <code>cwnd</code> grows quadratically after that,
 i.e. two segments/ACKs per RTT, then three segments/ACKs per RTT, and so on.</p>
 <p>FreeBSD 13.x TCP sender closely follows RFC 5681 with RFC 3465 extension,
-It also addressed the LRO of the sender side (multiple ACKs being aggregated into one).
+It also addressed the LRO of the sender side (multiple ACKs being coalesced into one).
 <code>sys/netinet/cc/cc_newreno.c</code></p>
 <pre><code class="language-c">static void
 newreno_ack_received(struct cc_var *ccv, uint16_t type)
@@ -490,7 +498,7 @@ static void tcp_event_data_recv(struct sock *sk, struct sk_buff *skb)
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../walkthrough/" class="btn btn-neutral float-left" title="Walkthrough"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../reno/" class="btn btn-neutral float-right" title="Reno CC">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../recovery/" class="btn btn-neutral float-right" title="Loss Recovery">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -516,7 +524,7 @@ static void tcp_event_data_recv(struct sock *sk, struct sk_buff *skb)
       <span><a href="../walkthrough/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../reno/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../recovery/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
