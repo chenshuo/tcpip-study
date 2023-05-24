@@ -3,6 +3,12 @@
 [W. Richard Stevens](https://en.wikipedia.org/wiki/W._Richard_Stevens) (1951 ~ 1999) was an extraordinary tech writer and teacher.
 He's considered as [Guru of the Unix gurus](https://www.salon.com/2000/09/01/rich_stevens/).
 
+> "I really believe that my background is fundamental to the success of _Unix Network Programming_ and my other books," he said.
+> "That is, I was not one of the developers at Berkeley or AT&T, so the writing of UNP was not a 'memory dump.'
+> Everything that is in the book I had to dig out of somewhere and understand myself."
+
+## Unix Network Programming
+
 Before he published _Unix Network Programming 1/e_ in 1990, there was very limited resource on how to program with BSD Sockets API.
 Besides manpages, I could only found two short tutorials from BSD documents, ~20 pages each.
 
@@ -12,6 +18,10 @@ Besides manpages, I could only found two short tutorials from BSD documents, ~20
 Quote from [Usenix Lifetime Achievement Award](https://www.usenix.org/about/awards/flame):
 
 > He made network programming accessible, even possible, to learn.
+
+## TCP/IP Illustrated
+
+Quote from [Usenix Lifetime Achievement Award](https://www.usenix.org/about/awards/flame):
 
 > His three volume work, _TCP/IP Illustrated_, was so complete and true to reality
 > that it is used as a reference by members of the Internet Engineering Task Force,
@@ -26,9 +36,22 @@ It often appeared as the reference of TCP, on many papers and RFCs published aft
 * [Simulation-based Comparisons of Tahoe, Reno, and SACK TCP](https://ee.lbl.gov/papers/sacks.pdf), [Kevin Fall](http://www.kfall.com/) and [Sally Floyd](https://en.wikipedia.org/wiki/Sally_Floyd), 1996.
 * [RFC2018](https://datatracker.ietf.org/doc/html/rfc2018): TCP Selective Acknowledgment Options, 1996.
 * [Automated Packet Trace Analysis of TCP Implementations](http://conferences.sigcomm.org/sigcomm/1997/papers/p054.pdf), Vern Paxson, 1997.
-* [The Macroscopic Behavior of the TCP Congestion Avoidance Algorithm](https://www.cs.utexas.edu/users/lam/395t/papers/Mathis1998.pdf), [Matthew Mathis](https://dblp.org/pid/00/3534.html) et al., 1998.
-* [TCP Congestion Control with a Misbehaving Receiver](https://cseweb.ucsd.edu/~savage/papers/CCR99.pdf), [Stefan Savage](https://cseweb.ucsd.edu/~savage/) et al., 1999.
+* [The Macroscopic Behavior of the TCP Congestion Avoidance Algorithm](https://www.cs.utexas.edu/users/lam/395t/papers/Mathis1998.pdf), [Matthew Mathis](https://dblp.org/pid/00/3534.html), et al., 1998.
+* [TCP Congestion Control with a Misbehaving Receiver](https://cseweb.ucsd.edu/~savage/papers/CCR99.pdf), [Stefan Savage](https://cseweb.ucsd.edu/~savage/), et al., 1999.
 * [RFC2525](https://datatracker.ietf.org/doc/html/rfc2525): Known TCP Implementation Problems, 1999.
+
+## APUE
+
+Quote Dennis Ritchie's Foreword to the Second Edition
+
+> In fact, I would claim that a central reason for the [Unix] system’s longevity has been that
+> it has attracted remarkably talented writers to explain its beauties and mysteries.
+> Brian Kernighan is one of these;  Rich Stevens is certainly another.
+> The first edition of this book, along with his series of books about networking,
+> are rightfully regarded as remarkably well-crafted works of exposition, and became hugely popular.
+
+
+## RFCs
 
 Besides the classic books he wrote, W. Stevens authored and co-authored two series of RFCs.
 
@@ -53,3 +76,5 @@ In RFC5681, the current standard of TCP congestion control, in Acknowledgments:
         * RFC 3493: 2003
     * RFC 2292: Advanced Sockets API for IPv6, W. Stevens and M. Thomas, 1998.
         * RFC 3542: 2003
+
+In other words, Rich Stevens not only documented the Sockets API, he helped design it.
