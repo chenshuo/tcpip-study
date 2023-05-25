@@ -5,7 +5,8 @@ Literatures I have or haven't read.
 * [Optimizing TCP for high WAN throughput while preserving low latency](https://blog.cloudflare.com/optimizing-tcp-for-high-throughput-and-low-latency/)
 * [Tuning Linux TCP for data-center networks](https://lpc.events/event/16/contributions/1343/attachments/1027/1972/Tuning%20Linux%20TCP%20for%20data-center%20networks%20%283%29.pdf) by Yuchung Cheng,
   Linux Plumbers 2022.
-* [Socksdirect: datacenter sockets can be fast and compatible](https://dlnext.acm.org/doi/abs/10.1145/3341302.3342071), SIGCOMM '19. [PDF](https://www.microsoft.com/en-us/research/uploads/prod/2019/08/p90-li.pdf)
+* [Socksdirect: datacenter sockets can be fast and compatible](https://dlnext.acm.org/doi/abs/10.1145/3341302.3342071), SIGCOMM '19.
+  [PDF](https://www.microsoft.com/en-us/research/uploads/prod/2019/08/p90-li.pdf)
 * [Busypolling next generation](https://netdevconf.info/2.1/session.html?dumazet) by Eric Dumazet, 2017.
 * [Making Linux TCP Fast](https://netdevconf.info/1.2/session.html?yuchung-cheng) by Yuchung Cheng and Neal Cardwell, 2016.
   [paper](https://netdevconf.info/1.2/papers/bbr-netdev-1.2.new.new.pdf)
@@ -17,6 +18,7 @@ Nice and short (~20 slides) intro to NAPI, RSS, RPS, GRO, TSO, FastOpen with pic
 * [TCP small queues](https://lwn.net/Articles/507065/), LWN 2012.
 * [Controlling Queue Delay](https://queue.acm.org/detail.cfm?id=2209336) by Kathleen Nichols and Van Jacobson, ACM Queue May 2012.
 * [EECS 489: Computer Networks at umich.edu](https://www.eecs.umich.edu/courses/eecs489/w10/syllabus.html)
+* [Tuning TCP Parameters for the 21st Century](https://www.ietf.org/proceedings/75/slides/tcpm-1.pdf), H.K. Jerry Chu, IETF 75, 2009.
 * [You don't know jack about Network Performance](https://queue.acm.org/detail.cfm?id=1066069) by Kevin Fall and Steve McCanne, ACM Queue June 2005.  Clearly explains four types of [network delay](https://en.wikipedia.org/wiki/Network_delay).
 * [TCP Implementation in Linux: A Brief Tutorial](http://www.ece.virginia.edu/mv/research/DOE09/publications/TCPlinux.pdf), 2008. Nice two-page overview of TCP/IP stack in Linux 2.6.19.
 * [Scaling in the Linux Networking Stack](https://www.kernel.org/doc/Documentation/networking/scaling.txt), kernel doc that describes RSS, RPS, RFS, XPS, etc.
