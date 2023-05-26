@@ -70,6 +70,10 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../nagle/">Nagle's Algothrim</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../slowstart/">Slow Start</a>
                 </li>
               </ul>
@@ -101,6 +105,10 @@
     </ul>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../history/">History</a>
+                </li>
+              </ul>
       </div>
     </div>
     </nav>
@@ -130,7 +138,8 @@
 <li><a href="https://blog.cloudflare.com/optimizing-tcp-for-high-throughput-and-low-latency/">Optimizing TCP for high WAN throughput while preserving low latency</a></li>
 <li><a href="https://lpc.events/event/16/contributions/1343/attachments/1027/1972/Tuning%20Linux%20TCP%20for%20data-center%20networks%20%283%29.pdf">Tuning Linux TCP for data-center networks</a> by Yuchung Cheng,
   Linux Plumbers 2022.</li>
-<li><a href="https://dlnext.acm.org/doi/abs/10.1145/3341302.3342071">Socksdirect: datacenter sockets can be fast and compatible</a>, SIGCOMM '19. <a href="https://www.microsoft.com/en-us/research/uploads/prod/2019/08/p90-li.pdf">PDF</a></li>
+<li><a href="https://dlnext.acm.org/doi/abs/10.1145/3341302.3342071">Socksdirect: datacenter sockets can be fast and compatible</a>, SIGCOMM '19.
+  <a href="https://www.microsoft.com/en-us/research/uploads/prod/2019/08/p90-li.pdf">PDF</a></li>
 <li><a href="https://netdevconf.info/2.1/session.html?dumazet">Busypolling next generation</a> by Eric Dumazet, 2017.</li>
 <li><a href="https://netdevconf.info/1.2/session.html?yuchung-cheng">Making Linux TCP Fast</a> by Yuchung Cheng and Neal Cardwell, 2016.
   <a href="https://netdevconf.info/1.2/papers/bbr-netdev-1.2.new.new.pdf">paper</a></li>
@@ -144,6 +153,7 @@ Nice and short (~20 slides) intro to NAPI, RSS, RPS, GRO, TSO, FastOpen with pic
 <li><a href="https://lwn.net/Articles/507065/">TCP small queues</a>, LWN 2012.</li>
 <li><a href="https://queue.acm.org/detail.cfm?id=2209336">Controlling Queue Delay</a> by Kathleen Nichols and Van Jacobson, ACM Queue May 2012.</li>
 <li><a href="https://www.eecs.umich.edu/courses/eecs489/w10/syllabus.html">EECS 489: Computer Networks at umich.edu</a></li>
+<li><a href="https://www.ietf.org/proceedings/75/slides/tcpm-1.pdf">Tuning TCP Parameters for the 21st Century</a>, H.K. Jerry Chu, IETF 75, 2009.</li>
 <li><a href="https://queue.acm.org/detail.cfm?id=1066069">You don't know jack about Network Performance</a> by Kevin Fall and Steve McCanne, ACM Queue June 2005.  Clearly explains four types of <a href="https://en.wikipedia.org/wiki/Network_delay">network delay</a>.</li>
 <li><a href="http://www.ece.virginia.edu/mv/research/DOE09/publications/TCPlinux.pdf">TCP Implementation in Linux: A Brief Tutorial</a>, 2008. Nice two-page overview of TCP/IP stack in Linux 2.6.19.</li>
 <li><a href="https://www.kernel.org/doc/Documentation/networking/scaling.txt">Scaling in the Linux Networking Stack</a>, kernel doc that describes RSS, RPS, RFS, XPS, etc.</li>
@@ -193,10 +203,6 @@ Nice and short (~20 slides) intro to NAPI, RSS, RPS, GRO, TSO, FastOpen with pic
 <ul>
 <li><a href="https://sandilands.info/sgordon/segmentation-offloading-with-wireshark-and-ethtool">Segmentation and Checksum Offloading: Turning Off with ethtool</a> by Dr Steven Gordon, 2010</li>
 <li><a href="https://seclists.org/tcpdump/2009/q3/14">Reply from David Miller</a> about capturing packets when GSO is on.</li>
-<li>John Nagle on Nagle's algorithm <a href="https://news.ycombinator.com/item?id=9048947">https://news.ycombinator.com/item?id=9048947</a>, 2015.<blockquote>
-<p>Sigh. If you're doing bulk file transfers, you never hit that problem. If you're sending enough data to fill up outgoing buffers, there's no delay. If you send all the data and close the TCP connection, there's no delay after the last packet. If you do send, reply, send, reply, there's no delay. If you do bulk sends, there's no delay. If you do send, send, reply, there's a delay.</p>
-</blockquote>
-</li>
 <li><a href="https://vincent.bernat.ch/en/blog/2014-tcp-time-wait-state-linux">Coping with the TCP TIME-WAIT state on busy Linux servers</a></li>
 <li><a href="https://lwn.net/Articles/45373/">Harping on ARP</a>, <a href="https://www.kernel.org/doc/html/v4.18/networking/e100.html#multiple-interfaces-on-same-ethernet-broadcast-network">Multiple Interfaces on Same Ethernet Broadcast Network</a></li>
 <li><a href="https://sirupsen.com/napkin/problem-15">Increase HTTP Performance by Fitting In the Initial TCP Slow Start Window</a></li>
@@ -207,6 +213,7 @@ Nice and short (~20 slides) intro to NAPI, RSS, RPS, GRO, TSO, FastOpen with pic
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../stevens/" class="btn btn-neutral float-left" title="W. Richard Stevens"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../history/" class="btn btn-neutral float-right" title="History">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -231,6 +238,8 @@ Nice and short (~20 slides) intro to NAPI, RSS, RPS, GRO, TSO, FastOpen with pic
     
       <span><a href="../stevens/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
+    
+      <span><a href="../history/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
