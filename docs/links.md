@@ -10,6 +10,7 @@ Literatures I have or haven't read.
 * [Busypolling next generation](https://netdevconf.info/2.1/session.html?dumazet) by Eric Dumazet, 2017.
 * [Making Linux TCP Fast](https://netdevconf.info/1.2/session.html?yuchung-cheng) by Yuchung Cheng and Neal Cardwell, 2016.
   [paper](https://netdevconf.info/1.2/papers/bbr-netdev-1.2.new.new.pdf)
+* [TCP Options for Low Latency: Maximum ACK Delay and Microsecond Timestamps](https://www.ietf.org/proceedings/97/slides/slides-97-tcpm-tcp-options-for-low-latency-00.pdf), by Neal Cardwell, Yuchung Cheng and Eric Dumazet, 2016.
 * [Kernel Networking Walkthrough](https://www.slideshare.net/ThomasGraf5/linuxcon-2015-linux-kernel-networking-walkthrough) by Thomas Graf (tglx), LinuxCon 2015.
 Nice and short (~20 slides) intro to NAPI, RSS, RPS, GRO, TSO, FastOpen with pictures.
     * Next year: [Kernel Networking Explained](https://www.slideshare.net/ThomasGraf5/linux-networking-explained) also by Thomas Graf, LinuxCon 2016, 27 slides.
