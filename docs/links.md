@@ -2,6 +2,7 @@
 
 Literatures I have or haven't read.
 
+* [Sizing Router Buffers - Small is the New Big](https://community.juniper.net/blogs/sharada-yeluri/2023/02/22/sizing-router-buffers)
 * [Optimizing TCP for high WAN throughput while preserving low latency](https://blog.cloudflare.com/optimizing-tcp-for-high-throughput-and-low-latency/)
 * [Tuning Linux TCP for data-center networks](https://lpc.events/event/16/contributions/1343/attachments/1027/1972/Tuning%20Linux%20TCP%20for%20data-center%20networks%20%283%29.pdf) by Yuchung Cheng,
   Linux Plumbers 2022.
